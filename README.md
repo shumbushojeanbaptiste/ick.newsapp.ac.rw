@@ -35,6 +35,14 @@ http://localhost/www.kaminuzastar.com
 - If migrating, update DNS records and reissue or transfer SSL certificates.
 
 ## Contact
-- Project owner / maintainer: (add name and contact email here)
+- maintainer: 0788644687
 
-If you'd like, I can: add a development checklist, scaffold a starter template, or prepare deployment instructions for a specific CMS or framework. Which would you prefer next?
+## Checklist
+- [ ] Support multilingual news content: Kinyarwanda, French, and English.
+- [ ] Allow each news article to include related external links and references.
+- [ ] Implement news workflow statuses: Draft, Pending Publication, Published, Unpublished.
+- [ ] Control workflow actions through Role-Based Access Control (RBAC).
+- [ ] Support embedded radio streaming links (e.g. Salus Radio).
+- [ ] Organise news articles into categories: Politics, Education, Sports, Business, Health, Technology.
+- [ ] Allow authorised users to delete news articles from the platform.
+
