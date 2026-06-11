@@ -1,0 +1,3 @@
+# Do not push HTML files from the template folders
+Admin_Templete/**/*.html
+Web_Templete/**/*.html
