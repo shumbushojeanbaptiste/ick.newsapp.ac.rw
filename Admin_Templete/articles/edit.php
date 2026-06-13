@@ -36,7 +36,16 @@ if ($isEdit) {
 
 $pageTitle = $isEdit ? 'Edit Article' : 'New Article';
 
-$categories = db()->query('SELECT id, name FROM categories ORDER BY name')->fetchAll();
+// Active categories as a nested tree so the dropdown shows "Section -> Sub-section".
+// Also include the category this article is already filed under, even if it has
+// since been deactivated, so the editor never shows a blank/lost selection.
+$currentCat = (int) ($article['category_id'] ?? 0);
+$catStmt = db()->prepare(
+    'SELECT id, parent_id, name, sort_order FROM categories WHERE is_active = 1 OR id = ?'
+);
+$catStmt->execute([$currentCat]);
+$categories = $catStmt->fetchAll();
+$catOptions = build_category_options($categories);
 $radios     = db()->query('SELECT id, name FROM radio_streams WHERE is_active = 1 ORDER BY name')->fetchAll();
 $authors    = can_reassign_author() ? authorable_users() : [];
 
@@ -59,16 +68,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'body_rw' => trim($_POST['body_rw'] ?? '') ?: null,
         'body_fr' => trim($_POST['body_fr'] ?? '') ?: null,
         'body_en' => trim($_POST['body_en'] ?? '') ?: null,
+        // Homepage curation flags (editors only; ignored for others below).
+        'is_featured'    => !empty($_POST['is_featured']) ? 1 : 0,
+        'is_breaking'    => !empty($_POST['is_breaking']) ? 1 : 0,
+        'is_editor_pick' => !empty($_POST['is_editor_pick']) ? 1 : 0,
     ];
+
+    // Only publishers may set the homepage curation flags. For everyone else,
+    // keep whatever the article already had (don't let the UI grant it).
+    if (!can('publish')) {
+        $data['is_featured']    = (int) ($article['is_featured'] ?? 0);
+        $data['is_breaking']    = (int) ($article['is_breaking'] ?? 0);
+        $data['is_editor_pick'] = (int) ($article['is_editor_pick'] ?? 0);
+    }
 
     // "save_draft" keeps/sets draft; "submit_review" sets pending (if permitted).
     $intent = $_POST['intent'] ?? 'save_draft';
     $errors = [];
 
-    // At least the primary language needs a title.
+    // The primary language needs both a title and a body.
     $pl = $data['primary_lang'];
     if (empty($data["title_$pl"])) {
         $errors[] = 'The title in the primary language (' . lang_label($pl) . ') is required.';
+    }
+    if (empty($data["body_$pl"])) {
+        $errors[] = 'The body in the primary language (' . lang_label($pl) . ') is required.';
     }
 
     // Featured image (optional).
@@ -162,7 +186,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         title_rw=:title_rw, title_fr=:title_fr, title_en=:title_en,
                         excerpt_rw=:excerpt_rw, excerpt_fr=:excerpt_fr, excerpt_en=:excerpt_en,
                         body_rw=:body_rw, body_fr=:body_fr, body_en=:body_en,
-                        featured_image=:featured_image, status=:status
+                        featured_image=:featured_image, status=:status,
+                        is_featured=:is_featured, is_breaking=:is_breaking, is_editor_pick=:is_editor_pick
                     WHERE id=:id';
             $params = $data + [
                 'author_id' => $authorId,
@@ -177,11 +202,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql = 'INSERT INTO articles (category_id, author_id, slug, primary_lang, radio_stream_id,
                         media_type, media_url, media_file,
                         title_rw, title_fr, title_en, excerpt_rw, excerpt_fr, excerpt_en,
-                        body_rw, body_fr, body_en, featured_image, status)
+                        body_rw, body_fr, body_en, featured_image, status,
+                        is_featured, is_breaking, is_editor_pick)
                     VALUES (:category_id, :author_id, :slug, :primary_lang, :radio_stream_id,
                         :media_type, :media_url, :media_file,
                         :title_rw, :title_fr, :title_en, :excerpt_rw, :excerpt_fr, :excerpt_en,
-                        :body_rw, :body_fr, :body_en, :featured_image, :status)';
+                        :body_rw, :body_fr, :body_en, :featured_image, :status,
+                        :is_featured, :is_breaking, :is_editor_pick)';
             $params = $data + [
                 'author_id' => $authorId,
                 'slug' => $slug,
@@ -354,11 +381,50 @@ require_once __DIR__ . '/../header.php';
                                     <label class="form-label">Category</label>
                                     <select name="category_id" class="form-select">
                                         <option value="">— Uncategorised —</option>
-                                        <?php foreach ($categories as $c): ?>
-                                            <option value="<?= (int) $c['id'] ?>" <?= (int) $v('category_id') === (int) $c['id'] ? 'selected' : '' ?>><?= e($c['name']) ?></option>
+                                        <?php foreach ($catOptions as $c): ?>
+                                            <option value="<?= (int) $c['id'] ?>" <?= (int) $v('category_id') === (int) $c['id'] ? 'selected' : '' ?>>
+                                                <?= str_repeat('&nbsp;&nbsp;&nbsp;', $c['depth']) . ($c['depth'] ? '— ' : '') . e($c['name']) ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <small class="text-muted">Pick the specific sub-section so the story lands in the right place.</small>
                                 </div>
+
+                                <?php if (can('publish')): ?>
+                                <div class="mb-3 p-3 border rounded bg-light-subtle">
+                                    <label class="form-label d-block fw-semibold mb-1">
+                                        <i class="ri-global-line align-bottom me-1"></i>Public website placement
+                                    </label>
+                                    <p class="text-muted small mb-3">
+                                        Choose where this story appears on the public site. These only take
+                                        effect once the article is <span class="fw-medium">Published</span>.
+                                    </p>
+                                    <div class="form-check form-switch mb-2">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="is_featured"
+                                               name="is_featured" value="1" <?= $v('is_featured') ? 'checked' : '' ?>>
+                                        <label class="form-check-label" for="is_featured">
+                                            Featured story
+                                            <span class="d-block text-muted small">Large highlight at the top of the homepage.</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-switch mb-2">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="is_breaking"
+                                               name="is_breaking" value="1" <?= $v('is_breaking') ? 'checked' : '' ?>>
+                                        <label class="form-check-label" for="is_breaking">
+                                            Breaking news
+                                            <span class="d-block text-muted small">Scrolling ticker across the top of every page.</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="is_editor_pick"
+                                               name="is_editor_pick" value="1" <?= $v('is_editor_pick') ? 'checked' : '' ?>>
+                                        <label class="form-check-label" for="is_editor_pick">
+                                            Editor's pick
+                                            <span class="d-block text-muted small">Listed in the “Editor’s picks” block on the homepage.</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
 
                                 <div class="mb-3">
                                     <label class="form-label">Embedded radio stream</label>

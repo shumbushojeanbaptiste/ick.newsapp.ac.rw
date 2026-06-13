@@ -15,6 +15,12 @@ $fSearch = trim($_GET['q']   ?? '');
 $where  = [];
 $params = [];
 
+// Role-based visibility: viewers see only published; reporters/contributors
+// see published + their own; editors see everything.
+[$visSql, $visParams] = article_visibility_clause('a');
+$where[] = $visSql;
+$params  = array_merge($params, $visParams);
+
 if (in_array($fStatus, ARTICLE_STATUSES, true)) {
     $where[] = 'a.status = ?';
     $params[] = $fStatus;
@@ -33,8 +39,6 @@ if ($fSearch !== '') {
     array_push($params, $like, $like, $like);
 }
 
-// Contributors/reporters who lack edit_any only see their own by default,
-// but we still show all in the list (read view). Workflow actions are gated.
 $sql = "SELECT a.*, c.name AS category_name, u.name AS author_name
           FROM articles a
           LEFT JOIN categories c ON c.id = a.category_id
@@ -48,7 +52,9 @@ $stmt = db()->prepare($sql);
 $stmt->execute($params);
 $articles = $stmt->fetchAll();
 
-$categories = db()->query('SELECT id, name FROM categories ORDER BY name')->fetchAll();
+// Category filter as the same nested tree used elsewhere.
+$catRows    = db()->query('SELECT id, parent_id, name, sort_order FROM categories')->fetchAll();
+$catOptions = build_category_options($catRows);
 
 require_once __DIR__ . '/../header.php';
 ?>
@@ -92,8 +98,10 @@ require_once __DIR__ . '/../header.php';
                             <label class="form-label mb-1">Category</label>
                             <select name="category" class="form-select">
                                 <option value="0">All categories</option>
-                                <?php foreach ($categories as $c): ?>
-                                    <option value="<?= (int) $c['id'] ?>" <?= $fCat === (int) $c['id'] ? 'selected' : '' ?>><?= e($c['name']) ?></option>
+                                <?php foreach ($catOptions as $c): ?>
+                                    <option value="<?= (int) $c['id'] ?>" <?= $fCat === (int) $c['id'] ? 'selected' : '' ?>>
+                                        <?= str_repeat('&nbsp;&nbsp;&nbsp;', $c['depth']) . ($c['depth'] ? '— ' : '') . e($c['name']) ?>
+                                    </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

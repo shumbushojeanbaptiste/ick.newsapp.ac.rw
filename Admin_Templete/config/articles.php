@@ -7,6 +7,81 @@ require_once __DIR__ . '/auth.php';
 
 const ARTICLE_STATUSES = ['draft', 'pending', 'published', 'unpublished'];
 
+/**
+ * SQL visibility rule for the current user, as a [whereSql, params] pair to be
+ * AND-ed into any article query. Keeps the dashboard, the recent list and the
+ * articles list perfectly consistent.
+ *
+ *   - Editors (edit_any: admin, chief_editor)  -> see everything.
+ *   - Authors (reporter, contributor)          -> published + their OWN drafts.
+ *   - Everyone else (viewer)                    -> published only.
+ *
+ * $alias is the table alias used in the query (e.g. 'a' for `articles a`).
+ */
+function article_visibility_clause(string $alias = 'a'): array
+{
+    if (can('edit_any')) {
+        return ['1 = 1', []];                       // no restriction
+    }
+    if (can('create_article')) {                    // reporter / contributor
+        $uid = (int) (current_user()['id'] ?? 0);
+        return ["({$alias}.status = 'published' OR {$alias}.author_id = ?)", [$uid]];
+    }
+    return ["{$alias}.status = 'published'", []];    // viewer
+}
+
+/**
+ * Flatten a category list (rows having id, parent_id, name) into ordered
+ * options for a tree view. Returns entries ['id','name','depth'] with each
+ * child placed directly under its parent and indented by depth. The input
+ * does not need to be pre-sorted.
+ */
+function build_category_options(array $rows): array
+{
+    $byParent = [];
+    foreach ($rows as $r) {
+        $byParent[$r['parent_id'] ?? 0][] = $r;
+    }
+    // Sort each sibling group by sort_order then name, when present.
+    foreach ($byParent as &$group) {
+        usort($group, static function ($a, $b) {
+            $sa = $a['sort_order'] ?? 0;
+            $sb = $b['sort_order'] ?? 0;
+            return $sa <=> $sb ?: strcasecmp($a['name'] ?? '', $b['name'] ?? '');
+        });
+    }
+    unset($group);
+
+    $out = [];
+    $walk = function ($parentId, int $depth) use (&$walk, &$out, $byParent) {
+        foreach ($byParent[$parentId] ?? [] as $row) {
+            $out[] = ['id' => (int) $row['id'], 'name' => $row['name'], 'depth' => $depth];
+            $walk((int) $row['id'], $depth + 1);
+        }
+    };
+    $walk(0, 0);
+    return $out;
+}
+
+/**
+ * True if $candidateParentId is $categoryId itself or one of its descendants.
+ * Used to stop a category being re-parented under its own subtree (a cycle).
+ */
+function category_is_descendant(int $candidateParentId, int $categoryId): bool
+{
+    $cursor = $candidateParentId;
+    $guard = 0;                        // safety against any pre-existing cycle
+    while ($cursor !== 0 && $guard++ < 100) {
+        if ($cursor === $categoryId) {
+            return true;
+        }
+        $stmt = db()->prepare('SELECT parent_id FROM categories WHERE id = ?');
+        $stmt->execute([$cursor]);
+        $cursor = (int) ($stmt->fetchColumn() ?: 0);
+    }
+    return false;
+}
+
 /** Bootstrap badge classes per status. */
 function status_badge_class(string $status): string
 {
