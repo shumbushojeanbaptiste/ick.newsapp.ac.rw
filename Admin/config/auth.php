@@ -312,7 +312,7 @@ function consume_password_reset(string $token, string $newPassword): bool
 }
 
 /**
- * Build a URL relative to the Admin_Templete root, regardless of how deep
+ * Build a URL relative to the Admin root, regardless of how deep
  * the current script is. Relies on $GLOBALS['BASE_URL'] set by the page
  * (defaults to './'). Pages set it via base_url_prefix().
  */

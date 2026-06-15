@@ -2,20 +2,42 @@
 /**
  * UR KAMINUZA - Shared database connection (single source of truth).
  *
- * Both the Admin (Admin_Templete) and the public site (Web_Templete) include
+ * Both the Admin (Admin/) and the public site (Web/) include
  * this file so the database credentials live in ONE place. If the password or
  * host ever changes, edit it here only.
  *
  * It defines the DB_* constants and a shared db() PDO singleton. Everything
  * else (app helpers, settings, CSRF, ...) stays in each side's own config.
+ *
+ * Credentials are read from the project-root .env file (via phpdotenv) so they
+ * are never hardcoded or committed. If .env / vendor is missing, sensible XAMPP
+ * defaults are used so the app still runs.
  */
 
-// ---- Database credentials (XAMPP defaults) ----
-if (!defined('DB_HOST'))    { define('DB_HOST', '127.0.0.1'); }
-if (!defined('DB_NAME'))    { define('DB_NAME', 'KAMINUZA'); }
-if (!defined('DB_USER'))    { define('DB_USER', 'root'); }
-if (!defined('DB_PASS'))    { define('DB_PASS', ''); }
-if (!defined('DB_CHARSET')) { define('DB_CHARSET', 'utf8mb4'); }
+// ---- Load credentials from .env (if available) ----
+$projectRoot = dirname(__DIR__);
+$autoload    = $projectRoot . '/vendor/autoload.php';
+if (is_file($autoload)) {
+    require_once $autoload;
+    if (class_exists(\Dotenv\Dotenv::class) && is_file($projectRoot . '/.env')) {
+        // Safe loader: doesn't overwrite existing env vars, won't throw if absent.
+        \Dotenv\Dotenv::createImmutable($projectRoot)->safeLoad();
+    }
+}
+
+/** Read an env var ($_ENV / getenv) with a fallback default. */
+function env_value(string $key, string $default = ''): string
+{
+    $v = $_ENV[$key] ?? getenv($key);
+    return ($v === false || $v === null || $v === '') ? $default : (string) $v;
+}
+
+// ---- Database credentials (from .env, falling back to XAMPP defaults) ----
+if (!defined('DB_HOST'))    { define('DB_HOST', env_value('DB_HOST', '127.0.0.1')); }
+if (!defined('DB_NAME'))    { define('DB_NAME', env_value('DB_NAME', 'KAMINUZA')); }
+if (!defined('DB_USER'))    { define('DB_USER', env_value('DB_USER', 'root')); }
+if (!defined('DB_PASS'))    { define('DB_PASS', env_value('DB_PASS', '')); }
+if (!defined('DB_CHARSET')) { define('DB_CHARSET', env_value('DB_CHARSET', 'utf8mb4')); }
 
 if (!function_exists('db')) {
     /** Shared PDO instance (singleton). */
