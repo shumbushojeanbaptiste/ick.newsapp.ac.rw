@@ -16,14 +16,14 @@ require_once __DIR__ . '/../../config/database.php';
 
 // ---- App constants ----
 define('APP_NAME', 'UR KAMINUZA');
-// Absolute filesystem path to the Admin_Templete folder.
+// Absolute filesystem path to the Admin folder.
 define('BASE_PATH', dirname(__DIR__));
-// Folder (relative to Admin_Templete) where uploaded images go.
+// Folder (relative to Admin) where uploaded images go.
 define('UPLOAD_DIR', BASE_PATH . '/uploads');
 
 /**
- * Web base URL path of the Admin_Templete root, always with a trailing slash,
- * e.g. "/KAMINUZA/Admin_Templete/". Derived from the running script so it works
+ * Web base URL path of the Admin root, always with a trailing slash,
+ * e.g. "/KAMINUZA/Admin/". Derived from the running script so it works
  * no matter which subfolder (articles/, categories/, ...) the request is in.
  */
 function app_base_url(): string

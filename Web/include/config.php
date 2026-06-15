@@ -4,7 +4,7 @@
  *
  * Connects to the SAME `KAMINUZA` database the Admin writes to, and exposes
  * small read-only helpers the public pages use (settings, logo, category tree,
- * published articles). Keep this in sync with Admin_Templete/config/config.php.
+ * published articles). Keep this in sync with Admin/config/config.php.
  */
 
 error_reporting(E_ALL);
@@ -18,11 +18,11 @@ require_once __DIR__ . '/../../config/database.php';
 $GLOBALS['LANGUAGES'] = ['rw' => 'Kinyarwanda', 'fr' => 'French', 'en' => 'English'];
 
 /**
- * Path (URL) from the public site to the Admin_Templete folder, used to reach
+ * Path (URL) from the public site to the Admin folder, used to reach
  * uploaded files (logos, article images) which are stored relative to the Admin.
  * Both folders live side by side under the project root.
  */
-define('ADMIN_BASE', '../Admin_Templete/');
+define('ADMIN_BASE', '../Admin/');
 
 /** Escape output for safe HTML. */
 function e(?string $value): string
