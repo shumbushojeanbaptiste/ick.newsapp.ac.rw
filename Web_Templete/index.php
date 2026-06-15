@@ -2,19 +2,44 @@
   <!--========== BEGIN #MAIN-SECTION ==========-->
   <section id="main-section"> 
     <!-- ========== BEGIN PARALLAX ========== -->
+    <?php
+    // Hero slides = top 3 featured stories (fall back to latest published).
+    $heroSlides = published_articles(3, 'featured');
+    if (!$heroSlides) { $heroSlides = published_articles(3); }
+    ?>
     <div id="parallax-section">
+      <?php if ($heroSlides): ?>
+      <div id="hero-slider" class="owl-carousel">
+        <?php foreach ($heroSlides as $hero):
+            $heroImg = a_image($hero);
+            $heroStyle = $heroImg ? ' style="background:url(' . e($heroImg) . ') center / cover no-repeat;"' : '';
+        ?>
+        <div class="image1 img-overlay1 hero-slide"<?= $heroStyle ?>>
+          <div class="container">
+            <div class="caption text-center">
+                <div class="color-white text-center weight-300 medium-caption"><?= e($hero['category_name'] ?: (site_tagline() ?: 'Top story')) ?></div>
+                <a href="article.php?slug=<?= e($hero['slug']) ?>" class="color-white">
+                  <div class="color-white text-center weight-800 large-caption"><?= e(a_title($hero)) ?></div>
+                </a>
+                <h5><?= e(a_excerpt($hero)) ?></h5>
+              </div>
+          </div>
+        </div>
+        <?php endforeach; ?>
+      </div>
+      <?php else: ?>
       <div class="image1 img-overlay1">
         <div class="container">
           <div class="caption text-center">
-              <div class="color-white text-center weight-300 medium-caption">Get the latest breaking news and top news headlines</div>
-              <div class="color-white text-center weight-800 large-caption">Happening now on 24h News Channel</div>
-              <div class="color-white text-center weight-400 medium-caption">No one hurt in North Side blaze</div>
-              <h5>A fire that broke out Tuesday afternoon in the Park West, forcing residents to evacuate, is under control and no one was hurt.</h5>
+              <div class="color-white text-center weight-300 medium-caption"><?= e(site_tagline()) ?></div>
+              <div class="color-white text-center weight-800 large-caption"><?= e(site_name()) ?></div>
+              <h5>Your trusted source for University of Rwanda news and stories.</h5>
             </div>
         </div>
       </div>
+      <?php endif; ?>
     </div>
-    <!-- ========== END PARALLAX ========== --> 
+    <!-- ========== END PARALLAX ========== -->
     <!--========== BEGIN .MODULE ==========-->
     <section class="module"> 
       <!--========== BEGIN .CONTAINER ==========-->
@@ -28,24 +53,14 @@
           <!-- Begin .newsticker -->
           <div class="newsticker">
             <ul>
+              <?php $breaking = published_articles(8, 'breaking'); ?>
+              <?php if ($breaking): foreach ($breaking as $b): ?>
               <li>
-                <h4><span class="category">News:</span><a href="#"> Extra! Extra! Rethinking the 24 h News Breaking News Experience.</a></h4>
+                <h4><span class="category"><?= e($b['category_name'] ?? 'News') ?>:</span><a href="article.php?slug=<?= e($b['slug']) ?>"> <?= e(a_title($b)) ?></a></h4>
               </li>
-              <li>
-                <h4><span class="category">Travel:</span><a href="#"> Man seriously hurt after jumping from upper level terminal while fleeing police.</a></h4>
-              </li>
-              <li>
-                <h4><span class="category">Politics:</span><a href="#"> We see momentous or informative events that are relevant to a wide audience.</a></h4>
-              </li>
-              <li>
-                <h4><span class="category">Health:</span><a href="#"> Evanston doctor gives up license after cancer drug probe.</a></h4>
-              </li>
-              <li>
-                <h4><span class="category">World:</span><a href="#"> North Coast fest organizers plan to decrease noise, increase security.</a></h4>
-              </li>
-              <li>
-                <h4><span class="category">Finance:</span><a href="#"> Credit rating hit, another big tax hike possible as clock ticks on pension overhaul.</a></h4>
-              </li>
+              <?php endforeach; else: ?>
+              <li><h4><span class="category">News:</span><a href="#"> No breaking news right now.</a></h4></li>
+              <?php endif; ?>
             </ul>
             <div class="navi">
               <button class="up"><i class="fa fa-caret-left"></i></button>
@@ -58,72 +73,26 @@
         <!--========== END .BREAKING-NEWS ==========--> 
         <!--========== BEGIN #NEWS-SLIDER ==========-->
         <div id="news-slider" class="owl-carousel">
+          <?php
+          // Featured articles, shown 4 per slide. Position classes + colour tags
+          // cycle to match the theme's original styling.
+          $featured = published_articles(12, 'featured');
+          $positions = ['first', 'second', 'third', 'fourth'];
+          $tags = ['bg-1', 'bg-6', 'bg-4', 'bg-2'];
+          if ($featured):
+              foreach (array_chunk($featured, 4) as $slide): ?>
           <div class="news-slide">
-            <div class="news-slider-layer first"> <a href="news.html" target="_blank">
-              <div class="content"> <span class="category-tag bg-1">Around the World</span>
-                <p>New global rules on firms' tax disclosure urged by economists</p>
+            <?php foreach ($slide as $i => $a): ?>
+            <div class="news-slider-layer <?= $positions[$i % 4] ?>"> <a href="article.php?slug=<?= e($a['slug']) ?>" target="_blank">
+              <div class="content"> <span class="category-tag <?= $tags[$i % 4] ?>"><?= e($a['category_name'] ?? 'News') ?></span>
+                <p><?= e(a_title($a)) ?></p>
               </div>
-              <img src="img/index_slider-image01.jpg" alt=""> </a> </div>
-            <div class="news-slider-layer second"> <a href="politics.html" target="_blank">
-              <div class="content"> <span class="category-tag bg-6">Politics</span>
-                <p>How EU referendum has changed politics, whatever the result</p>
-              </div>
-              <img src="img/index_slider-image02.jpg" alt=""> </a> </div>
-            <div class="news-slider-layer third"> <a href="sport.html" target="_blank">
-              <div class="content"> <span class="category-tag bg-4">Sport News</span>
-                <p>Tour de France Countdown: Race preview</p>
-              </div>
-              <img src="img/index_slider-image03.jpg" alt=""> </a> </div>
-            <div class="news-slider-layer fourth"> <a href="travel.html" target="_blank">
-              <div class="content"> <span class="category-tag bg-2">Travel</span>
-                <p>Get the latest travel news and train times</p>
-              </div>
-              <img src="img/index_slider-image04.jpg" alt=""> </a> </div>
+              <img src="<?= e(a_image($a) ?: 'img/index_slider-image01.jpg') ?>" alt="<?= e(a_title($a)) ?>"> </a> </div>
+            <?php endforeach; ?>
           </div>
-          <div class="news-slide">
-            <div class="news-slider-layer first"> <a href="tech-science.html" target="_blank">
-              <div class="content"> <span class="category-tag bg-1">Technology</span>
-                <p>J. Stone interview: a manifesto for involving citizens in science</p>
-              </div>
-              <img src="img/index_slider-image05.jpg" alt=""> </a> </div>
-            <div class="news-slider-layer second"> <a href="lifestyle.html" target="_blank">
-              <div class="content"> <span class="category-tag bg-6">Lifestyle</span>
-                <p>Feelgood fashion: clothes that enhance your mood</p>
-              </div>
-              <img src="img/index_slider-image06.jpg" alt=""> </a> </div>
-            <div class="news-slider-layer third"> <a href="news.html" target="_blank">
-              <div class="content"> <span class="category-tag bg-4">Headlines</span>
-                <p>A woman is in a process to adopt a Haitian girl</p>
-              </div>
-              <img src="img/index_slider-image07.jpg" alt=""> </a> </div>
-            <div class="news-slider-layer fourth"> <a href="food-drinks.html" target="_blank">
-              <div class="content"> <span class="category-tag bg-2">Environment</span>
-                <p>Breakfast is an increasingly tasty strategy for restaurant industry</p>
-              </div>
-              <img src="img/index_slider-image08.jpg" alt=""> </a> </div>
-          </div>
-          <div class="news-slide">
-            <div class="news-slider-layer first"> <a href="news.html" target="_blank">
-              <div class="content"> <span class="category-tag bg-1">Breaking News</span>
-                <p>The police responded to a protest in downtown</p>
-              </div>
-              <img src="img/index_slider-image09.jpg" alt=""> </a> </div>
-            <div class="news-slider-layer second"> <a href="politics.html" target="_blank">
-              <div class="content"> <span class="category-tag bg-6">Politics</span>
-                <p>The EU refugee and migration policy is not working</p>
-              </div>
-              <img src="img/index_slider-image10.jpg" alt=""> </a> </div>
-            <div class="news-slider-layer third"> <a href="soccer.html" target="_blank">
-              <div class="content"> <span class="category-tag bg-4">Soccer News</span>
-                <p>Live match reports and latest scores</p>
-              </div>
-              <img src="img/index_slider-image11.jpg" alt=""> </a> </div>
-            <div class="news-slider-layer fourth"> <a href="health.html" target="_blank">
-              <div class="content"> <span class="category-tag bg-2">Health</span>
-                <p>Food & Nutrition | Healthy Dinner Recipes | Healthy Desserts</p>
-              </div>
-              <img src="img/index_slider-image12.jpg" alt=""> </a> </div>
-          </div>
+          <?php endforeach; else: ?>
+          <div class="news-slide"><div class="news-slider-layer first"><a href="#"><div class="content"><span class="category-tag bg-1">News</span><p>No featured stories yet.</p></div><img src="img/index_slider-image01.jpg" alt=""></a></div></div>
+          <?php endif; ?>
         </div>
         <!--========== END .NEWS-SLIDER ==========--> 
       </div>
@@ -281,7 +250,7 @@
           <!--========== BEGIN .COL-MD-4 ==========-->
           <div class="col-md-4"> 
             <!-- Begin .sidebar-add-place -->
-            <div class="sidebar-add-place"><a href="https://themeforest.net/item/24h-news-broadcast-news-tv-channel-news-magazine-template/18614179" target="_blank"><img src="img/banner_400x270.jpg" alt=""></a> </div>
+            <div class="sidebar-add-place"><?= ad_slot('sidebar', 'img/banner_400x270.jpg') ?> </div>
             <!-- End .sidebar-add-place --> 
             <!-- Begin .block-title-1 -->
             <div class="block-title-1">
@@ -684,7 +653,7 @@
           <!-- End .full-block-three-columns --> 
           <!-- Begin .full-block-three-columns -->
           <div class="full-block-three-columns">
-            <div class="sidebar-add-place"> <a href="#" target="_blank"><img class="img-responsive" src="img/banner_300x600.jpg" alt=""></a> </div>
+            <div class="sidebar-add-place"> <?= ad_slot('sidebar_tall', 'img/banner_300x600.jpg') ?> </div>
           </div>
           <!-- End .full-block-three-columns --> 
         </div>
@@ -703,7 +672,7 @@
     </div>
     <!-- End #parallax-section1 --> 
     <!-- Begin .add-place -->
-    <div class="add-place"> <a href="https://themeforest.net/item/24h-news-broadcast-news-tv-channel-news-magazine-template/18614179" target="_blank"><img src="img/banner_820x100.jpg" alt=""></a> </div>
+    <div class="add-place"> <?= ad_slot('midpage', 'img/banner_820x100.jpg') ?> </div>
     <!-- End .add-place --> 
     <!--========== BEGIN .MODULE ==========-->
     <section class="module">

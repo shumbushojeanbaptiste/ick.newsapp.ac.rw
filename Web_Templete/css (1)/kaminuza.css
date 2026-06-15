@@ -1,0 +1,145 @@
+/* ============================================================
+   UR KAMINUZA - public site overrides.
+   Small, additive tweaks layered on top of the purchased theme so
+   dynamic content (any-size uploaded images) keeps the original
+   layout. We do NOT edit the theme's own CSS files.
+   ============================================================ */
+
+/* News slider: make each mosaic slot a fixed height and let the image
+   fill it via object-fit, so uploaded images of any dimension keep the
+   exact original layout (no gaps, no stretching). Heights mirror the
+   theme's original demo image proportions. */
+.news-slider-layer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.news-slider-layer.first {
+    height: 320px;
+}
+.news-slider-layer.second {
+    height: 320px;
+}
+.news-slider-layer.third,
+.news-slider-layer.fourth {
+    /* third + fourth stack inside the same right column as a 320px block */
+    height: 158px;
+}
+.news-slider-layer.third {
+    margin-bottom: 4px;
+}
+
+/* Keep the image link wrapper filling the slot height too. */
+.news-slider-layer a,
+.news-slider-layer a:before {
+    height: 100%;
+}
+
+/* ---- Advert slots ----
+   Every ad is a fixed-size box; the image fills it via object-fit:cover so any
+   uploaded image is cropped to the slot size instead of breaking the layout.
+   Boxes are responsive (never wider than their column). */
+.kz-ad {
+    display: block;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 0 auto;
+}
+.kz-ad img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.kz-ad--header   { width: 728px; height: 90px; }
+.kz-ad--sidebar  { width: 400px; height: 270px; }
+.kz-ad--sidebar_tall { width: 300px; height: 600px; }
+.kz-ad--midpage  { width: 820px; height: 100px; }
+
+/* On small screens, let the box shrink to its column width while keeping a
+   sensible aspect ratio (so it still crops cleanly, never overflows). */
+@media (max-width: 991px) {
+    .kz-ad--header   { width: 100%; height: auto; aspect-ratio: 728 / 90; }
+    .kz-ad--sidebar  { width: 100%; height: auto; aspect-ratio: 400 / 270; }
+    .kz-ad--sidebar_tall { width: 100%; height: auto; aspect-ratio: 300 / 600; }
+    .kz-ad--midpage  { width: 100%; height: auto; aspect-ratio: 820 / 100; }
+    .kz-ad img { height: auto; aspect-ratio: inherit; }
+}
+
+/* ---- Hero slider ----
+   Each slide keeps the original 400px parallax height and covers the background
+   image, so rotating the top 3 featured stories looks identical to the single
+   hero, just animated. */
+#hero-slider .hero-slide {
+    height: 400px;
+    width: 100%;
+    background-position: center !important;
+    background-size: cover !important;
+}
+#hero-slider .hero-slide .container {
+    height: 400px;
+}
+#hero-slider .owl-pagination {
+    position: absolute;
+    bottom: 14px;
+    width: 100%;
+    z-index: 1001;
+}
+/* owl-carousel resets font-size on its item wrappers, which shrinks the
+   caption text. Restore the theme's hero caption sizes explicitly so the
+   slider text matches the original static parallax exactly. */
+#hero-slider .caption { top: 20%; }
+#hero-slider .large-caption  { font-size: 5em; }
+#hero-slider .medium-caption { font-size: 2.2em; }
+#hero-slider .caption h5     { font-size: 1.25em; }
+@media (max-width: 991px) {
+    #hero-slider .large-caption  { font-size: 3.2em; }
+    #hero-slider .medium-caption { font-size: 1.6em; }
+}
+@media (max-width: 767px) {
+    #hero-slider .hero-slide,
+    #hero-slider .hero-slide .container { height: 320px; }
+    #hero-slider .large-caption  { font-size: 2.1em; }
+    #hero-slider .medium-caption { font-size: 1.2em; }
+    #hero-slider .caption h5     { font-size: .9em; }
+}
+
+/* ---- Header logo spacing ----
+   The theme reserved a tall gap above the logo (margin-top:34px) sized for the
+   old text logo. With the compact EAUR image logo this leaves too much empty
+   space above/below, so we lift it up and trim its vertical margins. Horizontal
+   layout (logo left, ad right, menu) is unchanged. */
+.header-logo {
+    margin-top: 12px;
+}
+.header-logo img {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+/* ---- Mobile fixes ---- */
+@media (max-width: 991px) {
+    /* The EAUR logo is a WIDE banner, not a tiny square icon. The theme sized
+       the sidenav logo to 36px which squashed it; give it room and keep ratio. */
+    .sidenav-header-logo {
+        width: auto !important;
+    }
+    .sidenav-header-logo img {
+        width: auto !important;
+        max-width: 200px !important;
+        height: auto !important;
+        max-height: 50px;
+    }
+    /* Logo bar sits on its OWN full-width row so the menu (Home, News, ...)
+       starts cleanly below it instead of beside the logo. */
+    .sidenav-brand {
+        display: block;
+        width: 100%;
+        clear: both;
+    }
+    .sidenav-menu {
+        clear: both;
+    }
+}
+

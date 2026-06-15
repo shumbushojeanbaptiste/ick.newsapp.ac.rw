@@ -12,7 +12,20 @@ $textKeys = [
     'company_name', 'tagline', 'about',
     'contact_email', 'contact_phone', 'address',
     'facebook', 'twitter', 'instagram', 'youtube', 'linkedin',
+    // Advert links (theme colour is static, based on the logo — not editable)
+    'header_ad_link', 'sidebar_ad_link', 'sidebar_tall_ad_link', 'midpage_ad_link',
+    // Header quick links (label fixed in the theme; URL editable here)
+    'quick_radio', 'quick_latest', 'quick_multimedia', 'quick_about',
 ];
+
+// Advert image upload slots: form file field => settings key.
+$adSlots = [
+    'header_ad_image'       => 'Header banner (728×90)',
+    'sidebar_ad_image'      => 'Sidebar banner (400×270)',
+    'sidebar_tall_ad_image' => 'Tall sidebar banner (300×600)',
+    'midpage_ad_image'      => 'Mid-page banner (820×100)',
+];
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verify_csrf();
@@ -37,6 +50,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Contact email is not valid.';
     }
 
+    // Advert image uploads (each optional). Keep existing value unless replaced.
+    $adPaths = [];
+    foreach ($adSlots as $key => $label) {
+        $adPaths[$key] = setting($key, '');
+        try {
+            if (!empty($_FILES[$key]['name'])) {
+                $newAd = save_article_image($_FILES[$key]);
+                if ($newAd) {
+                    delete_upload_file($adPaths[$key] ?: null);
+                    $adPaths[$key] = $newAd;
+                }
+            }
+        } catch (RuntimeException $ex) {
+            $errors[] = $label . ': ' . $ex->getMessage();
+        }
+    }
+
     if ($errors) {
         foreach ($errors as $err) {
             set_flash('danger', $err);
@@ -53,6 +83,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $up->execute([$k, trim($_POST[$k] ?? '')]);
     }
     $up->execute(['logo', $logoPath]);
+    foreach ($adPaths as $key => $path) {
+        $up->execute([$key, $path]);
+    }
 
     set_flash('success', 'Settings saved.');
     redirect('settings/index.php');
@@ -147,6 +180,61 @@ require_once __DIR__ . '/../header.php';
                                         <input type="url" name="linkedin" id="linkedin" class="form-control" value="<?= e($val('linkedin')) ?>" placeholder="https://linkedin.com/...">
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Header quick links -->
+                        <div class="card">
+                            <div class="card-header"><h5 class="card-title mb-0">Header Quick Links</h5></div>
+                            <div class="card-body">
+                                <p class="text-muted small">The small links shown under the main menu. Set where each one points. Leave empty to use a sensible default.</p>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="quick_radio">Salus Radio URL</label>
+                                        <input type="url" name="quick_radio" id="quick_radio" class="form-control" value="<?= e($val('quick_radio')) ?>" placeholder="https://...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="quick_latest">Latest News URL</label>
+                                        <input type="text" name="quick_latest" id="quick_latest" class="form-control" value="<?= e($val('quick_latest')) ?>" placeholder="section.php?cat=news">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="quick_multimedia">Multimedia URL</label>
+                                        <input type="text" name="quick_multimedia" id="quick_multimedia" class="form-control" value="<?= e($val('quick_multimedia')) ?>" placeholder="section.php?cat=multimedia">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="quick_about">About Us URL</label>
+                                        <input type="text" name="quick_about" id="quick_about" class="form-control" value="<?= e($val('quick_about')) ?>" placeholder="page.php?slug=about-us">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Advertisements -->
+                        <div class="card">
+                            <div class="card-header"><h5 class="card-title mb-0">Advertisements / Banners</h5></div>
+                            <div class="card-body">
+                                <p class="text-muted small">Upload a banner image and set the link it opens. Leave empty to hide a slot (a placeholder shows until then).</p>
+                                <?php
+                                $adLinkKey = ['header_ad_image' => 'header_ad_link', 'sidebar_ad_image' => 'sidebar_ad_link', 'sidebar_tall_ad_image' => 'sidebar_tall_ad_link', 'midpage_ad_image' => 'midpage_ad_link'];
+                                foreach ($adSlots as $imgKey => $label): $linkKey = $adLinkKey[$imgKey]; ?>
+                                <div class="row g-3 align-items-end mb-3 pb-3 border-bottom">
+                                    <div class="col-md-3">
+                                        <?php if ($val($imgKey)): ?>
+                                            <img src="<?= e($val($imgKey)) ?>" alt="<?= e($label) ?>" class="img-fluid border rounded" style="max-height:60px">
+                                        <?php else: ?>
+                                            <span class="text-muted small">No banner</span>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label class="form-label"><?= e($label) ?></label>
+                                        <input type="file" name="<?= $imgKey ?>" class="form-control" accept="image/*">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Link URL</label>
+                                        <input type="url" name="<?= $linkKey ?>" class="form-control" value="<?= e($val($linkKey)) ?>" placeholder="https://...">
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>

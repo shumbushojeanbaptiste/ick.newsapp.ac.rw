@@ -1,20 +1,24 @@
 <?php
-require_once __DIR__ . '/config/auth.php';
+require_once __DIR__ . '/config/articles.php';   // pulls in auth.php + visibility helper
 require_login();
 
 $pageTitle  = 'Dashboard';
 $activeMenu = 'dashboard';
 
-// ---- Dashboard stats ----
-$counts = db()->query(
+// ---- Dashboard stats (scoped to what THIS user is allowed to see) ----
+[$visCount, $visParams] = article_visibility_clause('articles');   // no table alias
+$countStmt = db()->prepare(
     "SELECT
         COUNT(*) AS total,
         SUM(status = 'published')   AS published,
         SUM(status = 'pending')     AS pending,
         SUM(status = 'draft')       AS draft,
         SUM(status = 'unpublished') AS unpublished
-     FROM articles"
-)->fetch();
+     FROM articles
+     WHERE $visCount"
+);
+$countStmt->execute($visParams);
+$counts = $countStmt->fetch();
 
 $cards = [
     ['label' => 'Total Articles', 'value' => (int) $counts['total'],       'icon' => 'bx-news',          'tone' => 'primary'],
@@ -23,17 +27,21 @@ $cards = [
     ['label' => 'Drafts',         'value' => (int) $counts['draft'],       'icon' => 'bx-edit',          'tone' => 'info'],
 ];
 
-// Recent articles
-$recent = db()->query(
+// Recent articles (same visibility scope as the counters)
+[$visRecent, $visRecentParams] = article_visibility_clause('a');   // alias 'a'
+$recentStmt = db()->prepare(
     "SELECT a.id, a.slug, a.status, a.created_at,
             COALESCE(a.title_en, a.title_fr, a.title_rw, '(untitled)') AS title,
             c.name AS category, u.name AS author
        FROM articles a
        LEFT JOIN categories c ON c.id = a.category_id
        LEFT JOIN users u      ON u.id = a.author_id
+      WHERE $visRecent
       ORDER BY a.created_at DESC
       LIMIT 8"
-)->fetchAll();
+);
+$recentStmt->execute($visRecentParams);
+$recent = $recentStmt->fetchAll();
 
 $statusBadge = [
     'draft'       => 'bg-info-subtle text-info',

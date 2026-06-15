@@ -135,7 +135,8 @@
 <script src="js/bootstrap.min.js"></script> 
 <script src="js/jquery-ui.min.js"></script> 
 <script src="js/plugins.js"></script> 
-<!-- JavaScripts --> 
+<!-- JavaScripts -->
 <script src="js/functions.js"></script>
+<script src="js/kaminuza.js?v=3"></script>
 </body>
 </html>
