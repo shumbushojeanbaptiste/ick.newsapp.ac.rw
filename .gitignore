@@ -1,6 +1,6 @@
 # Do not push HTML files from the template folders
-Admin/**/*.html
-Web/**/*.html
+admin/**/*.html
+public/**/*.html
 
 # Environment file with real credentials (never commit). Use .env.example instead.
 .env
