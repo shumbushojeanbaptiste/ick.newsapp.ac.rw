@@ -1,11 +1,4 @@
 <?php
-/**
- * UR KAMINUZA - Public website (front-end) configuration.
- *
- * Connects to the SAME `KAMINUZA` database the Admin writes to, and exposes
- * small read-only helpers the public pages use (settings, logo, category tree,
- * published articles). Keep this in sync with Admin/config/config.php.
- */
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');   // turn off in production
