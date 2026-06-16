@@ -74,7 +74,7 @@ function logo_url(): string
         }
         return ADMIN_BASE . ltrim($logo, '/');
     }
-    return 'img/logo.png';   // bundled theme fallback
+    return '/public/img/logo.png';   // FIX: Added /public/ prefix
 }
 
 /**
@@ -93,7 +93,8 @@ function upload_url(?string $path): string
     // Theme/public assets bundled with the public site (e.g. "img/...") are
     // already relative to the public root, so use them directly.
     if (strncmp($path, 'img/', 4) === 0) {
-        return $path;
+        // FIX: Add /public/ prefix to ensure correct path
+        return '/public/' . $path;
     }
     // Otherwise it's an Admin-stored upload, relative to the Admin folder.
     return ADMIN_BASE . ltrim($path, '/');
@@ -112,11 +113,25 @@ function ad_slot(string $slot, string $fallbackImg = ''): string
 {
     $img  = setting($slot . '_ad_image');
     $link = setting($slot . '_ad_link');
-    $src  = $img ? upload_url($img) : $fallbackImg;
+    
+    // FIX: Handle fallback image path correctly
+    if (!$img && $fallbackImg) {
+        // If fallback is "img/banner_728x90.jpg", convert to "/public/img/banner_728x90.jpg"
+        if (strncmp($fallbackImg, 'img/', 4) === 0) {
+            $src = '/public/' . $fallbackImg;
+        } else {
+            $src = $fallbackImg;
+        }
+    } else {
+        $src = $img ? upload_url($img) : '';
+    }
+    
     if (!$src) {
         return '';
     }
+    
     $target = $link ? ' target="_blank"' : '';
     return '<a class="kz-ad kz-ad--' . e($slot) . '" href="' . e($link ?: '#') . '"' . $target . '>'
         . '<img src="' . e($src) . '" alt="Advertisement"></a>';
 }
+?>
