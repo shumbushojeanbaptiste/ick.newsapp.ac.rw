@@ -60,7 +60,7 @@
         <!-- Begin .right-top-menu -->
         <ul class="right-top-menu pull-right">
           <li class="contact"><a href="contact.html"><i class="fa fa-map-marker fa-i"></i></a></li>
-          <li class="about"><a href="about-us.html"><i class="fa fa-user fa-i"></i></a> </li>
+          <li class="about"><a href="<?= e(ADMIN_BASE) ?>login.php" title="Staff Login"><i class="fa fa-user fa-i"></i></a> </li>
           <li>
             <div class="search-container">
               <div class="search-icon-btn"> <span style="cursor:pointer"><i class="fa fa-search"></i></span> </div>
