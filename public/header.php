@@ -35,9 +35,9 @@
 </head>
 
 <body>
-<div id="pageloader">
+<!-- <div id="pageloader">
   <div class="loader-item"> <img src="img/load.gif" alt='loader'> </div>
-</div>
+</div> -->
 <!--========== BEGIN #WRAPPER ==========-->
 <div id="wrapper" data-color="blue"> 
   <!--========== BEGIN #HEADER ==========-->
