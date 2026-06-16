@@ -82,7 +82,7 @@
       <!-- End .header-logo --> 
       <!-- Begin .header-add-place (advert managed from Admin settings) -->
       <div class="header-add-place">
-        <div class="desktop-add"><?= ad_slot('header', 'img/banner_728x90.jpg') ?></div>
+        <div class="desktop-add"><?= ad_slot('header', './img/banner_728x90.jpg') ?></div>
       </div>
       <!-- End .header-add-place -->
       <!--========== BEGIN .NAVBAR #MOBILE-NAV ==========-->
