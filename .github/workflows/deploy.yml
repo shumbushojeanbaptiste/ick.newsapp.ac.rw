@@ -1,4 +1,4 @@
-name: Templary Deploy PHP Files to VPS
+name: Templary Deploy PHP Files to Private Server
 
 on:
   push:
