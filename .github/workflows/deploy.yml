@@ -1,4 +1,4 @@
-name: Templary Deploy PHP Files to Private Server
+name: Templary Deploy PHP Files to VPS
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
 
           script: |
-            cd /home/staystore-kaminuza/htdocs/kaminuza.staystore.online
+            cd /home/staystore-kaminuza/htdocs/kaminuza.staystore.online/
 
             git pull origin main --no-rebase
 
