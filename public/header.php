@@ -100,12 +100,12 @@
             <li><a href="index.php" class="<?= ($GLOBALS['active_section'] ?? '') === '' ? 'active' : '' ?>">Home</a></li>
             <?php foreach (nav_top_sections() as $sec):
                 $kids = nav_children((int) $sec['id']); ?>
-              <li><a href="section.php?cat=<?= e($sec['slug']) ?>"><?= e($sec['name']) ?></a>
+              <li><a href="section?cat=<?= e($sec['slug']) ?>"><?= e($sec['name']) ?></a>
                 <?php if ($kids): ?>
                 <div class="icon-sub-menu" data-sidenav-dropdown-toggle=""><span class="sidenav-dropdown-icon show" data-sidenav-dropdown-icon=""></span><span class="sidenav-dropdown-icon up-icon" data-sidenav-dropdown-icon=""></span></div>
                 <ul class="sidenav-dropdown" data-sidenav-dropdown="">
                   <?php foreach ($kids as $kid): ?>
-                  <li><a href="section.php?cat=<?= e($kid['slug']) ?>"><?= e($kid['name']) ?></a></li>
+                  <li><a href="section?cat=<?= e($kid['slug']) ?>"><?= e($kid['name']) ?></a></li>
                   <?php endforeach; ?>
                 </ul>
                 <?php endif; ?>
@@ -132,15 +132,15 @@
             ?>
               <?php if ($kids): ?>
               <li class="dropdown<?= $isActive ? ' active' : '' ?>">
-                <a href="section.php?cat=<?= e($sec['slug']) ?>" class="dropdown-toggle" data-toggle="dropdown"><?= e($sec['name']) ?></a>
+                <a href="section?cat=<?= e($sec['slug']) ?>" class="dropdown-toggle" data-toggle="dropdown"><?= e($sec['name']) ?></a>
                 <ul class="dropdown-menu">
                   <?php foreach ($kids as $kid): ?>
-                  <li><a href="section.php?cat=<?= e($kid['slug']) ?>"><?= e($kid['name']) ?></a></li>
+                  <li><a href="section?cat=<?= e($kid['slug']) ?>"><?= e($kid['name']) ?></a></li>
                   <?php endforeach; ?>
                 </ul>
               </li>
               <?php else: ?>
-              <li<?= $isActive ? ' class="active"' : '' ?>><a href="section.php?cat=<?= e($sec['slug']) ?>"><?= e($sec['name']) ?></a></li>
+              <li<?= $isActive ? ' class="active"' : '' ?>><a href="section?cat=<?= e($sec['slug']) ?>"><?= e($sec['name']) ?></a></li>
               <?php endif; ?>
             <?php endforeach; ?>
           </ul>
@@ -162,9 +162,9 @@
               // a sensible internal page). Edit the URLs in Admin > Settings.
               $quickLinks = [
                   'Salus Radio'  => setting('quick_radio')      ?: '#',
-                  'Latest News'  => setting('quick_latest')     ?: 'section.php?cat=news',
-                  'Multimedia'   => setting('quick_multimedia') ?: 'section.php?cat=multimedia',
-                  'About Us'     => setting('quick_about')       ?: 'page.php?slug=about-us',
+                  'Latest News'  => setting('quick_latest')     ?: 'section?cat=news',
+                  'Multimedia'   => setting('quick_multimedia') ?: 'section?cat=multimedia',
+                  'About Us'     => setting('quick_about')       ?: 'page?slug=about-us',
               ];
               foreach ($quickLinks as $label => $url): ?>
               <li><a href="<?= e($url) ?>"><?= e($label) ?></a></li>

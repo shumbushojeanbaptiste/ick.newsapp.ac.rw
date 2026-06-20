@@ -18,7 +18,7 @@
           <div class="container">
             <div class="caption text-center">
                 <div class="color-white text-center weight-300 medium-caption"><?= e($hero['category_name'] ?: (site_tagline() ?: 'Top story')) ?></div>
-                <a href="article.php?slug=<?= e($hero['slug']) ?>" class="color-white">
+                <a href="article?slug=<?= e($hero['slug']) ?>" class="color-white">
                   <div class="color-white text-center weight-800 large-caption"><?= e(a_title($hero)) ?></div>
                 </a>
                 <h5><?= e(a_excerpt($hero)) ?></h5>
@@ -56,7 +56,7 @@
               <?php $breaking = published_articles(8, 'breaking'); ?>
               <?php if ($breaking): foreach ($breaking as $b): ?>
               <li>
-                <h4><span class="category"><?= e($b['category_name'] ?? 'News') ?>:</span><a href="article.php?slug=<?= e($b['slug']) ?>"> <?= e(a_title($b)) ?></a></h4>
+                <h4><span class="category"><?= e($b['category_name'] ?? 'News') ?>:</span><a href="article?slug=<?= e($b['slug']) ?>"> <?= e(a_title($b)) ?></a></h4>
               </li>
               <?php endforeach; else: ?>
               <li><h4><span class="category">News:</span><a href="#"> No breaking news right now.</a></h4></li>
@@ -83,7 +83,7 @@
               foreach (array_chunk($featured, 4) as $slide): ?>
           <div class="news-slide">
             <?php foreach ($slide as $i => $a): ?>
-            <div class="news-slider-layer <?= $positions[$i % 4] ?>"> <a href="article.php?slug=<?= e($a['slug']) ?>" target="_blank">
+            <div class="news-slider-layer <?= $positions[$i % 4] ?>"> <a href="article?slug=<?= e($a['slug']) ?>" target="_blank">
               <div class="content"> <span class="category-tag <?= $tags[$i % 4] ?>"><?= e($a['category_name'] ?? 'News') ?></span>
                 <p><?= e(a_title($a)) ?></p>
               </div>
@@ -123,13 +123,13 @@
               <?php foreach ($col as $a): $cls = $labelClass[$li % 4]; $li++; ?>
               <!-- Begin .item -->
               <div class="item">
-                <div class="item-image-1"><a class="img-link" href="article.php?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_800x400-image01.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a><span><a class="<?= $cls ?>" href="section.php?cat=<?= e($a['category_slug'] ?? '') ?>"><?= e($a['category_name'] ?? 'News') ?></a></span></div>
+                <div class="item-image-1"><a class="img-link" href="article?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_800x400-image01.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a><span><a class="<?= $cls ?>" href="section.php?cat=<?= e($a['category_slug'] ?? '') ?>"><?= e($a['category_name'] ?? 'News') ?></a></span></div>
                 <div class="item-content">
                   <div class="title-left title-style04 underline04">
-                    <h3><a href="article.php?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h3>
+                    <h3><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h3>
                   </div>
-                  <p><a href="article.php?slug=<?= e($a['slug']) ?>" class="external-link"><?= e(a_excerpt($a)) ?></a></p>
-                  <div><a href="article.php?slug=<?= e($a['slug']) ?>"><span class="read-more">Read more</span></a></div>
+                  <p><a href="article?slug=<?= e($a['slug']) ?>" class="external-link"><?= e(a_excerpt($a)) ?></a></p>
+                  <div><a href="article?slug=<?= e($a['slug']) ?>"><span class="read-more">Read more</span></a></div>
                 </div>
               </div>
               <!-- End .item -->
@@ -163,13 +163,13 @@
               foreach ($national as $ni => $a): ?>
               <!-- Begin .item-->
               <div class="item">
-                <div class="item-image-2"><a class="img-link" href="article.php?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_800x400-image05.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a><span><a class="<?= $natLabels[$ni % 4] ?>" href="section.php?cat=<?= e($a['category_slug'] ?? '') ?>"><?= e($a['category_name'] ?? 'News') ?></a></span> </div>
+                <div class="item-image-2"><a class="img-link" href="article?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_800x400-image05.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a><span><a class="<?= $natLabels[$ni % 4] ?>" href="section.php?cat=<?= e($a['category_slug'] ?? '') ?>"><?= e($a['category_name'] ?? 'News') ?></a></span> </div>
                 <div class="item-content">
                   <div class="title-left title-style04 underline04">
-                    <h3><a href="article.php?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h3>
+                    <h3><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h3>
                   </div>
-                  <p><a href="article.php?slug=<?= e($a['slug']) ?>" class="external-link"><?= e(a_excerpt($a)) ?></a></p>
-                  <div> <a href="article.php?slug=<?= e($a['slug']) ?>"><span class="read-more">Read more</span></a> </div>
+                  <p><a href="article?slug=<?= e($a['slug']) ?>" class="external-link"><?= e(a_excerpt($a)) ?></a></p>
+                  <div> <a href="article?slug=<?= e($a['slug']) ?>"><span class="read-more">Read more</span></a> </div>
                 </div>
               </div>
               <!-- End .item-->
@@ -200,10 +200,10 @@
                   foreach ($feed as $a): ?>
                   <li>
                     <div class="item">
-                      <div class="item-image"><a class="img-link" href="article.php?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_370x185-image01.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a></div>
+                      <div class="item-image"><a class="img-link" href="article?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_370x185-image01.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a></div>
                       <div class="item-content">
-                        <h4 class="ellipsis"><a href="article.php?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h4>
-                        <p class="ellipsis"><a href="article.php?slug=<?= e($a['slug']) ?>"><?= e(a_excerpt($a)) ?></a></p>
+                        <h4 class="ellipsis"><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h4>
+                        <p class="ellipsis"><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_excerpt($a)) ?></a></p>
                       </div>
                     </div>
                   </li>
@@ -219,7 +219,8 @@
       </div>
     </section>
     <!--========== END .MODULE ==========--> 
-    <!--========== BEGIN .MODULE ==========-->
+    <!--========== BEGIN .MODULE (TV schedule promo hidden: demo content) ==========-->
+    <?php if (false): ?>
     <section class="module dark">
       <div class="container">
         <div class="show-info">
@@ -234,7 +235,8 @@
         <div class="schedule-squares"><span class="square2"></span><span class="square3"></span><span class="square4"></span> <span class="square5"></span><span class="square6"></span><span class="square7"></span><span class="square8"></span><span class="square9"></span><span class="square10"></span><span class="square11"></span></div>
       </div>
     </section>
-    <!--========== END .MODULE ==========--> 
+    <?php endif; ?>
+    <!--========== END .MODULE ==========-->
     <!--========== BEGIN .MODULE ==========-->
     <section class="module highlight">
       <div class="container">
@@ -242,111 +244,47 @@
           <!--========== BEGIN .COL-MD-8 ==========-->
           <div class="col-md-8">
             <div class="module-title">
-              <h3 class="title"><span class="bg-1">Local News</span></h3>
-              <h3 class="subtitle">Latest News in details</h3>
+              <h3 class="title"><span class="bg-1">More News</span></h3>
+              <h3 class="subtitle">Stories from across the university</h3>
             </div>
             <!--========== BEGIN .ROW ==========-->
             <div class="row no-gutter"> 
               <!--========== BEGIN .COL-MD-3 ==========-->
               <div class="col-xs-12 col-sm-3 col-md-3"> 
-                <!-- Begin .list list-mark-1 -->
+                <!-- Begin .list list-mark-1 (all site sections + sub-sections) -->
                 <ul class="list list-mark-1">
-                  <li><a href="index.html">Home</a></li>
-                  <li><a href="watch-live.html">Watch Live 24/7</a></li>
-                  <li><a href="24-tv-radio.html">24 TV & Radio</a></li>
-                  <li><a href="web-shows.html">Web Shows</a></li>
-                  <li><a href="24-news-store.html">24 News Store</a></li>
-                  <li><a href="tv-schedule.html">TV Schedule</a></li>
-                  <li><a href="news.html">News</a></li>
-                  <li><a href="politics.html">Politics</a> | <a href="business.html">Business</a></li>
-                  <li><a href="tech-science.html">Tech-Science</a></li>
-                  <li><a href="lifestyle.html">Lifestyle</a></li>
-                  <li><a href="sport.html">Sport</a></li>
-                  <li><a href="americanfootball.html">American Football</a></li>
-                  <li><a href="soccer.html">Soccer</a></li>
-                  <li><a href="basketball.html">Basketball</a></li>
-                  <li><a href="formula-1.html">Formula 1</a></li>
-                  <li><a href="tennis.html">Tennis</a></li>
-                  <li><a href="health.html">Healt</a></li>
-                  <li><a href="men-health.html">Men's Health</a></li>
-                  <li><a href="women-health.html">Women's Health</a></li>
-                  <li><a href="children-health.html">Children's Health</a></li>
-                  <li><a href="world.html">World</a></li>
-                  <li><a href="world.html">Africa</a> | <a href="world.html">Antarctica</a></li>
-                  <li><a href="world.html">Asia </a> | <a href="world.html">Australia</a></li>
-                  <li><a href="world.html">Europe</a> | <a href="world.html">Middle East</a></li>
-                  <li><a href="world.html">North America</a></li>
-                  <li><a href="world.html">South America</a></li>
-                  <li><a href="travel.html">Travel</a></li>
-                  <li><a href="travel.html">Destinations</a></li>
-                  <li><a href="travel.html">Types Of Trip</a></li>
-                  <li><a href="travel.html">National Parks</a></li>
-                  <li><a href="environment.html">Environment</a></li>
-                  <li><a href="art-entertainment.html">Music & Opera </a></li>
-                  <li><a href="art-entertainment.html">Celebrity & Film </a></li>
-                  <li><a href="art-entertainment.html">Theatre & Dance </a></li>
-                  <li><a href="art-entertainment.html">Art & Entertainment</a></li>
+                  <li><a href="index.php">Home</a></li>
+                  <?php foreach (nav_top_sections() as $navSec): ?>
+                    <li><a href="section.php?cat=<?= e($navSec['slug']) ?>"><?= e($navSec['name']) ?></a></li>
+                  <?php endforeach; ?>
                 </ul>
-                <!-- End .list list-mark-1 --> 
+                <!-- End .list list-mark-1 -->
               </div>
               <!--========== END .COL-MD-3 ==========--> 
               <!--========== BEGIN .COL-MD-9 ==========-->
               <div class="col-xs-12 col-sm-9 col-md-9"> 
                 <!--========== BEGIN .NEWS ==========-->
                 <div class="news">
+                  <?php
+                  // A MIX of stories across all categories (offset so it differs
+                  // from the top blocks), so this section shows varied content.
+                  $localList = array_slice(published_articles(20), 10, 5);
+                  if (!$localList) { $localList = published_articles(5); }
+                  $localLabels = ['label-1', 'label-4', 'label-9', 'label-3', 'label-6'];
+                  foreach ($localList as $li => $a): ?>
                   <div class="item">
-                    <div class="item-image-3"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image09.jpg" alt=""></a><span><a class="label-1" href="news.html">Breaking News</a></span> </div>
+                    <div class="item-image-3"><a class="img-link" href="article?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_800x400-image09.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a><span><a class="<?= $localLabels[$li % 5] ?>" href="section.php?cat=<?= e($a['category_slug'] ?? '') ?>"><?= e($a['category_name'] ?? 'News') ?></a></span> </div>
                     <div class="item-content">
                       <div class="title-left title-style04 underline04">
-                        <h3><a href="#"><strong>Explosion</strong></a></h3>
+                        <h3><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h3>
                       </div>
-                      <p><a href="#" target="_blank" class="external-link"> At least nine firefighters were injured when a massive natural gas explosion...</a></p>
-                      <div> <a href="watch-live.html" target="_blank"><span class="read-more">Watch Live</span></a> </div>
+                      <p><a href="article?slug=<?= e($a['slug']) ?>" class="external-link"><?= e(a_excerpt($a)) ?></a></p>
+                      <div> <a href="article?slug=<?= e($a['slug']) ?>"><span class="read-more">Read more</span></a> </div>
                     </div>
                   </div>
-                  <div class="item">
-                    <div class="item-image-3"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image10.jpg" alt=""></a><span><a class="label-4" href="travel.html">Sport</a></span> </div>
-                    <div class="item-content">
-                      <div class="title-left title-style04 underline04">
-                        <h3><a href="#"><strong>Report's</strong> Guide</a></h3>
-                      </div>
-                      <p><a href="#" target="_blank" class="external-link">Welcome to this glorious time of unfiltered optimism. Welcome to the latest installment of spring football.</a></p>
-                      <div> <a href="sport.html" target="_blank"><span class="read-more">Sport</span></a> </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="item-image-3"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image11.jpg" alt=""></a><span><a class="label-9" href="soccer.html">Lifestyle</a></span> </div>
-                    <div class="item-content">
-                      <div class="title-left title-style04 underline04">
-                        <h3><a href="#"><strong>Lifestyle</strong> News</a></h3>
-                      </div>
-                      <p><a href="#" target="_blank" class="external-link">Divorce negotiations have intensified: ‘Will do whatever it takes to be with kids’, Sources Say</a></p>
-                      <div> <a href="lifestyle.html" target="_blank"><span class="read-more">Lifestyle</span></a> </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="item-image-3"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image12.jpg" alt=""></a><span><a class="label-3" href="health.html">Travel</a></span> </div>
-                    <div class="item-content">
-                      <div class="title-left title-style04 underline04">
-                        <h3><a href="#"><strong>Browns</strong> Canyon</a></h3>
-                      </div>
-                      <p><a href="#" target="_blank" class="external-link">To make a run at a national title, each element has to fall perfectly into place.</a></p>
-                      <div> <a href="travel.html" target="_blank"><span class="read-more">Travel</span></a> </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="item-image-3"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image13.jpg" alt=""></a><span><a class="label-6" href="health.html">Web Shows</a></span> </div>
-                    <div class="item-content">
-                      <div class="title-left title-style04 underline04">
-                        <h3><a href="#"><strong>The Web</strong> Shows</a></h3>
-                      </div>
-                      <p><a href="#" target="_blank" class="external-link">Critical acclaim, star power and an increasing number of web-to-TV success stories...</a></p>
-                      <div> <a href="web-shows.html" target="_blank"><span class="read-more">Web Shows</span></a> </div>
-                    </div>
-                    <!-- End .content--> 
-                  </div>
+                  <?php endforeach; ?>
                 </div>
-                <!--========== END .NEWS ==========--> 
+                <!--========== END .NEWS ==========-->
               </div>
               <!--========== END .COL-MD-9 ==========--> 
             </div>
@@ -361,115 +299,48 @@
             </div>
             <!-- End .title-style02 --> 
             <!--========== BEGIN .SIDEBAR-SCROLL ==========-->
-            <div class="sidebar-scroll"> 
-              <!-- Begin .scroll-item -->
+            <div class="sidebar-scroll">
+              <?php
+              // "Recent Posts" feed in the theme's varied rhythm: a lead big-image
+              // story, then a mix of with-image and text-only scroll items, with a
+              // second big image partway down. All dynamic, mixed categories.
+              $rpAll  = published_articles(13);
+              $rpLead = $rpAll[0] ?? null;
+              $rpRest = array_slice($rpAll, 1);
+              ?>
+              <?php if ($rpLead): ?>
+              <!-- Lead post (big image) -->
               <div class="item">
-                <div class="item-image-full"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image02.jpg" alt=""></a></div>
+                <div class="item-image-full"><a class="img-link" href="article?slug=<?= e($rpLead['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($rpLead) ?: 'img/index_800x400-image02.jpg') ?>" alt="<?= e(a_title($rpLead)) ?>"></a></div>
               </div>
               <div class="item">
                 <div class="item-content-1">
-                  <h3>Tens of thousands of people have demonstrated against the governing.</h3>
+                  <h3><a href="article?slug=<?= e($rpLead['slug']) ?>"><?= e(a_title($rpLead)) ?></a></h3>
                 </div>
               </div>
-              
-              <!-- End .scroll-item -->
+              <?php endif; ?>
+              <?php foreach ($rpRest as $idx => $rp):
+                  $withImage = ($idx % 3 === 0);   // every 3rd item shows an image
+              ?>
               <div class="scroll-item">
                 <div class="item">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image40.jpg" alt=""></a></div>
+                  <?php if ($withImage): ?>
+                  <div class="item-image"><a class="img-link" href="article?slug=<?= e($rp['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($rp) ?: 'img/index_800x400-image40.jpg') ?>" alt="<?= e(a_title($rp)) ?>"></a></div>
                   <div class="item-content">
-                    <p><i class="fa fa-clock-o"></i> <span class="day"> 1 min ago</span> <br>
-                      The River Seine is at its highest level for more than 30 years. </p>
+                    <p><a href="article?slug=<?= e($rp['slug']) ?>"><i class="fa fa-clock-o"></i> <span class="day"><?= e(date('M j', strtotime($rp['published_at'] ?: $rp['created_at']))) ?></span> <br>
+                      <?= e(a_title($rp)) ?></a></p>
                   </div>
-                </div>
-              </div>
-              <div class="scroll-item">
-                <div class="item">
+                  <?php else: ?>
                   <div class="item-content-1">
-                    <p><i class="fa fa-clock-o"></i> <span class="day"> 2 min ago</span> <br>
-                      First-time buyers are being warned they could pay more if they sign up for 40-year mortgages. </p>
+                    <p><a href="article?slug=<?= e($rp['slug']) ?>"><i class="fa fa-clock-o"></i> <span class="day"><?= e(date('M j', strtotime($rp['published_at'] ?: $rp['created_at']))) ?></span> <br>
+                      <?= e(a_title($rp)) ?></a></p>
                   </div>
+                  <?php endif; ?>
                 </div>
               </div>
-              <div class="scroll-item">
-                <div class="item">
-                  <div class="item-content-1">
-                    <p><a href="#"> <span class="day"> 3 min ago</span> <br>
-                      The M. players ran through a banner which read: “You don’t need to wear red & blue...</a></p>
-                  </div>
-                </div>
-              </div>
-              <div class="scroll-item">
-                <div class="item">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image41.jpg" alt=""></a></div>
-                  <div class="item-content">
-                    <p><a href="#"> <span class="day"> 4 min ago</span> <br>
-                      The flat brown spots show up on some parts of the skin...</a></p>
-                  </div>
-                </div>
-              </div>
-              <div class="scroll-item">
-                <div class="item">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image42.jpg" alt=""></a></div>
-                  <div class="item-content">
-                    <p><a href="#"> <span class="day">5 min ago</span> <br>
-                      The natural cycles alone aren’t sufficient to explain...</a></p>
-                  </div>
-                </div>
-              </div>
-              <div class="scroll-item">
-                <div class="item">
-                  <div class="item-content-1">
-                    <p><i class="fa fa-clock-o"></i> <span class="day"> 6 min ago</span> <br>
-                      L.Counsel is demanding stop its policy of censoring student religious speech. </p>
-                  </div>
-                </div>
-              </div>
-              <div class="scroll-item">
-                <div class="item">
-                  <div class="item-content-1">
-                    <p><i class="fa fa-clock-o"></i> <span class="day"> 7 min ago</span> <br>
-                      Often broadcast social media sites with popular hashtags but the social media has nothing to do.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="scroll-item">
-                <div class="item">
-                  <div class="item-content-1">
-                    <p><i class="fa fa-clock-o"></i> <span class="day">8 min ago</span> <br>
-                      The River Seine is at its highest level for more than 30 years. </p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="item-image-full"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image04.jpg" alt=""></a></div>
-              </div>
-              <div class="scroll-item">
-                <div class="item">
-                  <div class="item-content-1">
-                    <p><i class="fa fa-clock-o"></i> <span class="day"> 9 min ago</span> <br>
-                      Magazines are publications, that are printed or electronically published online magazines. </p>
-                  </div>
-                </div>
-              </div>
-              <div class="scroll-item">
-                <div class="item">
-                  <div class="item-content-1">
-                    <p><i class="fa fa-clock-o"></i> <span class="day"> 10 min ago</span> <br>
-                      First-time buyers are being warned they could pay more if they sign up for 40-year mortgages </p>
-                  </div>
-                </div>
-              </div>
-              <div class="scroll-item">
-                <div class="item">
-                  <div class="item-content-1">
-                    <p><i class="fa fa-clock-o"></i> <span class="day"> 11 min ago</span> <br>
-                      New research provides new evidence that natural cycles alone aren’t sufficient to explain the global atmospheric warming. </p>
-                  </div>
-                </div>
-              </div>
-              <!-- End .scroll-item --> 
+              <?php endforeach; ?>
             </div>
-            <!--========== END .SIDEBAR-SCROLL ==========--> 
+            <!--========== END .SIDEBAR-SCROLL ==========-->
           </div>
           <!--========== END .COL-MD-4 ==========--> 
         </div>
@@ -482,65 +353,67 @@
       <div class="container"> 
         <!--========== BEGIN .ROW ==========-->
         <div class="row no-gutter"> 
+          <?php
+          // Photo-feature block: big photo = a Politics story (fall back to
+          // Environment, then featured). Half-block = a different category (Arts).
+          $photoCat = category_by_slug('politics') ?: category_by_slug('environment');
+          [$photoList] = $photoCat ? published_in_category((int) $photoCat['id'], 1, 0) : [[]];
+          $photoLead = $photoList[0] ?? (published_articles(1, 'featured') ?: published_articles(1))[0] ?? null;
+          $artsCat = category_by_slug('arts-culture');
+          [$halfList] = $artsCat ? published_in_category((int) $artsCat['id'], 1, 0) : [[]];
+          $halfStory = $halfList[0] ?? (array_slice(published_articles(3), 2, 1)[0] ?? null);
+          ?>
           <!-- Begin .full-block-three-columns -->
-          <div class="full-block-three-columns"> 
+          <div class="full-block-three-columns">
             <!-- Begin .container-full-->
-            <div class="container-full bottom-text full-photo">
+            <?php if ($photoLead): ?>
+            <a href="article?slug=<?= e($photoLead['slug']) ?>" class="container-full bottom-text full-photo" style="text-decoration:none;color:inherit;display:block">
               <div class="entry-media">
-                <div class="image" style="display: block; background-image: url(img/index_875x656.jpg);"></div>
+                <div class="image" style="display: block; background-image: url(<?= e(a_image($photoLead) ?: 'img/index_875x656.jpg') ?>);"></div>
               </div>
               <div class="content">
-                <h2><a href="#">Florida International Air Show</a></h2>
-                <h4>One of the top 15 air show events and festivals in the USA, Florida International Air Show has been a popular event for nearly 40 years.</h4>
+                <h2><?= e(a_title($photoLead)) ?></h2>
+                <h4><?= e(a_excerpt($photoLead)) ?></h4>
               </div>
-            </div>
-            <!-- End .container-full--> 
+            </a>
+            <?php endif; ?>
+            <!-- End .container-full-->
           </div>
-          <!-- End .full-block-three-columns --> 
+          <!-- End .full-block-three-columns -->
           <!-- Begin .full-block-three-columns -->
-          <div class="full-block-three-columns"> 
+          <div class="full-block-three-columns">
             <!-- Begin .container-half -->
+            <?php if ($halfStory): ?>
             <div class="container-half">
               <div class="entry-media">
-                <div class="image" style="background-image: url(img/index_800x600.jpg);">
-                <span><a class="label-1" href="#">World News</a></span> <a href="video.html"><span class="play-icon"></span></a></div>
+                <div class="image" style="background-image: url(<?= e(a_image($halfStory) ?: 'img/index_800x600.jpg') ?>);">
+                <span><a class="label-1" href="section.php?cat=<?= e($halfStory['category_slug'] ?? '') ?>"><?= e($halfStory['category_name'] ?? 'News') ?></a></span> <a href="article?slug=<?= e($halfStory['slug']) ?>"><span class="play-icon"></span></a></div>
                 </div>
               <div class="content">
-                <h4><a href="#">People have demonstrated against the policies...</a></h4>
+                <h4><a href="article?slug=<?= e($halfStory['slug']) ?>"><?= e(a_title($halfStory)) ?></a></h4>
               </div>
             </div>
-            <!-- End .container- entry- --> 
+            <?php endif; ?>
+            <!-- End .container- entry- -->
             <!-- Begin .entry-post -->
-            <div class="entry-post"> 
+            <div class="entry-post">
+              <?php
+              // 3 more recent stories with category badges.
+              $entryPost = array_slice(published_articles(15), 12, 3);
+              $epBg = ['bg-1', 'bg-2', 'bg-4'];
+              foreach ($entryPost as $ei => $a): ?>
               <!-- Begin .item-->
               <div class="item">
-                <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_464x232-image01.jpg" alt=""></a></div>
+                <div class="item-image"><a class="img-link" href="article?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_464x232-image01.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a></div>
                 <div class="item-content">
-                  <div class="entry-meta bg-1">News</div>
-                  <p class="ellipsis"><a href="#">Police are hunting a group of men believed to be responsible for...</a></p>
+                  <div class="entry-meta <?= $epBg[$ei % 3] ?>"><?= e($a['category_name'] ?? 'News') ?></div>
+                  <p class="ellipsis"><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></p>
                 </div>
               </div>
-              <!-- End .item--> 
-              <!-- Begin .item-->
-              <div class="item">
-                <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_464x232-image02.jpg" alt=""></a></div>
-                <div class="item-content">
-                  <div class="entry-meta bg-2">Business</div>
-                  <p class="ellipsis"><a href="#">The sale creates further uncertainty for British steelworkers...</a></p>
-                </div>
-              </div>
-              <!-- End .item--> 
-              <!-- Begin .item-->
-              <div class="item">
-                <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_464x232-image03.jpg" alt=""></a></div>
-                <div class="item-content">
-                  <div class="entry-meta bg-4">Politics</div>
-                  <p class="ellipsis"><a href="#">Do referendums lead to better outcomes?</a></p>
-                </div>
-              </div>
-              <!-- End .item--> 
+              <!-- End .item-->
+              <?php endforeach; ?>
             </div>
-            <!-- End .entry-post --> 
+            <!-- End .entry-post -->
           </div>
           <!-- End .full-block-three-columns --> 
           <!-- Begin .full-block-three-columns -->
@@ -557,44 +430,54 @@
       <div class="image3 img-overlay1">
         <div class="container">
           <div class="caption text-center">
-            <h2 class="color-white weight-300 small-caption">We introduce you our <strong>24h News Team!</strong> Get more information about us here!</h2>
-            <a href="about-us.html" target="_blank" class="btn btn-default">About Us</a> </div>
+            <h2 class="color-white weight-300 small-caption">Meet the team behind <strong><?= e(site_name()) ?></strong> — learn more about who we are.</h2>
+            <a href="page.php?slug=about-us" class="btn btn-default">About Us</a> </div>
         </div>
       </div>
     </div>
     <!-- End #parallax-section1 --> 
     <!-- Begin .add-place -->
-    <div class="add-place"> <?= ad_slot('midpage', 'img/banner_820x100.jpg') ?> </div>
+    <div class="add-place"> <?= ad_slot('midpage', 'img/banner_820x100.jg') ?> </div>
     <!-- End .add-place --> 
     <!--========== BEGIN .MODULE ==========-->
+    <?php
+    // Multimedia / Pictorial stories for the gallery carousel (podcasts,
+    // vodcasts, videos, photo essays). Fall back to recent if those are empty.
+    $mmGalleryCat  = category_by_slug('multimedia');
+    $picGalleryCat = category_by_slug('pictorial');
+    $galleryItems = [];
+    if ($mmGalleryCat)  { [$g1] = published_in_category((int) $mmGalleryCat['id'], 6, 0);  $galleryItems = array_merge($galleryItems, $g1); }
+    if ($picGalleryCat) { [$g2] = published_in_category((int) $picGalleryCat['id'], 6, 0); $galleryItems = array_merge($galleryItems, $g2); }
+    if (count($galleryItems) < 4) { $galleryItems = published_articles(6); }
+    $galleryItems = array_slice($galleryItems, 0, 8);
+    ?>
+    <?php if ($galleryItems): ?>
     <section class="module">
-      <h2 class="title-style05 style-02">more headlines in our <span><a href="#">item sections</a></span></h2>
+      <h2 class="title-style05 style-02">multimedia from <span><a href="section.php?cat=multimedia"><?= e(site_name()) ?></a></span></h2>
       <!-- Begin .title-style05-bg -->
       <div class="center-title"> <span class="title-line-left"></span>
-        <h4 class="title-style05 style-01">latest # news</h4>
+        <h4 class="title-style05 style-01">watch &amp; listen</h4>
         <span class="title-line-right"></span> </div>
-      <!-- End .title-style05-bg --> 
+      <!-- End .title-style05-bg -->
       <!--========== BEGIN .CONTAINER ==========-->
-      <div class="container"> 
-        <!--========== BEGIN BIG-GALLERY==========--> 
+      <div class="container">
+        <!--========== BEGIN BIG-GALLERY==========-->
         <!-- Begin .carousel-title -->
-        <h3 class="carousel-title-gray">Home Gallery</h3>
-        <!-- End .carousel-title --> 
+        <h3 class="carousel-title-gray">Podcasts, Video &amp; Pictorial</h3>
+        <!-- End .carousel-title -->
         <!-- Begin .gallery-slider owl-carousel -->
         <div id="big-gallery-slider-3" class="owl-carousel">
-          <div class="big-gallery"> <img src="img/index_slider-large-image01.jpg" alt=""> <a href="video.html"><span class="play-icon"></span></a> </div>
-          <div class="big-gallery"><img src="img/index_slider-large-image02.jpg" alt=""> <a href="video.html"><span class="play-icon"></span></a> </div>
-          <div class="big-gallery"> <img src="img/index_slider-large-image03.jpg" alt=""><a href="video.html"><span class="play-icon"></span></a> </div>
-          <div class="big-gallery"><img src="img/index_slider-large-image04.jpg" alt=""><a href="video.html"><span class="play-icon"></span></a> </div>
-          <div class="big-gallery"> <img src="img/index_slider-large-image05.jpg" alt=""><a href="video.html"><span class="play-icon"></span></a> </div>
-          <div class="big-gallery"> <img src="img/index_slider-large-image06.jpg" alt=""><a href="video.html"><span class="play-icon"></span></a> </div>
+          <?php foreach ($galleryItems as $gi): ?>
+          <div class="big-gallery"> <img src="<?= e(a_image($gi) ?: 'img/index_slider-large-image01.jpg') ?>" alt="<?= e(a_title($gi)) ?>"> <a href="article?slug=<?= e($gi['slug']) ?>"><span class="play-icon"></span></a> </div>
+          <?php endforeach; ?>
         </div>
-        <!-- End .gallery-slider owl-carousel --> 
-        <!--========== END BIG-GALLERY==========--> 
+        <!-- End .gallery-slider owl-carousel -->
+        <!--========== END BIG-GALLERY==========-->
       </div>
-      <!--========== BEGIN .CONTAINER ==========--> 
+      <!--========== BEGIN .CONTAINER ==========-->
     </section>
-    <!--========== END .MODULE ==========--> 
+    <?php endif; ?>
+    <!--========== END .MODULE ==========-->
     <!--========== BEGIN .MODULE ==========-->
     <section class="module highlight"> 
       <!--========== BEGIN .CONTAINER ==========-->
@@ -606,57 +489,39 @@
             <!--========== BEGIN .NEWS ==========-->
             <div class="news">
               <div class="module-title">
-                <h3 class="title"><span class="bg-11">Worldwide 24h News</span></h3>
-                <h3 class="subtitle">News in other languages</h3>
+                <h3 class="title"><span class="bg-11">Around UR</span></h3>
+                <h3 class="subtitle">More stories from across the university</h3>
               </div>
+              <?php
+              // A varied mix of recent stories (offset so it differs from the
+              // top blocks). Multilingual-ready: shows each in its primary language.
+              $aroundCat = category_by_slug('research-innovation');
+              [$around] = $aroundCat ? published_in_category((int) $aroundCat['id'], 3, 0) : [[]];
+              if (count($around) < 3) { $around = array_slice(published_articles(9), 6, 3); }
+              foreach ($around as $a): ?>
               <!-- Begin .item -->
               <div class="item">
-                <div class="item-image-3"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image14.jpg" alt=""></a></div>
+                <div class="item-image-3"><a class="img-link" href="article?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_800x400-image14.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a></div>
                 <div class="item-content">
                   <div class="title-left title-style04 underline04">
-                    <h3 lang="fr"><a href="#"><strong>Nouvelle sonde</strong> autour de Jupiter.</a></h3>
+                    <h3><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h3>
                   </div>
-                  <p lang="fr"><a href="#"> <i class="fa fa-clock-o"></i> <span class="day"><strong> 5 october 2016</strong></span></a></p>
-                  <p lang="fr"><a href="#">Des signaux transmis par l'engin spatial ont confirmé que la manœuvre de freinage s’était déroulée comme prévu.</a></p>
-                  <p lang="fr"><a href="#">L’intensité des ceintures de radiation de la planète...</a> </p>
-                  <div> <a href="#"><span lang="fr" class="read-more">Lire la suite</span></a> </div>
+                  <p><a href="article?slug=<?= e($a['slug']) ?>"> <i class="fa fa-clock-o"></i> <span class="day"><?= e(date('M j, Y', strtotime($a['published_at'] ?: $a['created_at']))) ?></span></a></p>
+                  <p><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_excerpt($a)) ?></a></p>
+                  <div> <a href="article?slug=<?= e($a['slug']) ?>"><span class="read-more">Read more</span></a> </div>
                 </div>
               </div>
-              <!-- End .item --> 
-              <!-- Begin .item -->
-              <div class="item">
-                <div class="item-image-3"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image15.jpg" alt=""></a></div>
-                <div class="item-content">
-                  <div class="title-left title-style04 underline04">
-                    <h3 lang="es"><a href="#"><strong>Mark</strong> acudió a la manifestación...</a></h3>
-                  </div>
-                  <p lang="es"><a href="#"> <i class="fa fa-clock-o"></i> <span class="day"><strong>1 hora</strong></span></a></p>
-                  <p lang="es"><a href="#">En pleno caos por el ataque contra los policías en Dallas, las fuerzas de seguridad pidieron ayuda para encontrar a un primer sospechoso: un hombre armado y con camiseta militar de camuflaje.</a></p>
-                  <div> <a href="#"><span lang="es" class="read-more">Lee mas</span></a> </div>
-                </div>
-              </div>
-              <!-- End .item --> 
-              <!-- Begin .item -->
-              <div class="item">
-                <div class="item-image-3"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image16.jpg" alt=""></a></div>
-                <div class="item-content">
-                  <div class="title-left title-style04 underline04">
-                    <h3 lang="ru"><a href="#"><strong>Может</strong> ли спутник  на голову?</a></h3>
-                  </div>
-                  <p lang="ru"><a href="#"> <i class="fa fa-clock-o"></i> <span class="day"><strong>1 час назад</strong></span></a> </p>
-                  <p lang="ru"><a href="#">Количество космического мусора на околоземной орбите неуклонно растет. Обозреватель  Future решил разобраться, что происходит, когда отработавшие своё спутники падают на Землю.</a></p>
-                  <div> <a href="#"><span lang="ru" class="read-more">прочитайте больше</span></a> </div>
-                </div>
-              </div>
-              <!-- End .item --> 
+              <!-- End .item -->
+              <?php endforeach; ?>
             </div>
             <!--========== END NEWS ==========--> 
           </div>
           <!--========== END COL-MD-9 ==========--> 
           <!--========== BEGIN COL-MD-4 ==========-->
           <div class="col-md-4"> 
-            <!--========== BEGIN .TV SCHEDULE ==========-->
-            <div class="sidebar-schedule"> 
+            <!--========== BEGIN .TV SCHEDULE (hidden: no data source yet) ==========-->
+            <?php if (false): ?>
+            <div class="sidebar-schedule">
               <!-- Begin .block-title-2 -->
               <div class="block-title-2">
                 <h3><a href="tv-schedule.html"><strong>TV</strong> Schedule</a></h3>
@@ -698,13 +563,43 @@
                 <!-- End .schedule-slide --> 
               </div>
             </div>
-            <!--========== END .TV SCHEDULE ==========--> 
-            <!--========== BEGIN SIDEBAR-VIDEO ==========--> 
+            <?php endif; ?>
+            <!--========== END .TV SCHEDULE ==========-->
+            <!--========== BEGIN .ANNOUNCEMENTS (fills the Around-UR sidebar) ==========-->
+            <?php
+            $aurAnnCat = category_by_slug('announcements');
+            [$aurAnn] = $aurAnnCat ? published_in_category((int) $aurAnnCat['id'], 5, 0) : [[]];
+            if (!$aurAnn) { $aurAnn = published_articles(5); }
+            if ($aurAnn): ?>
+            <div class="block-title-2">
+              <h3><a href="section.php?cat=announcements"><strong>Announcements</strong></a></h3>
+            </div>
+            <div class="sidebar-newsfeed">
+              <div class="newsfeed-3">
+                <ul>
+                  <?php foreach ($aurAnn as $an): ?>
+                  <li>
+                    <div class="item">
+                      <div class="item-image"><a class="img-link" href="article?slug=<?= e($an['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($an) ?: 'img/index_370x185-image01.jpg') ?>" alt="<?= e(a_title($an)) ?>"></a></div>
+                      <div class="item-content">
+                        <h4 class="ellipsis"><a href="article?slug=<?= e($an['slug']) ?>"><?= e(a_title($an)) ?></a></h4>
+                        <p class="ellipsis"><i class="fa fa-calendar"></i> <?= e(date('M j, Y', strtotime($an['published_at'] ?: $an['created_at']))) ?></p>
+                      </div>
+                    </div>
+                  </li>
+                  <?php endforeach; ?>
+                </ul>
+              </div>
+            </div>
+            <?php endif; ?>
+            <!--========== END .ANNOUNCEMENTS ==========-->
+            <!--========== BEGIN SIDEBAR-VIDEO (hidden: no data source yet) ==========-->
+            <?php if (false): ?>
             <!-- Begin .title-style01 -->
             <div class="title-style01">
               <h3><strong>Video</strong> News</h3>
             </div>
-            <!-- End .title-style01 --> 
+            <!-- End .title-style01 -->
             <!-- Begin .sidebar-block -->
             <div class="sidebar-block">
               <div class="video-container">
@@ -714,20 +609,22 @@
                 <p>24 h News Films and Digital Studios present original short films directed by established and rising filmmakers. </p>
               </div>
             </div>
-            <!-- End  .sidebar-block --> 
-            <!--========== END SIDEBAR-VIDEO ==========--> 
+            <!-- End  .sidebar-block -->
+            <?php endif; ?>
+            <!--========== END SIDEBAR-VIDEO ==========-->
           </div>
           <!--========== END COL-MD-4 ==========--> 
         </div>
       </div>
     </section>
     <!--========== END .MODULE ==========--> 
-    <!--========== BEGIN .MODULE ==========-->
-    <section class="module dark"> 
-      <!--========== BEGIN VIDEO ==========--> 
+    <!--========== BEGIN .MODULE (video module hidden: no data source yet) ==========-->
+    <?php if (false): ?>
+    <section class="module dark">
+      <!--========== BEGIN VIDEO ==========-->
       <!-- Begin .container-->
       <div class="container">
-        <div class="row no-gutter"> 
+        <div class="row no-gutter">
           <!-- Begin .col-md-9 -->
           <div class="col-sm-9 col-md-9">
             <div class="video-full">
@@ -736,7 +633,7 @@
               </div>
             </div>
           </div>
-          <!-- End .col-md-9--> 
+          <!-- End .col-md-9-->
           <!-- Begin .col-md-3-->
           <div class="col-xs-12 col-sm-3 col-md-3">
             <div class="title-left title-style03 underline03">
@@ -749,13 +646,14 @@
               <div class="image"><img class="img-responsive" src="img/index_620x465-image02.jpg" alt=""></div>
               <a href="video.html"><span class="play-icon"></span></a> </div>
           </div>
-          <!-- End .col-md-3--> 
+          <!-- End .col-md-3-->
         </div>
       </div>
-      <!--End .container--> 
-      <!--========== END VIDEO ==========--> 
+      <!--End .container-->
+      <!--========== END VIDEO ==========-->
     </section>
-    <!--========== END .MODULE ==========--> 
+    <?php endif; ?>
+    <!--========== END .MODULE ==========-->
     <!--========== BEGIN .MODULE ==========-->
     <section class="module highlight"> 
       <!--========== BEGIN.CONTAINER ==========-->
@@ -767,112 +665,82 @@
             <!-- Begin .news -->
             <div class="news">
               <div class="module-title">
-                <h3 class="title"><span class="bg-1">Rethinking</span></h3>
-                <h3 class="subtitle">the 24h News Experience</h3>
+                <h3 class="title"><span class="bg-1">In Depth</span></h3>
+                <h3 class="subtitle">Features &amp; analysis from <?= e(site_name()) ?></h3>
               </div>
+              <?php
+              // Two in-depth/feature articles for the highlighted slots.
+              $featCat = category_by_slug('features');
+              [$featList] = $featCat ? published_in_category((int) $featCat['id'], 2, 0) : [[]];
+              if (count($featList) < 2) { $featList = published_articles(2, 'editor_pick') ?: published_articles(2); }
+              $rethink = $featList[0] ?? null;
+              if ($rethink): ?>
               <!-- Begin .item -->
               <div class="item">
-                <div class="item-image-1"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image17.jpg" alt=""></a></div>
+                <div class="item-image-1"><a class="img-link" href="article?slug=<?= e($rethink['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($rethink) ?: 'img/index_800x400-image17.jpg') ?>" alt="<?= e(a_title($rethink)) ?>"></a></div>
                 <div class="item-content">
                   <div class="title-left title-style04 underline04">
-                    <h3><a href="#"><strong>Breaking</strong> News Stories</a></h3>
+                    <h3><a href="article?slug=<?= e($rethink['slug']) ?>"><?= e(a_title($rethink)) ?></a></h3>
                   </div>
                   <br>
                   <div class="post-meta-elements">
-                    <div class="post-meta-author"> <i class="fa fa-user"></i><a href="#">By Hugh Jackson</a> </div>
-                    <div class="post-meta-date"> <i class="fa fa-calendar"></i>December 25, 2016 </div>
+                    <?php if (!empty($rethink['category_name'])): ?><div class="post-meta-author"> <i class="fa fa-folder-o"></i> <?= e($rethink['category_name']) ?> </div><?php endif; ?>
+                    <div class="post-meta-date"> <i class="fa fa-calendar"></i> <?= e(date('M j, Y', strtotime($rethink['published_at'] ?: $rethink['created_at']))) ?> </div>
                   </div>
-                  <p><a href="#" target="_blank" class="external-link">At the 24h News we see breaking news events as unexpected, momentous or informative events...</a></p>
-                  <p><a href="#" target="_blank" class="external-link">Our editors also consider other aspects of...</a></p>
-                  <p><a href="#" target="_blank" class="external-link">Is this event part of a subject the 24h News often reports on?</a></p>
-                  <div> <a href="#"><span class="read-more">Continue reading</span></a> </div>
+                  <p><a href="article?slug=<?= e($rethink['slug']) ?>" class="external-link"><?= e(a_excerpt($rethink)) ?></a></p>
+                  <div> <a href="article?slug=<?= e($rethink['slug']) ?>"><span class="read-more">Continue reading</span></a> </div>
                 </div>
               </div>
-              <!-- End .item --> 
-              <!-- Begin .news-block" -->
+              <!-- End .item -->
+              <?php endif; ?>
+              <!-- Begin .news-block -->
               <div class="news-block">
+                <?php
+                // 4 more recent stories under the lead feature.
+                $strip = array_slice(published_articles(20), 4, 4);
+                foreach ($strip as $sb): ?>
                 <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image21.jpg" alt=""></a></div>
-                  <div class="item-content"><span class="day">Thu, Dec 12, 2016</span>
-                    <p><a href="#" target="_blank" class="external-link">The energy choices</a></p>
+                  <div class="item-image"><a class="img-link" href="article?slug=<?= e($sb['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($sb) ?: 'img/index_800x400-image21.jpg') ?>" alt="<?= e(a_title($sb)) ?>"></a></div>
+                  <div class="item-content"><span class="day"><?= e(date('D, M j, Y', strtotime($sb['published_at'] ?: $sb['created_at']))) ?></span>
+                    <p><a href="article?slug=<?= e($sb['slug']) ?>" class="external-link"><?= e(a_title($sb)) ?></a></p>
                   </div>
                 </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image22.jpg" alt=""></a></div>
-                  <div class="item-content"><span class="day">Thu, Dec 12, 2016</span>
-                    <p><a href="#" target="_blank" class="external-link">Food/Agriculture</a></p>
-                  </div>
-                </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image23.jpg" alt=""></a></div>
-                  <div class="item-content"><span class="day">Thu, Dec 12, 2016</span>
-                    <p><a href="#" target="_blank" class="external-link">Healthcare</a></p>
-                  </div>
-                </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image24.jpg" alt=""></a></div>
-                  <div class="item-content"><span class="day">Thu, Dec 12, 2016</span>
-                    <p><a href="#" target="_blank" class="external-link">Housing/Construction</a></p>
-                  </div>
-                </div>
+                <?php endforeach; ?>
               </div>
-              <!-- End .news-block" -->
+              <!-- End .news-block -->
               <div class="module-title">
                 <h3 class="title"><span class="bg-4">Sport News</span></h3>
                 <h3 class="subtitle">Watch the latest sport news</h3>
               </div>
+              <?php $feat2 = $featList[1] ?? null; if ($feat2): ?>
               <!-- Begin .item -->
               <div class="item">
-                <div class="item-image-1"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image18.jpg" alt=""></a></div>
+                <div class="item-image-1"><a class="img-link" href="article?slug=<?= e($feat2['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($feat2) ?: 'img/index_800x400-image18.jpg') ?>" alt="<?= e(a_title($feat2)) ?>"></a></div>
                 <div class="item-content">
                   <div class="title-left title-style04 underline04">
-                    <h3><a href="#"><strong>Features</strong> & Analysis</a></h3>
+                    <h3><a href="article?slug=<?= e($feat2['slug']) ?>"><?= e(a_title($feat2)) ?></a></h3>
                   </div>
                   <br>
                   <div class="post-meta-elements">
-                    <div class="post-meta-author"> <i class="fa fa-user"></i><a href="#">By Hugh Jackson</a> </div>
-                    <div class="post-meta-date"> <i class="fa fa-calendar"></i>December 25, 2016 </div>
+                    <?php if (!empty($feat2['category_name'])): ?><div class="post-meta-author"> <i class="fa fa-folder-o"></i> <?= e($feat2['category_name']) ?> </div><?php endif; ?>
+                    <div class="post-meta-date"> <i class="fa fa-calendar"></i> <?= e(date('M j, Y', strtotime($feat2['published_at'] ?: $feat2['created_at']))) ?> </div>
                   </div>
-                  <p><a href="#" target="_blank" class="external-link">From within the sport, the obligatory defence mechanism.</a></p>
-                  <p><a href="#" target="_blank" class="external-link">From outside the tennis, the inevitable questions. But the broader question is this: where’s the line?</a> </p>
-                  <p><a href="#" target="_blank" class="external-link">The player will face scrutiny use but you also ...</a></p>
-                  <div> <a href="#"><span class="read-more">Continue reading</span></a> </div>
+                  <p><a href="article?slug=<?= e($feat2['slug']) ?>" class="external-link"><?= e(a_excerpt($feat2)) ?></a></p>
+                  <div> <a href="article?slug=<?= e($feat2['slug']) ?>"><span class="read-more">Continue reading</span></a> </div>
                 </div>
               </div>
               <!-- End .item -->
+              <?php endif; ?>
               <div class="news-block">
+                <?php
+                // Mini grid of more recent stories (offset to vary from above).
+                $blockList = array_slice(published_articles(16), 8, 8);
+                foreach ($blockList as $b): ?>
                 <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image25.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i><span class="day"> 1h ago</span><a href="#">Cricket</a></div>
+                  <div class="item-image"><a class="img-link" href="article?slug=<?= e($b['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($b) ?: 'img/index_800x400-image25.jpg') ?>" alt="<?= e(a_title($b)) ?>"></a></div>
+                  <div class="item-content"><i class="fa fa-clock-o"></i><span class="day"><?= e(date('M j', strtotime($b['published_at'] ?: $b['created_at']))) ?></span><a href="article?slug=<?= e($b['slug']) ?>"><?= e($b['category_name'] ?? 'News') ?></a></div>
                 </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image26.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i><span class="day"> 54min ago</span><a href="#"> Football</a></div>
-                </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image27.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i><span class="day"> 6h ago</span><a href="#"> Rugby</a></div>
-                </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image28.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i><span class="day"> 1h ago</span><a href="#">Cycling</a></div>
-                </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image29.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day"> 1h ago</span><a href="#">Soccer</a></div>
-                </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image30.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day">54min ago</span><a href="#">Soccer</a></div>
-                </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image31.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day"> 6h ago</span><a href="#">Soccer</a></div>
-                </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image10.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day"> 1h ago</span><a href="#">Soccer</a></div>
-                </div>
+                <?php endforeach; ?>
               </div>
             </div>
             <!-- End .news --> 
@@ -888,92 +756,27 @@
             <!--========== BEGIN .SIDEBAR-POST ==========-->
             <div class="sidebar-post">
               <ul>
+                <?php
+                // Numbered "Headlines" list = editor's picks (fallback recent).
+                $headlines = published_articles(9, 'editor_pick');
+                if (count($headlines) < 9) { $headlines = published_articles(9); }
+                foreach ($headlines as $hi => $hl): ?>
                 <li>
                   <div class="item">
-                    <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image07.jpg" alt=""></a></div>
+                    <div class="item-image"><a class="img-link" href="article?slug=<?= e($hl['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($hl) ?: 'img/index_370x185-image07.jpg') ?>" alt="<?= e(a_title($hl)) ?>"></a></div>
                     <div class="item-content">
-                      <h3>01</h3>
-                      <p class="ellipsis"><a href="#">Survivor is world's oldest man - Guinness World Records.</a></p>
+                      <h3><?= str_pad((string) ($hi + 1), 2, '0', STR_PAD_LEFT) ?></h3>
+                      <p class="ellipsis"><a href="article?slug=<?= e($hl['slug']) ?>"><?= e(a_title($hl)) ?></a></p>
                     </div>
                   </div>
                 </li>
-                <li>
-                  <div class="item">
-                    <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image08.jpg" alt=""></a></div>
-                    <div class="item-content">
-                      <h3>02</h3>
-                      <p class="ellipsis"><a href="#">East Kilbride: Manager Billy O. to leave post on 20 Dec.</a></p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="item">
-                    <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image09.jpg" alt=""></a></div>
-                    <div class="item-content">
-                      <h3>03</h3>
-                      <p class="ellipsis"><a href="#">Nature's way of saying older women aren't attractive?</a></p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="item">
-                    <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image10.jpg" alt=""></a></div>
-                    <div class="item-content">
-                      <h3>04</h3>
-                      <p class="ellipsis"><a href="#">Last post for stamp collectors,  valued in catalogues</a></p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="item">
-                    <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image11.jpg" alt=""></a></div>
-                    <div class="item-content">
-                      <h3>05</h3>
-                      <p class="ellipsis"><a href="#">The great age of the Post Office is past, here and indeed all over the ...</a></p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="item">
-                    <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image12.jpg" alt=""></a></div>
-                    <div class="item-content">
-                      <h3>06</h3>
-                      <p class="ellipsis"><a href="#"> World's biggest cruise ship is 'a construction site'.</a></p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="item">
-                    <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image13.jpg" alt=""></a></div>
-                    <div class="item-content">
-                      <h3>07</h3>
-                      <p class="ellipsis"><a href="#"> Zika: Experts call for Rio Olympic Games move over virus</a></p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="item">
-                    <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image14.jpg" alt=""></a></div>
-                    <div class="item-content">
-                      <h3>08</h3>
-                      <p class="ellipsis"><a href="#"> Why do I need to sign in with my TV service provider information? </a></p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="item">
-                    <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image15.jpg" alt=""></a></div>
-                    <div class="item-content">
-                      <h3>09</h3>
-                      <p class="ellipsis"><a href="#"> Your TV subscription is your key to watching TV online. </a></p>
-                    </div>
-                  </div>
-                </li>
+                <?php endforeach; ?>
               </ul>
             </div>
             <!--========== END .SIDEBAR-POST ==========-->
-             <!--========== BEGIN #WEATHER ==========-->
-            <div id='weather' class='sidebar-weather'> 
+             <!--========== BEGIN #WEATHER (hidden: no data source) ==========-->
+            <?php if (false): ?>
+            <div id='weather' class='sidebar-weather'>
               <!-- Begin .block-title-1 -->
               <div class="block-title-1">
                 <div class='weather-city-text'></div>
@@ -993,31 +796,36 @@
                 </div>
               </div>
             </div>
-            <!--========== END  #WEATHER ==========--> 
+            <?php endif; ?>
+            <!--========== END  #WEATHER ==========-->
           </div>
           <!--========== END .COL-MD-4 ==========--> 
         </div>
-        <!--========== BEGIN 24H NEWS ON-AIR ==========--> 
+        <!--========== BEGIN ON-AIR (live radio/TV streams) ==========-->
+          <?php $streams = active_streams(); if ($streams): ?>
           <!-- Begin .outer -->
           <div class="outer">
             <div class="breaking-ribbon">
-              <h5>24h News On-Air</h5>
+              <h5>On Air Now</h5>
             </div>
             <!-- Begin .newsticker -->
             <div class="news-on-air">
               <ul>
+                <?php foreach ($streams as $st): ?>
                 <li>
-                  <h4><i class="fa fa-video-camera" aria-hidden="true"></i> <a href="#">Watch 24h News Streaming Live Online</a></h4>
+                  <h4><i class="fa fa-microphone" aria-hidden="true"></i> <a href="<?= e($st['stream_url']) ?>" target="_blank" rel="noopener">Listen live: <?= e($st['name']) ?></a></h4>
                 </li>
+                <?php endforeach; ?>
               </ul>
               <div class="navi">
                 <button class="up"><i class="fa fa-caret-left"></i></button>
                 <button class="down"><i class="fa fa-caret-right"></i></button>
               </div>
             </div>
-            <!-- End .outer --> 
+            <!-- End .outer -->
           </div>
-          <!--========== END 24H NEWS ON-AIR ==========--> 
+          <?php endif; ?>
+          <!--========== END ON-AIR ==========-->
       </div>
     </section>
     <!--========== END .MODULE ==========--> 
@@ -1029,103 +837,79 @@
           <div class="col-md-8">
             <div class="news">
               <div class="module-title">
-                <h3 class="title"><span class="bg-2">Health News</span></h3>
-                <h3 class="subtitle">Watch the latest health news</h3>
+                <h3 class="title"><span class="bg-2">Health &amp; Lifestyle</span></h3>
+                <h3 class="subtitle">Wellbeing on campus</h3>
               </div>
+              <?php
+              $healthCat = category_by_slug('health-lifestyle');
+              [$healthList] = $healthCat ? published_in_category((int) $healthCat['id'], 5, 0) : [[]];
+              if (!$healthList) { $healthList = published_articles(5); }
+              $healthLead = $healthList[0] ?? null;
+              if ($healthLead): ?>
               <!-- Begin .item -->
               <div class="item">
-                <div class="item-image-1"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image19.jpg" alt=""></a></div>
+                <div class="item-image-1"><a class="img-link" href="article?slug=<?= e($healthLead['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($healthLead) ?: 'img/index_800x400-image19.jpg') ?>" alt="<?= e(a_title($healthLead)) ?>"></a></div>
                 <div class="item-content">
                   <div class="title-left title-style04 underline04">
-                    <h3><a href="#"><strong>Global</strong> Health Priorities</a></h3>
+                    <h3><a href="article?slug=<?= e($healthLead['slug']) ?>"><?= e(a_title($healthLead)) ?></a></h3>
                   </div>
                   <br>
                   <div class="post-meta-elements">
-                    <div class="post-meta-author"> <i class="fa fa-user"></i><a href="#">By Hugh Jackson</a> </div>
-                    <div class="post-meta-date"> <i class="fa fa-calendar"></i>December 25, 2016 </div>
+                    <div class="post-meta-date"> <i class="fa fa-calendar"></i> <?= e(date('M j, Y', strtotime($healthLead['published_at'] ?: $healthLead['created_at']))) ?> </div>
                   </div>
-                  <p><a href="#" target="_blank" class="external-link">Health has gained importance on the global agenda.</a></p>
-                  <p><a href="#" target="_blank" class="external-link">In this article three issues are considered: global health policy actors, global health priorities...</a></p>
-                  <p><a href="#" target="_blank" class="external-link">Robot performs surgery on soft tissue better than human hands.</a></p>
-                  <div> <a href="#"><span class="read-more">Continue reading</span></a> </div>
+                  <p><a href="article?slug=<?= e($healthLead['slug']) ?>" class="external-link"><?= e(a_excerpt($healthLead)) ?></a></p>
+                  <div> <a href="article?slug=<?= e($healthLead['slug']) ?>"><span class="read-more">Continue reading</span></a> </div>
                 </div>
               </div>
               <!-- End .item -->
               <div class="news-block">
+                <?php foreach (array_slice($healthList, 1, 4) as $hb): ?>
                 <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image32.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day"> 20 Dec</span>
-                    <p><a href="#">Health Daily Politics</a></p>
+                  <div class="item-image"><a class="img-link" href="article?slug=<?= e($hb['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($hb) ?: 'img/index_800x400-image32.jpg') ?>" alt="<?= e(a_title($hb)) ?>"></a></div>
+                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day"><?= e(date('M j', strtotime($hb['published_at'] ?: $hb['created_at']))) ?></span>
+                    <p><a href="article?slug=<?= e($hb['slug']) ?>"><?= e(a_title($hb)) ?></a></p>
                   </div>
                 </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image33.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day"> 15 Dec</span>
-                    <p><a href="#">Our's Mental Health</a></p>
-                  </div>
-                </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image34.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day"> 13 Dec</span>
-                    <p><a href="#">Health Magazine</a></p>
-                  </div>
-                </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image35.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day"> 8 Dec</span>
-                    <p><a href="#">Health Social Care</a> 
-                  </p></div>
-                </div>
+                <?php endforeach; ?>
               </div>
+              <?php endif; ?>
               <div class="module-title">
-                <h3 class="title"><span class="bg-9">School Report</span></h3>
-                <h3 class="subtitle">Watch the latest report news</h3>
+                <h3 class="title"><span class="bg-9">Research &amp; Innovation</span></h3>
+                <h3 class="subtitle">Academic work and student projects</h3>
               </div>
+              <?php
+              $resCat = category_by_slug('research-innovation');
+              [$resList] = $resCat ? published_in_category((int) $resCat['id'], 5, 0) : [[]];
+              if (!$resList) { $resList = published_articles(5); }
+              $resLead = $resList[0] ?? null;
+              if ($resLead): ?>
               <!-- Begin .item -->
               <div class="item">
-                <div class="item-image-1"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image20.jpg" alt=""></a></div>
+                <div class="item-image-1"><a class="img-link" href="article?slug=<?= e($resLead['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($resLead) ?: 'img/index_800x400-image20.jpg') ?>" alt="<?= e(a_title($resLead)) ?>"></a></div>
                 <div class="item-content">
                   <div class="title-left title-style04 underline04">
-                    <h3><a href="#"><strong>Improve</strong> pupils' concentration?</a></h3>
+                    <h3><a href="article?slug=<?= e($resLead['slug']) ?>"><?= e(a_title($resLead)) ?></a></h3>
                   </div>
                   <br>
                   <div class="post-meta-elements">
-                    <div class="post-meta-author"> <i class="fa fa-user"></i><a href="#">By Hugh Jackson</a> </div>
-                    <div class="post-meta-date"> <i class="fa fa-calendar"></i>December 25, 2016 </div>
+                    <div class="post-meta-date"> <i class="fa fa-calendar"></i> <?= e(date('M j, Y', strtotime($resLead['published_at'] ?: $resLead['created_at']))) ?> </div>
                   </div>
-                  <p><a href="#" target="_blank" class="external-link">Mindfulness is a psychological technique which is said to help combat stress.</a></p>
-                  <p><a href="#" target="_blank" class="external-link">According to the Mindfulness in School Project...</a></p>
-                  <p><a href="#" target="_blank" class="external-link"> Sometimes these types of travel experiences are funded by savings...</a></p>
-                  <div> <a href="#"><span class="read-more">Continue reading</span></a> </div>
+                  <p><a href="article?slug=<?= e($resLead['slug']) ?>" class="external-link"><?= e(a_excerpt($resLead)) ?></a></p>
+                  <div> <a href="article?slug=<?= e($resLead['slug']) ?>"><span class="read-more">Continue reading</span></a> </div>
                 </div>
               </div>
               <!-- End .item -->
               <div class="news-block">
+                <?php foreach (array_slice($resList, 1, 4) as $rb): ?>
                 <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image36.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day">16 Dec</span>
-                    <p><a href="#">Our school bans energy</a></p>
+                  <div class="item-image"><a class="img-link" href="article?slug=<?= e($rb['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($rb) ?: 'img/index_800x400-image36.jpg') ?>" alt="<?= e(a_title($rb)) ?>"></a></div>
+                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day"><?= e(date('M j', strtotime($rb['published_at'] ?: $rb['created_at']))) ?></span>
+                    <p><a href="article?slug=<?= e($rb['slug']) ?>"><?= e(a_title($rb)) ?></a></p>
                   </div>
                 </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image37.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day">16 Dec</span>
-                    <p><a href="#">School report news day</a></p>
-                  </div>
-                </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image38.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day">20 Dec</span>
-                    <p><a href="#">School report news day</a></p>
-                  </div>
-                </div>
-                <div class="item-block">
-                  <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image39.jpg" alt=""></a></div>
-                  <div class="item-content"><i class="fa fa-clock-o"></i> <span class="day">22 Dec</span>
-                    <p><a href="#">School report radio</a></p>
-                  </div>
-                </div>
+                <?php endforeach; ?>
               </div>
+              <?php endif; ?>
             </div>
             <!--========== BEGIN NEWS==========--> 
             <!--========== BEGIN .PAGINATION ==========-->
@@ -1143,37 +927,41 @@
           <!--========== END .C0L-MD-8 ==========--> 
           <!--========== BEGIN .C0L-MD-4 ==========-->
           <div class="col-md-4"> 
-            <!--========== BEGIN EXCHANGE RATES==========--> 
-            <!-- Begin .block-title-3 -->
-            <div class="block-title-3">
-              <h3>exchange rates</h3>
+            <!--========== BEGIN OPPORTUNITIES ==========-->
+            <?php
+            $oppCat = category_by_slug('opportunities');
+            [$oppList] = $oppCat ? published_in_category((int) $oppCat['id'], 5, 0) : [[]];
+            // Include Career Hub items too if Opportunities is thin.
+            if (count($oppList) < 5) {
+                $careerCat = category_by_slug('career-hub');
+                if ($careerCat) { [$careerList] = published_in_category((int) $careerCat['id'], 5, 0); $oppList = array_merge($oppList, $careerList); }
+            }
+            $oppList = array_slice($oppList, 0, 5);
+            if ($oppList): ?>
+            <div class="block-title-1">
+              <h3><a href="section?cat=opportunities"><strong>Opportunities</strong></a></h3>
             </div>
-            <!-- End .block-title-3 -->
-            <div class="currency">
-              <h3>Date<span id="cdate"></span></h3>
-              <h5>Base USD</h5>
-              <hr>
-              <h3>EXCHANGE RATES</h3>
-              <hr>
-              <div class="rates">
-                <div class="row">
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    <h4>EUR<span id="euro"></span></h4>
-                    <h4>GBP<span id="pound"></span></h4>
-                    <h4>JPY<span id="yen"></span></h4>
-                    <h4>CHF<span id="franc"></span></h4>
-                  </div>
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    <h4>CAD<span id="cdollar"></span></h4>
-                    <h4>AUD<span id="adollar"></span></h4>
-                    <h4>RON<span id="ron"></span></h4>
-                    <h4>RUB<span id="rub"></span></h4>
-                  </div>
-                </div>
+            <div class="sidebar-newsfeed">
+              <div class="newsfeed-3">
+                <ul>
+                  <?php foreach ($oppList as $op): ?>
+                  <li>
+                    <div class="item">
+                      <div class="item-image"><a class="img-link" href="article?slug=<?= e($op['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($op) ?: 'img/index_370x185-image01.jpg') ?>" alt="<?= e(a_title($op)) ?>"></a></div>
+                      <div class="item-content">
+                        <h4 class="ellipsis"><a href="article?slug=<?= e($op['slug']) ?>"><?= e(a_title($op)) ?></a></h4>
+                        <p class="ellipsis"><i class="fa fa-graduation-cap"></i> <?= e($op['category_name'] ?? 'Opportunity') ?></p>
+                      </div>
+                    </div>
+                  </li>
+                  <?php endforeach; ?>
+                </ul>
               </div>
             </div>
-            <!--========== END EXCHANGE RATES==========--> 
-            <!--========== BEGIN CURRENCY CONVERTER==========--> 
+            <?php endif; ?>
+            <!--========== END OPPORTUNITIES ==========-->
+            <!--========== BEGIN CURRENCY CONVERTER (hidden: not relevant) ==========-->
+            <?php if (false): ?>
             <!-- Begin .block-title-3 -->
             <div class="block-title-3">
               <h3>currency converter</h3>
@@ -1199,19 +987,48 @@
               <input type="submit" value="convert" class="currencySubmit btn btn-default">
               <p class="output"></p>
             </form>
-            <!--========== END CURRENCY CONVERTER ==========--> 
-            <!--========== BEGIN .CALENDAR ==========-->
-            <div id='calendar'></div>
-            <!--========== END .CALENDAR ==========--> 
-            <!--========== BEGIN #SIDEBAR-NEWSLETTER ==========-->
-            <div id="sidebar-newsletter"> 
-              <!-- Begin .title-style01 -->
-              <div class="title-style01">
-                <h3><strong>Newsletter</strong></h3>
+            <?php endif; ?>
+            <!--========== END CURRENCY CONVERTER ==========-->
+            <!--========== BEGIN .CALENDAR (hidden: no data source) ==========-->
+            <?php if (false): ?><div id='calendar'></div><?php endif; ?>
+            <!--========== END .CALENDAR ==========-->
+            <!--========== BEGIN .ANNOUNCEMENTS (replaces the calendar) ==========-->
+            <?php
+            $annCat = category_by_slug('announcements');
+            [$annList] = $annCat ? published_in_category((int) $annCat['id'], 5, 0) : [[]];
+            if (!$annList) { $annList = published_articles(5); }
+            if ($annList): ?>
+            <div class="block-title-1">
+              <h3><a href="section.php?cat=announcements"><strong>Announcements</strong></a></h3>
+            </div>
+            <div class="sidebar-newsfeed">
+              <div class="newsfeed-3">
+                <ul>
+                  <?php foreach ($annList as $an): ?>
+                  <li>
+                    <div class="item">
+                      <div class="item-image"><a class="img-link" href="article?slug=<?= e($an['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($an) ?: 'img/index_370x185-image01.jpg') ?>" alt="<?= e(a_title($an)) ?>"></a></div>
+                      <div class="item-content">
+                        <h4 class="ellipsis"><a href="article?slug=<?= e($an['slug']) ?>"><?= e(a_title($an)) ?></a></h4>
+                        <p class="ellipsis"><i class="fa fa-calendar"></i> <?= e(date('M j, Y', strtotime($an['published_at'] ?: $an['created_at']))) ?></p>
+                      </div>
+                    </div>
+                  </li>
+                  <?php endforeach; ?>
+                </ul>
               </div>
+            </div>
+            <?php endif; ?>
+            <!--========== END .ANNOUNCEMENTS ==========-->
+            <!--========== BEGIN #SIDEBAR-NEWSLETTER ==========-->
+            <!-- <div id="sidebar-newsletter">  -->
+              <!-- Begin .title-style01 -->
+              <!-- <div class="title-style01"> -->
+                <!-- <h3><strong>Newsletter</strong></h3> -->
+              <!-- </div> -->
               <!-- End .title-style01 --> 
               <!-- Begin .sidebar-newsletter-form -->
-              <div class="sidebar-newsletter-form">
+              <!-- <div class="sidebar-newsletter-form">
                 <form class="form-horizontal" action="include/subscribe.php" id="subscribeForm" method="POST">
                   <div class="input-group">
                     <input title="Newsletter" class="form-control" name="email" type="email" id="address" placeholder="Enter Your Email Address" data-validate="validate(required, email)" required="">
@@ -1219,18 +1036,18 @@
                     <button type="submit" class="btn btn-success">Subscribe</button>
                     </span> </div>
                 </form>
-                <span id="result" class="alertMsg"></span> </div>
+                <span id="result" class="alertMsg"></span> </div> -->
               <!-- End .sidebar-newsletter-form -->  
-            </div>
+            <!-- </div> -->
             <!--========== END #SIDEBAR-NEWSLETTER ==========--> 
             <!--========== BEGIN #SIDEBAR-SOCIAL-BUTTONS ==========-->
-            <div class="sidebar-social-icons"> 
+            <!-- <div class="sidebar-social-icons">  -->
               <!-- Begin .title-style01 -->
-              <div class="title-style01">
+              <!-- <div class="title-style01">
                 <h3><strong>Stay</strong> Connected</h3>
-              </div>
+              </div> -->
               <!-- End .title-style01 -->
-              <ul>
+              <!-- <ul>
                 <li> <a href="#" class="facebook"><i class="fa fa-facebook"></i></a> </li>
                 <li> <a href="#" class="youtube"><i class="fa fa-youtube"></i></a> </li>
                 <li> <a href="#" class="twitter"><i class="fa fa-twitter"></i></a> </li>
@@ -1239,8 +1056,8 @@
                 <li> <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a> </li>
                 <li> <a href="#" class="rss"><i class="fa fa-rss"></i></a> </li>
                 <li> <a href="#" class="tumblr"><i class="fa fa-tumblr"></i></a> </li>
-              </ul>
-            </div>
+              </ul> -->
+            <!-- </div> -->
             <!--========== END #SIDEBAR-SOCIAL-BUTTONS ==========--> 
           </div>
           <!--========== END .C0L-MD-4 ==========--> 
@@ -1254,37 +1071,19 @@
       <div class="container"> 
         <!--========== BEGIN SMALL-GALLERY ==========--> 
         <!-- Begin .carousel-title -->
-        <h3 class="carousel-title">Home Carousel</h3>
-        <!-- End .carousel-title --> 
+        <h3 class="carousel-title">More Stories</h3>
+        <!-- End .carousel-title -->
         <!-- Begin .gallery-slider owl-carousel -->
         <div id="small-gallery-slider" class="owl-carousel">
-          <div class="small-gallery"> <img class="img-responsive" src="img/index_108x108_slider-image01.jpg" alt="">
-            <div class="post-content"> <a href="watch-live.html">Watch Live 24/7</a>
-              <p><a href="watch-live.html">What this generation's watching.</a></p>
-              <i class="fa fa-clock-o"></i><span class="day"> Fri, 23 Dec, 2016</span> </div>
+          <?php foreach (published_articles(10) as $sg): ?>
+          <div class="small-gallery"> <img class="img-responsive" src="<?= e(a_image($sg) ?: 'img/index_108x108_slider-image01.jpg') ?>" alt="<?= e(a_title($sg)) ?>">
+            <div class="post-content"> <a href="article?slug=<?= e($sg['slug']) ?>"><?= e($sg['category_name'] ?? 'News') ?></a>
+              <p><a href="article?slug=<?= e($sg['slug']) ?>"><?= e(a_title($sg)) ?></a></p>
+              <i class="fa fa-clock-o"></i><span class="day"> <?= e(date('D, j M, Y', strtotime($sg['published_at'] ?: $sg['created_at']))) ?></span> </div>
           </div>
-          <div class="small-gallery"> <img class="img-responsive" src="img/index_108x108_slider-image02.jpg" alt="">
-            <div class="post-content"> <a href="24-tv-radio.html">24 TV & Radio </a>
-              <p><a href="24-tv-radio.html">Sport station could follow 24h3 in going off air.</a></p>
-              <i class="fa fa-clock-o"></i><span class="day"> Fri, 23 Dec, 2016</span> </div>
-          </div>
-          <div class="small-gallery"> <img class="img-responsive" src="img/index_108x108_slider-image03.jpg" alt="">
-            <div class="post-content"> <a href="web-shows.html">Web Shows </a>
-              <p><a href="web-shows.html">Promoted Links From around the Web.</a></p>
-              <i class="fa fa-clock-o"></i> <span class="day"> Fri, 23 Dec, 2016</span> </div>
-          </div>
-          <div class="small-gallery"> <img class="img-responsive" src="img/index_108x108_slider-image04.jpg" alt="">
-            <div class="post-content"> <a href="24-news-store.html">News Store </a>
-              <p><a href="24-news-store.html">Everything | Stories | Interactives | iReport |</a></p>
-              <i class="fa fa-clock-o"></i> <span class="day"> Fri, 23 Dec, 2016</span> </div>
-          </div>
-          <div class="small-gallery"> <img class="img-responsive" src="img/index_108x108_slider-image05.jpg" alt="">
-            <div class="post-content"> <a href="business.html">Business </a>
-              <p><a href="business.html">the Co.hired advisers at investment bank </a></p>
-              <i class="fa fa-clock-o"></i> <span class="day"> Fri, 23 Dec, 2016</span> </div>
-          </div>
+          <?php endforeach; ?>
         </div>
-        <!-- End .gallery-slider owl-carousel --> 
+        <!-- End .gallery-slider owl-carousel -->
         <!--========== END SMALL-GALLERY ==========--> 
         <!-- Begin .bottom-add-place-->
         <div class="bottom-add-place"></div>
