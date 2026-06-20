@@ -801,27 +801,31 @@
           </div>
           <!--========== END .COL-MD-4 ==========--> 
         </div>
-        <!--========== BEGIN 24H NEWS ON-AIR ==========--> 
+        <!--========== BEGIN ON-AIR (live radio/TV streams) ==========-->
+          <?php $streams = active_streams(); if ($streams): ?>
           <!-- Begin .outer -->
           <div class="outer">
             <div class="breaking-ribbon">
-              <h5>24h News On-Air</h5>
+              <h5>On Air Now</h5>
             </div>
             <!-- Begin .newsticker -->
             <div class="news-on-air">
               <ul>
+                <?php foreach ($streams as $st): ?>
                 <li>
-                  <h4><i class="fa fa-video-camera" aria-hidden="true"></i> <a href="#">Watch 24h News Streaming Live Online</a></h4>
+                  <h4><i class="fa fa-microphone" aria-hidden="true"></i> <a href="<?= e($st['stream_url']) ?>" target="_blank" rel="noopener">Listen live: <?= e($st['name']) ?></a></h4>
                 </li>
+                <?php endforeach; ?>
               </ul>
               <div class="navi">
                 <button class="up"><i class="fa fa-caret-left"></i></button>
                 <button class="down"><i class="fa fa-caret-right"></i></button>
               </div>
             </div>
-            <!-- End .outer --> 
+            <!-- End .outer -->
           </div>
-          <!--========== END 24H NEWS ON-AIR ==========--> 
+          <?php endif; ?>
+          <!--========== END ON-AIR ==========-->
       </div>
     </section>
     <!--========== END .MODULE ==========--> 
@@ -923,36 +927,39 @@
           <!--========== END .C0L-MD-8 ==========--> 
           <!--========== BEGIN .C0L-MD-4 ==========-->
           <div class="col-md-4"> 
-            <!--========== BEGIN EXCHANGE RATES==========--> 
-            <!-- Begin .block-title-3 -->
-            <div class="block-title-3">
-              <h3>exchange rates</h3>
+            <!--========== BEGIN OPPORTUNITIES ==========-->
+            <?php
+            $oppCat = category_by_slug('opportunities');
+            [$oppList] = $oppCat ? published_in_category((int) $oppCat['id'], 5, 0) : [[]];
+            // Include Career Hub items too if Opportunities is thin.
+            if (count($oppList) < 5) {
+                $careerCat = category_by_slug('career-hub');
+                if ($careerCat) { [$careerList] = published_in_category((int) $careerCat['id'], 5, 0); $oppList = array_merge($oppList, $careerList); }
+            }
+            $oppList = array_slice($oppList, 0, 5);
+            if ($oppList): ?>
+            <div class="block-title-1">
+              <h3><a href="section?cat=opportunities"><strong>Opportunities</strong></a></h3>
             </div>
-            <!-- End .block-title-3 -->
-            <div class="currency">
-              <h3>Date<span id="cdate"></span></h3>
-              <h5>Base USD</h5>
-              <hr>
-              <h3>EXCHANGE RATES</h3>
-              <hr>
-              <div class="rates">
-                <div class="row">
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    <h4>EUR<span id="euro"></span></h4>
-                    <h4>GBP<span id="pound"></span></h4>
-                    <h4>JPY<span id="yen"></span></h4>
-                    <h4>CHF<span id="franc"></span></h4>
-                  </div>
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    <h4>CAD<span id="cdollar"></span></h4>
-                    <h4>AUD<span id="adollar"></span></h4>
-                    <h4>RON<span id="ron"></span></h4>
-                    <h4>RUB<span id="rub"></span></h4>
-                  </div>
-                </div>
+            <div class="sidebar-newsfeed">
+              <div class="newsfeed-3">
+                <ul>
+                  <?php foreach ($oppList as $op): ?>
+                  <li>
+                    <div class="item">
+                      <div class="item-image"><a class="img-link" href="article?slug=<?= e($op['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($op) ?: 'img/index_370x185-image01.jpg') ?>" alt="<?= e(a_title($op)) ?>"></a></div>
+                      <div class="item-content">
+                        <h4 class="ellipsis"><a href="article?slug=<?= e($op['slug']) ?>"><?= e(a_title($op)) ?></a></h4>
+                        <p class="ellipsis"><i class="fa fa-graduation-cap"></i> <?= e($op['category_name'] ?? 'Opportunity') ?></p>
+                      </div>
+                    </div>
+                  </li>
+                  <?php endforeach; ?>
+                </ul>
               </div>
             </div>
-            <!--========== END EXCHANGE RATES==========--> 
+            <?php endif; ?>
+            <!--========== END OPPORTUNITIES ==========-->
             <!--========== BEGIN CURRENCY CONVERTER (hidden: not relevant) ==========-->
             <?php if (false): ?>
             <!-- Begin .block-title-3 -->
@@ -1014,14 +1021,14 @@
             <?php endif; ?>
             <!--========== END .ANNOUNCEMENTS ==========-->
             <!--========== BEGIN #SIDEBAR-NEWSLETTER ==========-->
-            <div id="sidebar-newsletter"> 
+            <!-- <div id="sidebar-newsletter">  -->
               <!-- Begin .title-style01 -->
-              <div class="title-style01">
-                <h3><strong>Newsletter</strong></h3>
-              </div>
+              <!-- <div class="title-style01"> -->
+                <!-- <h3><strong>Newsletter</strong></h3> -->
+              <!-- </div> -->
               <!-- End .title-style01 --> 
               <!-- Begin .sidebar-newsletter-form -->
-              <div class="sidebar-newsletter-form">
+              <!-- <div class="sidebar-newsletter-form">
                 <form class="form-horizontal" action="include/subscribe.php" id="subscribeForm" method="POST">
                   <div class="input-group">
                     <input title="Newsletter" class="form-control" name="email" type="email" id="address" placeholder="Enter Your Email Address" data-validate="validate(required, email)" required="">
@@ -1029,18 +1036,18 @@
                     <button type="submit" class="btn btn-success">Subscribe</button>
                     </span> </div>
                 </form>
-                <span id="result" class="alertMsg"></span> </div>
+                <span id="result" class="alertMsg"></span> </div> -->
               <!-- End .sidebar-newsletter-form -->  
-            </div>
+            <!-- </div> -->
             <!--========== END #SIDEBAR-NEWSLETTER ==========--> 
             <!--========== BEGIN #SIDEBAR-SOCIAL-BUTTONS ==========-->
-            <div class="sidebar-social-icons"> 
+            <!-- <div class="sidebar-social-icons">  -->
               <!-- Begin .title-style01 -->
-              <div class="title-style01">
+              <!-- <div class="title-style01">
                 <h3><strong>Stay</strong> Connected</h3>
-              </div>
+              </div> -->
               <!-- End .title-style01 -->
-              <ul>
+              <!-- <ul>
                 <li> <a href="#" class="facebook"><i class="fa fa-facebook"></i></a> </li>
                 <li> <a href="#" class="youtube"><i class="fa fa-youtube"></i></a> </li>
                 <li> <a href="#" class="twitter"><i class="fa fa-twitter"></i></a> </li>
@@ -1049,8 +1056,8 @@
                 <li> <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a> </li>
                 <li> <a href="#" class="rss"><i class="fa fa-rss"></i></a> </li>
                 <li> <a href="#" class="tumblr"><i class="fa fa-tumblr"></i></a> </li>
-              </ul>
-            </div>
+              </ul> -->
+            <!-- </div> -->
             <!--========== END #SIDEBAR-SOCIAL-BUTTONS ==========--> 
           </div>
           <!--========== END .C0L-MD-4 ==========--> 
@@ -1064,37 +1071,19 @@
       <div class="container"> 
         <!--========== BEGIN SMALL-GALLERY ==========--> 
         <!-- Begin .carousel-title -->
-        <h3 class="carousel-title">Home Carousel</h3>
-        <!-- End .carousel-title --> 
+        <h3 class="carousel-title">More Stories</h3>
+        <!-- End .carousel-title -->
         <!-- Begin .gallery-slider owl-carousel -->
         <div id="small-gallery-slider" class="owl-carousel">
-          <div class="small-gallery"> <img class="img-responsive" src="img/index_108x108_slider-image01.jpg" alt="">
-            <div class="post-content"> <a href="watch-live.html">Watch Live 24/7</a>
-              <p><a href="watch-live.html">What this generation's watching.</a></p>
-              <i class="fa fa-clock-o"></i><span class="day"> Fri, 23 Dec, 2016</span> </div>
+          <?php foreach (published_articles(10) as $sg): ?>
+          <div class="small-gallery"> <img class="img-responsive" src="<?= e(a_image($sg) ?: 'img/index_108x108_slider-image01.jpg') ?>" alt="<?= e(a_title($sg)) ?>">
+            <div class="post-content"> <a href="article?slug=<?= e($sg['slug']) ?>"><?= e($sg['category_name'] ?? 'News') ?></a>
+              <p><a href="article?slug=<?= e($sg['slug']) ?>"><?= e(a_title($sg)) ?></a></p>
+              <i class="fa fa-clock-o"></i><span class="day"> <?= e(date('D, j M, Y', strtotime($sg['published_at'] ?: $sg['created_at']))) ?></span> </div>
           </div>
-          <div class="small-gallery"> <img class="img-responsive" src="img/index_108x108_slider-image02.jpg" alt="">
-            <div class="post-content"> <a href="24-tv-radio.html">24 TV & Radio </a>
-              <p><a href="24-tv-radio.html">Sport station could follow 24h3 in going off air.</a></p>
-              <i class="fa fa-clock-o"></i><span class="day"> Fri, 23 Dec, 2016</span> </div>
-          </div>
-          <div class="small-gallery"> <img class="img-responsive" src="img/index_108x108_slider-image03.jpg" alt="">
-            <div class="post-content"> <a href="web-shows.html">Web Shows </a>
-              <p><a href="web-shows.html">Promoted Links From around the Web.</a></p>
-              <i class="fa fa-clock-o"></i> <span class="day"> Fri, 23 Dec, 2016</span> </div>
-          </div>
-          <div class="small-gallery"> <img class="img-responsive" src="img/index_108x108_slider-image04.jpg" alt="">
-            <div class="post-content"> <a href="24-news-store.html">News Store </a>
-              <p><a href="24-news-store.html">Everything | Stories | Interactives | iReport |</a></p>
-              <i class="fa fa-clock-o"></i> <span class="day"> Fri, 23 Dec, 2016</span> </div>
-          </div>
-          <div class="small-gallery"> <img class="img-responsive" src="img/index_108x108_slider-image05.jpg" alt="">
-            <div class="post-content"> <a href="business.html">Business </a>
-              <p><a href="business.html">the Co.hired advisers at investment bank </a></p>
-              <i class="fa fa-clock-o"></i> <span class="day"> Fri, 23 Dec, 2016</span> </div>
-          </div>
+          <?php endforeach; ?>
         </div>
-        <!-- End .gallery-slider owl-carousel --> 
+        <!-- End .gallery-slider owl-carousel -->
         <!--========== END SMALL-GALLERY ==========--> 
         <!-- Begin .bottom-add-place-->
         <div class="bottom-add-place"></div>

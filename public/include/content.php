@@ -274,3 +274,14 @@ function published_in_category(int $categoryId, int $limit = 12, int $offset = 0
     $stmt->execute($ids);
     return [$stmt->fetchAll(), $total];
 }
+
+/** Active radio/TV streams (e.g. Salus Radio) for the On-Air ticker. */
+function active_streams(): array
+{
+    try {
+        $stmt = db()->query('SELECT name, stream_url FROM radio_streams WHERE is_active = 1 ORDER BY id');
+        return $stmt->fetchAll();
+    } catch (PDOException $e) {
+        return [];
+    }
+}
