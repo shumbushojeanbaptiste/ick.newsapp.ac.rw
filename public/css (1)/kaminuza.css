@@ -105,6 +105,36 @@
     #hero-slider .caption h5     { font-size: .9em; }
 }
 
+/* ---- Footer fixes ----
+   The footer logo was forced to 44px (too small for the EAUR banner). And the
+   social-icons bar was a fixed 160px = room for only 4 icons, so the 5th
+   (LinkedIn) wrapped and left an empty gap below the footer. Widen + no-wrap. */
+#footer .site-logo img {
+    width: auto !important;
+    max-width: 160px;
+    max-height: 56px;
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+}
+#footer .site-logo h3 {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+.footer-social-icons {
+    width: auto !important;
+    white-space: nowrap;
+}
+.footer-social-icons ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.footer-social-icons li {
+    list-style: none;
+}
+
 /* ---- Header logo spacing ----
    The theme reserved a tall gap above the logo (margin-top:34px) sized for the
    old text logo. With the compact EAUR image logo this leaves too much empty
