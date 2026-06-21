@@ -99,86 +99,50 @@
     </section>
     <!--========== END .MODULE ==========--> 
     <!--========== BEGIN .MODULE ==========-->
+    <?php
+    // Latest published articles, split into two columns of two (same 2x2 layout
+    // as the original theme block). Label colours cycle like the demo did.
+    $latest = published_articles(4);
+    $latestCols = array_chunk($latest, 2);
+    $labelClass = ['label-1', 'label-3', 'label-5', 'label-2'];
+    $li = 0;
+    ?>
     <section class="module highlight">
       <div class="container">
         <div class="module-title">
-          <h3 class="title"><span class="bg-1">World News</span></h3>
-          <h3 class="subtitle">Watch the latest news</h3>
+          <h3 class="title"><span class="bg-1">Latest News</span></h3>
+          <h3 class="subtitle">The newest stories from <?= e(site_name()) ?></h3>
         </div>
         <!--========== BEGIN .ROW ==========-->
-        <div class="row no-gutter"> 
+        <div class="row no-gutter">
+          <?php if ($latest): foreach ($latestCols as $col): ?>
           <!--========== BEGIN .COL-MD-6 ==========-->
-          <div class="col-sm-6 col-md-6"> 
+          <div class="col-sm-6 col-md-6">
             <!--========== BEGIN .NEWS ==========-->
-            <div class="news"> 
+            <div class="news">
+              <?php foreach ($col as $a): $cls = $labelClass[$li % 4]; $li++; ?>
               <!-- Begin .item -->
               <div class="item">
-                <div class="item-image-1"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image01.jpg" alt=""></a><span><a class="label-1" href="news.html">News</a></span></div>
+                <div class="item-image-1"><a class="img-link" href="article.php?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_800x400-image01.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a><span><a class="<?= $cls ?>" href="section.php?cat=<?= e($a['category_slug'] ?? '') ?>"><?= e($a['category_name'] ?? 'News') ?></a></span></div>
                 <div class="item-content">
                   <div class="title-left title-style04 underline04">
-                    <h3><a href="#"><strong>Migrant</strong> Crisis</a></h3>
+                    <h3><a href="article.php?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h3>
                   </div>
-                  <p><a href="#" target="_blank" class="external-link">The proposal involves resettling one Syrian refugee in Europe for each</a></p>
-                  <p><a href="#" target="_blank" class="external-link">The U.N. says the mass return of refugees to a third country would</a></p>
-                  <div><a href="news.html" target="_blank"><span class="read-more">News</span></a></div>
+                  <p><a href="article.php?slug=<?= e($a['slug']) ?>" class="external-link"><?= e(a_excerpt($a)) ?></a></p>
+                  <div><a href="article.php?slug=<?= e($a['slug']) ?>"><span class="read-more">Read more</span></a></div>
                 </div>
               </div>
-              <!-- End .item --> 
-              <!-- Begin .item -->
-              <div class="item">
-                <div class="item-image-1"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image02.jpg" alt=""></a><span><a class="label-3" href="politics.html">Politics</a></span></div>
-                <div class="item-content">
-                  <div class="title-left title-style04 underline04">
-                    <h3><a href="#"><strong>Smith's</strong> Team</a></h3>
-                  </div>
-                  <p><a href="#" target="_blank" class="external-link">Democratic presidential candidate Smith speaks with supporters...</a></p>
-                  <p><a href="#" target="_blank" class="external-link">On International Women’s Day, we celebrate women around the world...</a></p>
-                  <div><a href="politics.html" target="_blank"><span class="read-more">Politics</span></a></div>
-                </div>
-              </div>
-              <!-- End .item --> 
+              <!-- End .item -->
+              <?php endforeach; ?>
             </div>
-            <!--========== END .NEWS ==========--> 
+            <!--========== END .NEWS ==========-->
           </div>
-          <!--========== END .COL-MD-6 ==========--> 
-          <!--========== BEGIN .COL-MD-6 ==========-->
-          <div class="col-sm-6 col-md-6"> 
-            <!--========== BEGIN .NEWS==========-->
-            <div class="news"> 
-              <!-- Begin .item-->
-              <div class="item">
-                <div class="item-image-1"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image03.jpg" alt=""></a><span><a class="label-5" href="tech-science.html">Science</a></span></div>
-                <div class="item-content">
-                  <div class="title-left title-style04 underline04">
-                    <h3><a href="#"><strong>Indonesia</strong></a></h3>
-                  </div>
-                  <p><a href="#" target="_blank" class="external-link">Image caption Belitung in Indonesia was the best place to witness...</a></p>
-                  <p><a href="#" target="_blank" class="external-link">Millions of people across Indonesia and Pacific have experienced a total</a></p>
-                  <div><a href="tech-science.html" target="_blank"><span class="read-more">Tech-Science</span></a></div>
-                </div>
-              </div>
-              <!-- End .item--> 
-              <!-- Begin .item -->
-              <div class="item">
-                <div class="item-image-1"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image04.jpg" alt=""></a><span><a class="label-2" href="health.html">Health</a></span></div>
-                <div class="item-content">
-                  <div class="title-left title-style04 underline04">
-                    <h3><a href="#"><strong>Global</strong> Health</a></h3>
-                  </div>
-                  <p><a href="#" target="_blank" class="external-link">Global health has been defined as an area of study and research, that</a></p>
-                  <p><a href="#" target="_blank" class="external-link">Everyone has the right to a standard of living adequate for the health and</a> </p>
-                  <div><a href="health.html" target="_blank"><span class="read-more">Health</span></a></div>
-                </div>
-              </div>
-              <!-- End .item --> 
-            </div>
-            <!--========== END .NEWS ==========--> 
-          </div>
-          <!--========== END .COL-MD-6 ==========--> 
+          <!--========== END .COL-MD-6 ==========-->
+          <?php endforeach; endif; ?>
         </div>
       </div>
     </section>
-    <!--========== END .MODULE ==========--> 
+    <!--========== END .MODULE ==========-->
     <!--========== BEGIN .MODULE ==========-->
     <section class="module">
       <div class="container">
@@ -189,60 +153,27 @@
             <div class="news">
               <div class="module-title">
                 <h3 class="title"><span class="bg-11">National News</span></h3>
-                <h3 class="subtitle">Latest News in details</h3>
+                <h3 class="subtitle">Latest news in detail</h3>
               </div>
+              <?php
+              // Next batch of published articles (skip the 4 already shown above).
+              $national = published_articles(8);
+              $national = array_slice($national, 4, 4);
+              $natLabels = ['label-2', 'label-1', 'label-5', 'label-6'];
+              foreach ($national as $ni => $a): ?>
               <!-- Begin .item-->
               <div class="item">
-                <div class="item-image-2"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image05.jpg" alt=""></a><span><a class="label-2" href="politics.html">Politics</a></span> </div>
+                <div class="item-image-2"><a class="img-link" href="article.php?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_800x400-image05.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a><span><a class="<?= $natLabels[$ni % 4] ?>" href="section.php?cat=<?= e($a['category_slug'] ?? '') ?>"><?= e($a['category_name'] ?? 'News') ?></a></span> </div>
                 <div class="item-content">
                   <div class="title-left title-style04 underline04">
-                    <h3><a href="#"><strong>Woman</strong> in Mission Hills</a></h3>
+                    <h3><a href="article.php?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h3>
                   </div>
-                  <p><a href="#"> A man and a woman were arrested after he allegedly fired off several rounds from a moving car</a></p>
-                  <p><a href="#" target="_blank" class="external-link">The male passenger was arrested for firing the gun and one of the women</a></p>
-                  <div> <a href="politics.html" target="_blank"><span class="read-more">Politics</span></a> </div>
+                  <p><a href="article.php?slug=<?= e($a['slug']) ?>" class="external-link"><?= e(a_excerpt($a)) ?></a></p>
+                  <div> <a href="article.php?slug=<?= e($a['slug']) ?>"><span class="read-more">Read more</span></a> </div>
                 </div>
               </div>
-              <!-- End .item--> 
-              <!-- Begin .item-->
-              <div class="item">
-                <div class="item-image-2"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image06.jpg" alt=""></a><span><a class="label-1" href="news.html">News</a></span> </div>
-                <div class="item-content">
-                  <div class="title-left title-style04 underline04">
-                    <h3><a href="#"><strong> Mother</strong> Hopes Renewed </a></h3>
-                  </div>
-                  <p><a href="#" target="_blank" class="external-link">3 Years After Man’s Death, Grieving Mother Hopes Renewed Reward Will Help Find Son’s Killer.</a></p>
-                  <p><a href="#" target="_blank" class="external-link">A $20,000 reward was being renewed for information that will help solve the case</a></p>
-                  <div> <a href="24-news-store.html" target="_blank"><span class="read-more">24 News Store</span></a> </div>
-                </div>
-              </div>
-              <!-- End .item--> 
-              <!-- Begin .item-->
-              <div class="item">
-                <div class="item-image-2"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image07.jpg" alt=""></a><span><a class="label-5" href="business.html">Economy</a></span> </div>
-                <div class="item-content">
-                  <div class="title-left title-style04 underline04">
-                    <h3><a href="#"><strong>The Larger</strong> Economy?</a></h3>
-                  </div>
-                  <p><a href="#" target="_blank" class="external-link">How Do Non-Profits Affect The Larger Economy?</a></p>
-                  <p><a href="#" target="_blank" class="external-link">According to the Bureau of Labor and Statistics, an aging population will entry-post to a greater need in our societies</a></p>
-                  <div> <a href="watch-live.html" target="_blank"><span class="read-more">Watch Live</span></a> </div>
-                </div>
-              </div>
-              <!-- End .item--> 
-              <!-- Begin .item-->
-              <div class="item">
-                <div class="item-image-2"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_800x400-image08.jpg" alt=""></a><a class="label-6" href="business.html">Business</a> </div>
-                <div class="item-content">
-                  <div class="title-left title-style04 underline04">
-                    <h3><a href="#"><strong>Technology</strong> of Business </a></h3>
-                  </div>
-                  <p><a href="#" target="_blank" class="external-link">A mixed business - features, merits and demerits, is a golden mean between a capitalist business and a socialist business.</a></p>
-                  <p><a href="#" target="_blank" class="external-link">It is an economic system where the price mechanism</a></p>
-                  <div> <a href="business.html" target="_blank"><span class="read-more">Business</span></a> </div>
-                </div>
-              </div>
-              <!-- End .item--> 
+              <!-- End .item-->
+              <?php endforeach; ?>
             </div>
             <!--========== End .NEWS ==========--> 
           </div>
@@ -254,68 +185,29 @@
             <!-- End .sidebar-add-place --> 
             <!-- Begin .block-title-1 -->
             <div class="block-title-1">
-              <h3><a href="#"><strong>24h News</strong> Feed</a></h3>
+              <h3><a href="index.php"><strong><?= e(site_name()) ?></strong> Feed</a></h3>
             </div>
-            <!-- End .block-title-1 --> 
+            <!-- End .block-title-1 -->
             <!--========== BEGIN .SIDEBAR-NEWSFEED ==========-->
-            <div class="sidebar-newsfeed"> 
+            <div class="sidebar-newsfeed">
               <!-- Begin .newsfeed -->
               <div class="newsfeed-3">
                 <ul>
+                  <?php
+                  // Recent published stories for the side feed (kept separate from
+                  // the main grids above by taking a fresh recent set).
+                  $feed = published_articles(6);
+                  foreach ($feed as $a): ?>
                   <li>
                     <div class="item">
-                      <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image01.jpg" alt=""></a></div>
+                      <div class="item-image"><a class="img-link" href="article.php?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_370x185-image01.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a></div>
                       <div class="item-content">
-                        <h4 class="ellipsis"><a href="#">From propaganda to pop artist</a></h4>
-                        <p class="ellipsis"><a href="#">A gift for drawing led to a prestigious career as artist...</a></p>
+                        <h4 class="ellipsis"><a href="article.php?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h4>
+                        <p class="ellipsis"><a href="article.php?slug=<?= e($a['slug']) ?>"><?= e(a_excerpt($a)) ?></a></p>
                       </div>
                     </div>
                   </li>
-                  <li>
-                    <div class="item">
-                      <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image02.jpg" alt=""></a></div>
-                      <div class="item-content">
-                        <h4 class="ellipsis"><a href="#">One Type of Food You Never Eat</a></h4>
-                        <p class="ellipsis"><a href="#">No one has ever felt better after eating plane food.</a></p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item">
-                      <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image03.jpg" alt=""></a></div>
-                      <div class="item-content">
-                        <h4 class="ellipsis"><a href="#">Preschool</a></h4>
-                        <p class="ellipsis"><a href="#">Your child should feel confident in her ability to meet the challenges...</a></p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item">
-                      <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image04.jpg" alt=""></a></div>
-                      <div class="item-content">
-                        <h4 class="ellipsis"><a href="#">Antarctica Stations</a></h4>
-                        <p class="ellipsis"><a href="#">New research factors in collapsing Antarctic ice sheet that could...</a></p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item">
-                      <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image05.jpg" alt=""></a></div>
-                      <div class="item-content">
-                        <h4 class="ellipsis"><a href="#">Yellow fever outbreak</a></h4>
-                        <p class="ellipsis"><a href="#">Drug manufacturers globally produce just enough vaccines for...</a></p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item">
-                      <div class="item-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/index_370x185-image06.jpg" alt=""></a></div>
-                      <div class="item-content">
-                        <h4 class="ellipsis"><a href="#">How To Succeed In</a></h4>
-                        <p class="ellipsis"><a href="#">How to achieve business success in a certain sector or country.</a></p>
-                      </div>
-                    </div>
-                  </li>
+                  <?php endforeach; ?>
                 </ul>
               </div>
               <!-- End .newsfeed --> 

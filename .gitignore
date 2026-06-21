@@ -1,4 +1,9 @@
+# Ignore .html /Admin/ and /Public/ directories (built assets)
+/Admin/*.html
+/Admin/**/*.html
 
+/public/*.html
+/public/**/*.html
 # Environment file with real credentials (never commit). Use .env.example instead.
 .env
 
