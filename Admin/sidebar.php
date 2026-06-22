@@ -65,6 +65,38 @@ $isActive = static fn(string $key): string => $activeMenu === $key ? ' active' :
                 </li>
                 <?php endif; ?>
 
+                <?php if (can('publish')):
+                    // Show a badge with the number of comments awaiting moderation.
+                    $pendingComments = 0;
+                    try {
+                        $pendingComments = (int) db()->query("SELECT COUNT(*) FROM article_comments WHERE status='pending'")->fetchColumn();
+                    } catch (Throwable $e) { /* table may not exist yet */ }
+                ?>
+                <li class="nav-item">
+                    <a class="nav-link menu-link<?= $isActive('comments') ?>" href="comments/index.php">
+                        <i class="ri-chat-3-line"></i> <span>Comments</span>
+                        <?php if ($pendingComments > 0): ?>
+                            <span class="badge bg-danger rounded-pill ms-auto"><?= $pendingComments ?></span>
+                        <?php endif; ?>
+                    </a>
+                </li>
+
+                <?php
+                    $unreadMessages = 0;
+                    try {
+                        $unreadMessages = (int) db()->query("SELECT COUNT(*) FROM contact_messages WHERE is_read=0")->fetchColumn();
+                    } catch (Throwable $e) { /* table may not exist yet */ }
+                ?>
+                <li class="nav-item">
+                    <a class="nav-link menu-link<?= $isActive('messages') ?>" href="messages/index.php">
+                        <i class="ri-mail-line"></i> <span>Messages</span>
+                        <?php if ($unreadMessages > 0): ?>
+                            <span class="badge bg-danger rounded-pill ms-auto"><?= $unreadMessages ?></span>
+                        <?php endif; ?>
+                    </a>
+                </li>
+                <?php endif; ?>
+
                 <?php if (can('manage_radio')): ?>
                 <li class="nav-item">
                     <a class="nav-link menu-link<?= $isActive('radio') ?>" href="radio/index.php">

@@ -39,15 +39,15 @@ require __DIR__ . '/header.php';
 
       <?php if (!$category): ?>
         <div class="module-title">
-          <h3 class="title"><span class="bg-1">Section not found</span></h3>
-          <h3 class="subtitle">The page you’re looking for doesn’t exist.</h3>
+          <h3 class="title"><span class="bg-1"><?= e(t("section_not_found")) ?></span></h3>
+          <h3 class="subtitle"><?= e(t("section_not_found_sub")) ?></h3>
         </div>
-        <p><a href="index.php" class="read-more">&laquo; Back to home</a></p>
+        <p><a href="index.php" class="read-more">&laquo; <?= e(t("back_home")) ?></a></p>
 
       <?php else: ?>
         <div class="module-title">
-          <h3 class="title"><span class="bg-1"><?= e($category['name']) ?></span></h3>
-          <h3 class="subtitle">Latest in <?= e($category['name']) ?></h3>
+          <h3 class="title"><span class="bg-1"><?= e(cat_name($category)) ?></span></h3>
+          <h3 class="subtitle"><?= e(t("latest_in")) ?> <?= e(cat_name($category)) ?></h3>
         </div>
 
         <div class="row no-gutter">
@@ -56,14 +56,14 @@ require __DIR__ . '/header.php';
             <!--========== BEGIN .ARTICLE ==========-->
             <div class="article">
               <?php if (!$articles): ?>
-                <p class="text-muted" style="padding:20px 0;">No articles published in this section yet.</p>
+                <p class="text-muted" style="padding:20px 0;"><?= e(t('no_articles')) ?></p>
               <?php else: foreach ($articles as $a): ?>
               <div class="entry-block-small">
                 <div class="entry-image"><a class="img-link" href="article?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/news_800x400-image05.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a></div>
                 <div class="entry-content">
                   <h4><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?> <span class="day"><?= e(date('M j, Y', strtotime($a['published_at'] ?: $a['created_at']))) ?></span></a></h4>
                   <p><a href="article?slug=<?= e($a['slug']) ?>" class="external-link"><?= e(a_excerpt($a)) ?></a></p>
-                  <div><a href="article?slug=<?= e($a['slug']) ?>"><span class="read-more"><?= e($a['category_name'] ?? $category['name']) ?></span></a></div>
+                  <div><a href="article?slug=<?= e($a['slug']) ?>"><span class="read-more"><?= e(cat_name($a) ?: cat_name($category)) ?></span></a></div>
                 </div>
               </div>
               <?php endforeach; endif; ?>

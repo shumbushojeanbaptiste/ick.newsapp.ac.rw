@@ -37,10 +37,50 @@
         }, true);
     }
 
+    // Like / dislike on the single-article page (AJAX, instant). Posts to
+    // react.php and updates the counts + active state without a page reload.
+    function initReactions() {
+        var box = document.getElementById('kz-reactions');
+        if (!box) { return; }
+        var articleId = box.getAttribute('data-article');
+        box.addEventListener('click', function (e) {
+            var btn = e.target.closest('.kz-react');
+            if (!btn) { return; }
+            var reaction = btn.getAttribute('data-reaction');
+            btn.disabled = true;
+            var data = new URLSearchParams();
+            data.append('article_id', articleId);
+            data.append('reaction', reaction);
+            fetch('react.php', { method: 'POST', body: data, credentials: 'same-origin' })
+                .then(function (r) { return r.json(); })
+                .then(function (j) {
+                    if (!j.ok) { return; }
+                    box.querySelector('[data-count="like"]').textContent = j.likes;
+                    box.querySelector('[data-count="dislike"]').textContent = j.dislikes;
+                    box.querySelector('.kz-like').classList.toggle('is-active', j.mine === 'like');
+                    box.querySelector('.kz-dislike').classList.toggle('is-active', j.mine === 'dislike');
+                })
+                .catch(function () {})
+                .then(function () { btn.disabled = false; });
+        });
+    }
+
+    // Auto-dismiss the comment notice (the "submitted/error" message) after 5s.
+    function initNoticeDismiss() {
+        var note = document.querySelector('.kz-note');
+        if (!note) { return; }
+        setTimeout(function () {
+            note.classList.add('kz-fade-out');
+            setTimeout(function () { note.remove(); }, 600);
+        }, 5000);
+    }
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', function () { init(); initReactions(); initNoticeDismiss(); });
     } else {
         init();
+        initReactions();
+        initNoticeDismiss();
     }
 
     // Hero slider: rotate the top featured stories using the theme's own
