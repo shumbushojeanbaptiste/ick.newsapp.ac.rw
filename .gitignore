@@ -1,6 +1,16 @@
 
+# Ignore HTML files in Admin
+/Admin/**/*.html
+/Admin/*.html
+
+# Ignore HTML files in public
+/public/**/*.html
+/public/*.html
 # Environment file with real credentials (never commit). Use .env.example instead.
 .env
 
 # Composer dependencies (restored with `composer install`)
 /vendor/
+
+## static upload file
+Admin/uploads/

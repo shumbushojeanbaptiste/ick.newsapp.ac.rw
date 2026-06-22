@@ -1,14 +1,7 @@
-# UR KAMINUZA - public site URL rewriting.
-# Lets links omit the .php extension (e.g. /section?cat=news, /article?slug=x).
-<IfModule mod_rewrite.c>
-    RewriteEngine On
 
-    # If the request maps to an existing file or directory, serve it as-is.
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d
-    RewriteRule ^ - [L]
+RewriteEngine On
 
-    # Otherwise, if "<request>.php" exists, serve that (keeps the query string).
-    RewriteCond %{REQUEST_FILENAME}\.php -f
-    RewriteRule ^(.+?)/?$ $1.php [L,QSA]
-</IfModule>
+RewristateCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+
