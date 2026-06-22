@@ -11,3 +11,6 @@
 
 # Composer dependencies (restored with `composer install`)
 /vendor/
+
+## static upload file
+Admin/uploads/

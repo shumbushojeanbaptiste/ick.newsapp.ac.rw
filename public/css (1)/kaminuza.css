@@ -105,6 +105,104 @@
     #hero-slider .caption h5     { font-size: .9em; }
 }
 
+/* ---- Uniform article thumbnails across the homepage ----
+   The theme had no fixed image heights (its demo images were pre-cropped). With
+   dynamic images of varied dimensions, heights differed and broke alignment.
+   We pin each image type to a fixed height and crop with object-fit:cover so
+   every thumbnail in a block is the same size, regardless of the uploaded image. */
+
+/* News grids (2-col and lists) */
+.item .item-image-1 img,
+.item .item-image-2 img,
+.item .item-image-3 img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+/* Small list / sidebar thumbnails */
+.item .item-image img,
+.entry-post .item .item-image img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    display: block;
+}
+/* News.html-style horizontal blocks */
+.entry-block-small .entry-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+/* Small mini-strip blocks */
+.news-block .item-block .item-image img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+}
+/* Section/article sidebar feed thumbnails */
+.sidebar-newsfeed .item-image img,
+.sidebar-post .item-image img {
+    width: 100%;
+    height: 70px;
+    object-fit: cover;
+    display: block;
+}
+
+/* ---- Multimedia gallery (big-gallery carousel) ----
+   The theme only set width:100% on gallery images, so a tall image stayed tall
+   and broke the row alignment. Give each slide a fixed height and crop the
+   image to fill it, so every gallery item is the same uniform size. */
+.big-gallery {
+    height: 220px;
+}
+.big-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+/* "More Stories" small-gallery carousel: uniform image height too. */
+.small-gallery img {
+    width: 100% !important;
+    height: 180px;
+    object-fit: cover;
+    float: none !important;
+    display: block;
+}
+
+/* ---- Footer fixes ----
+   The footer logo was forced to 44px (too small for the EAUR banner). And the
+   social-icons bar was a fixed 160px = room for only 4 icons, so the 5th
+   (LinkedIn) wrapped and left an empty gap below the footer. Widen + no-wrap. */
+#footer .site-logo img {
+    width: auto !important;
+    max-width: 160px;
+    max-height: 56px;
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+}
+#footer .site-logo h3 {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+.footer-social-icons {
+    width: auto !important;
+    white-space: nowrap;
+}
+.footer-social-icons ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.footer-social-icons li {
+    list-style: none;
+}
+
 /* ---- Header logo spacing ----
    The theme reserved a tall gap above the logo (margin-top:34px) sized for the
    old text logo. With the compact EAUR image logo this leaves too much empty
