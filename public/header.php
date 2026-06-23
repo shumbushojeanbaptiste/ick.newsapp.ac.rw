@@ -59,15 +59,27 @@
         <!-- End .left-top-menu --> 
         <!-- Begin .right-top-menu -->
         <ul class="right-top-menu pull-right">
-          <li class="contact"><a href="contact.html"><i class="fa fa-map-marker fa-i"></i></a></li>
+          <?php
+          // Language switcher with flag + full name. Picks the site language,
+          // which persists in the session and filters content to that language.
+          $curLang = current_lang();
+          $langLabels = [
+              'rw' => ['flag' => '🇷🇼', 'name' => 'KINYARWANDA'],
+              'en' => ['flag' => '🇬🇧', 'name' => 'ENGLISH'],
+              'fr' => ['flag' => '🇫🇷', 'name' => 'FRANCAIS'],
+          ];
+          foreach ($langLabels as $code => $l): ?>
+          <li class="lang-switch"><a href="?lang=<?= $code ?>"<?= $curLang === $code ? ' class="active-lang"' : '' ?>><span class="lang-flag"><?= $l['flag'] ?></span> <?= $l['name'] ?></a></li>
+          <?php endforeach; ?>
+          <li class="contact"><a href="contact" title="Contact us"><i class="fa fa-map-marker fa-i"></i></a></li>
           <li class="about"><a href="<?= e(ADMIN_BASE) ?>login.php" title="Staff Login"><i class="fa fa-user fa-i"></i></a> </li>
           <li>
-            <div class="search-container">
-              <div class="search-icon-btn"> <span style="cursor:pointer"><i class="fa fa-search"></i></span> </div>
+            <form class="search-container" action="search" method="get" role="search">
+              <button type="submit" class="search-icon-btn" style="background:none;border:0;"> <span style="cursor:pointer"><i class="fa fa-search"></i></span> </button>
               <div class="search-input">
-                <input type="search" class="search-bar" placeholder="Search..." title="Search">
+                <input type="search" name="q" class="search-bar" value="<?= e($_GET['q'] ?? '') ?>" placeholder="<?= e(t('search_placeholder')) ?>" title="Search">
               </div>
-            </div>
+            </form>
           </li>
         </ul>
         <!-- End .right-top-menu --> 
@@ -97,15 +109,15 @@
             <div class="sidenav-header-logo"><a href="index.php"><img src="<?= e(logo_url()) ?>" alt="<?= e(site_name()) ?>"></a></div>
           </div>
           <ul class="sidenav-menu">
-            <li><a href="index.php" class="<?= ($GLOBALS['active_section'] ?? '') === '' ? 'active' : '' ?>">Home</a></li>
+            <li><a href="index.php" class="<?= ($GLOBALS['active_section'] ?? '') === '' ? 'active' : '' ?>"><?= e(t("home")) ?></a></li>
             <?php foreach (nav_top_sections() as $sec):
                 $kids = nav_children((int) $sec['id']); ?>
-              <li><a href="section?cat=<?= e($sec['slug']) ?>"><?= e($sec['name']) ?></a>
+              <li><a href="section?cat=<?= e($sec['slug']) ?>"><?= e(cat_name($sec)) ?></a>
                 <?php if ($kids): ?>
                 <div class="icon-sub-menu" data-sidenav-dropdown-toggle=""><span class="sidenav-dropdown-icon show" data-sidenav-dropdown-icon=""></span><span class="sidenav-dropdown-icon up-icon" data-sidenav-dropdown-icon=""></span></div>
                 <ul class="sidenav-dropdown" data-sidenav-dropdown="">
                   <?php foreach ($kids as $kid): ?>
-                  <li><a href="section?cat=<?= e($kid['slug']) ?>"><?= e($kid['name']) ?></a></li>
+                  <li><a href="section?cat=<?= e($kid['slug']) ?>"><?= e(cat_name($kid)) ?></a></li>
                   <?php endforeach; ?>
                 </ul>
                 <?php endif; ?>
@@ -125,22 +137,22 @@
         <div class="container"> 
           <!-- Begin .nav navbar-nav (built from the category tree) -->
           <ul class="nav navbar-nav">
-            <li<?= ($GLOBALS['active_section'] ?? '') === '' ? ' class="active"' : '' ?>><a href="index.php">Home</a></li>
+            <li<?= ($GLOBALS['active_section'] ?? '') === '' ? ' class="active"' : '' ?>><a href="index.php"><?= e(t("home")) ?></a></li>
             <?php foreach (nav_top_sections() as $sec):
                 $kids = nav_children((int) $sec['id']);
                 $isActive = ($GLOBALS['active_section'] ?? '') === $sec['slug'];
             ?>
               <?php if ($kids): ?>
               <li class="dropdown<?= $isActive ? ' active' : '' ?>">
-                <a href="section?cat=<?= e($sec['slug']) ?>" class="dropdown-toggle" data-toggle="dropdown"><?= e($sec['name']) ?></a>
+                <a href="section?cat=<?= e($sec['slug']) ?>" class="dropdown-toggle" data-toggle="dropdown"><?= e(cat_name($sec)) ?></a>
                 <ul class="dropdown-menu">
                   <?php foreach ($kids as $kid): ?>
-                  <li><a href="section?cat=<?= e($kid['slug']) ?>"><?= e($kid['name']) ?></a></li>
+                  <li><a href="section?cat=<?= e($kid['slug']) ?>"><?= e(cat_name($kid)) ?></a></li>
                   <?php endforeach; ?>
                 </ul>
               </li>
               <?php else: ?>
-              <li<?= $isActive ? ' class="active"' : '' ?>><a href="section?cat=<?= e($sec['slug']) ?>"><?= e($sec['name']) ?></a></li>
+              <li<?= $isActive ? ' class="active"' : '' ?>><a href="section?cat=<?= e($sec['slug']) ?>"><?= e(cat_name($sec)) ?></a></li>
               <?php endif; ?>
             <?php endforeach; ?>
           </ul>
@@ -161,10 +173,10 @@
               // Quick links: label stays, URL comes from Settings (falls back to
               // a sensible internal page). Edit the URLs in Admin > Settings.
               $quickLinks = [
-                  'Salus Radio'  => setting('quick_radio')      ?: '#',
-                  'Latest News'  => setting('quick_latest')     ?: 'section?cat=news',
-                  'Multimedia'   => setting('quick_multimedia') ?: 'section?cat=multimedia',
-                  'About Us'     => setting('quick_about')       ?: 'page?slug=about-us',
+                  'Salus Radio'        => setting('quick_radio')      ?: '#',
+                  t('latest_news')     => setting('quick_latest')     ?: 'section?cat=news',
+                  cat_name(category_by_slug('multimedia') ?: ['name' => 'Multimedia']) => setting('quick_multimedia') ?: 'section?cat=multimedia',
+                  t('about_us')        => setting('quick_about')       ?: 'page?slug=about-us',
               ];
               foreach ($quickLinks as $label => $url): ?>
               <li><a href="<?= e($url) ?>"><?= e($label) ?></a></li>

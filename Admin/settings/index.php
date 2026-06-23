@@ -10,7 +10,9 @@ $basePath   = '../';
 // Text fields we accept from the form.
 $textKeys = [
     'company_name', 'tagline', 'about',
-    'contact_email', 'contact_phone', 'address',
+    'contact_email', 'contact_phone', 'address', 'contact_website',
+    // Contact page: Google Map embed + the address replies are sent FROM.
+    'contact_map_embed', 'contact_reply_email',
     'facebook', 'twitter', 'instagram', 'youtube', 'linkedin',
     // Advert links (theme colour is static, based on the logo — not editable)
     'header_ad_link', 'sidebar_ad_link', 'sidebar_tall_ad_link', 'midpage_ad_link',
@@ -48,6 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($_POST['contact_email']) && !filter_var($_POST['contact_email'], FILTER_VALIDATE_EMAIL)) {
         $errors[] = 'Contact email is not valid.';
+    }
+    if (!empty($_POST['contact_reply_email']) && !filter_var($_POST['contact_reply_email'], FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'Reply-from email is not valid.';
     }
 
     // Advert image uploads (each optional). Keep existing value unless replaced.
@@ -146,9 +151,22 @@ require_once __DIR__ . '/../header.php';
                                         <label class="form-label" for="contact_phone">Phone</label>
                                         <input type="text" name="contact_phone" id="contact_phone" class="form-control" value="<?= e($val('contact_phone')) ?>">
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-md-6">
                                         <label class="form-label" for="address">Address</label>
                                         <input type="text" name="address" id="address" class="form-control" value="<?= e($val('address')) ?>">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="contact_website">Website</label>
+                                        <input type="text" name="contact_website" id="contact_website" class="form-control" value="<?= e($val('contact_website')) ?>" placeholder="https://...">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label" for="contact_reply_email">Reply-from email <span class="text-muted fw-normal">(replies to contact messages are sent from this address)</span></label>
+                                        <input type="email" name="contact_reply_email" id="contact_reply_email" class="form-control" value="<?= e($val('contact_reply_email')) ?>" placeholder="e.g. info@kaminuza.rw">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label" for="contact_map_embed">Google Map embed link</label>
+                                        <input type="text" name="contact_map_embed" id="contact_map_embed" class="form-control" value="<?= e($val('contact_map_embed')) ?>" placeholder="Paste the src URL from Google Maps → Share → Embed a map">
+                                        <small class="text-muted">In Google Maps: find your location → <b>Share</b> → <b>Embed a map</b> → copy the link inside <code>src="…"</code> (or paste the whole iframe — we’ll extract it).</small>
                                     </div>
                                 </div>
                             </div>

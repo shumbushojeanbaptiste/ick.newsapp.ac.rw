@@ -173,6 +173,121 @@
     display: block;
 }
 
+/* ===========================================================================
+   Single article — readability polish + byline + reactions + comments
+   =========================================================================== */
+.post-full .entry-title { font-size: 1.55em; line-height: 1.25; font-weight: 800; margin-bottom: 12px; }
+.post-full .post-meta-elements { border-bottom: 1px solid #eee; padding-bottom: 12px; margin-bottom: 18px; }
+.post-full .post-meta-author strong { color: #c1262d; }
+.post-full .entry-content { font-size: 1.02em; line-height: 1.8; color: #2c2c2c; }
+.post-full .entry-content p { margin-bottom: 1.15em; }
+.post-full .entry-content h2,
+.post-full .entry-content h3 { margin: 1.3em 0 .5em; font-weight: 700; }
+.post-full .entry-content img { max-width: 100%; height: auto; border-radius: 4px; margin: .6em 0; }
+.post-full .entry-content blockquote {
+    border-left: 4px solid #c1262d; background: #faf7f7; margin: 1.2em 0;
+    padding: .8em 1.2em; font-style: italic; color: #444;
+}
+.post-full .entry-media img { width: 100%; border-radius: 4px; }
+
+/* Bottom byline */
+.kz-byline-foot {
+    margin-top: 26px; padding: 12px 16px; background: #f6f6f6; border-radius: 4px;
+    color: #555; font-size: 14px;
+}
+.kz-byline-foot i { color: #c1262d; margin-right: 6px; }
+
+/* Like / dislike */
+.kz-reactions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 22px 0 6px; }
+.kz-reactions__label { font-weight: 700; margin-right: 6px; color: #333; }
+.kz-react {
+    display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+    border: 1px solid #ddd; background: #fff; color: #444; border-radius: 30px;
+    padding: 7px 16px; font-size: 14px; transition: all .15s ease;
+}
+.kz-react:hover { border-color: #bbb; }
+.kz-react .kz-count { font-weight: 700; }
+.kz-like.is-active   { background: #e8f5e9; border-color: #4caf50; color: #2e7d32; }
+.kz-dislike.is-active{ background: #fdecea; border-color: #e57373; color: #c62828; }
+
+/* Comments */
+.kz-comments { margin-top: 38px; }
+.kz-comments__n { color: #999; font-weight: 400; font-size: .7em; }
+.kz-note { padding: 12px 16px; border-radius: 4px; margin-bottom: 18px; font-size: 14px; }
+.kz-note--ok  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+.kz-note--err { background: #fdecea; color: #c62828; border: 1px solid #ef9a9a; }
+.kz-comment-list { list-style: none; padding: 0; margin: 0 0 26px; }
+.kz-comment { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
+.kz-comment__avatar {
+    flex: 0 0 42px; height: 42px; width: 42px; border-radius: 50%;
+    background: #c1262d; color: #fff; font-weight: 700; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+}
+.kz-comment__head { margin-bottom: 4px; }
+.kz-comment__name { font-weight: 700; color: #222; }
+.kz-comment__date { color: #999; font-size: 12px; margin-left: 8px; }
+.kz-comment__text { margin: 0; color: #333; line-height: 1.6; }
+.kz-no-comments { padding: 14px 0 22px; }
+
+/* Comment form */
+.kz-comment-form { background: #f8f8f8; border-radius: 6px; padding: 20px; }
+.kz-comment-form h4 { margin-top: 0; font-weight: 700; }
+.kz-comment-form .form-control { margin-bottom: 12px; }
+.kz-comment-form textarea { resize: vertical; }
+.kz-btn-submit {
+    background: #c1262d; color: #fff; border: 0; border-radius: 4px;
+    padding: 10px 26px; font-weight: 700; cursor: pointer; transition: background .15s;
+}
+.kz-btn-submit:hover { background: #a31f25; }
+.kz-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+/* Auto-dismiss fade for the comment notice */
+.kz-note { transition: opacity .5s ease; }
+.kz-note.kz-fade-out { opacity: 0; }
+
+/* Single article — responsive (phones/tablets) */
+@media (max-width: 767px) {
+    .post-full .entry-title { font-size: 1.3em; }
+    .post-full .entry-content { font-size: 1em; line-height: 1.75; }
+    .post-full .post-meta-elements { font-size: 13px; }
+    .kz-reactions { gap: 8px; }
+    .kz-react { padding: 6px 12px; font-size: 13px; }
+    .kz-reactions__label { flex-basis: 100%; margin-bottom: 4px; }
+    .kz-comment-form { padding: 14px; }
+    .kz-comment__avatar { flex: 0 0 36px; height: 36px; width: 36px; font-size: 16px; }
+    /* Stack the article above the sidebar with breathing room. */
+    .post.post-full { margin-bottom: 8px; }
+    .col-md-8 + .col-md-4 { margin-top: 24px; }
+}
+@media (max-width: 480px) {
+    .post-full .entry-title { font-size: 1.18em; }
+    .kz-react__txt { display: none; }   /* compact: icon + count only on tiny screens */
+}
+
+/* ---- Contact page info list ---- */
+.kz-contact-info { list-style: none; padding: 0; margin: 0; }
+.kz-contact-info li { display: flex; gap: 14px; margin-bottom: 22px; }
+.kz-contact-info li i {
+    flex: 0 0 42px; height: 42px; width: 42px; border-radius: 50%;
+    background: #c1262d; color: #fff; display: flex; align-items: center;
+    justify-content: center; font-size: 18px;
+}
+.kz-contact-info li span { line-height: 1.5; color: #444; }
+.kz-contact-info li a { color: #c1262d; }
+
+/* ---- Language switcher (flag + full name) ---- */
+.right-top-menu .lang-switch a .lang-flag { margin-right: 4px; font-size: 13px; }
+.right-top-menu .lang-switch a {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    padding: 0 6px;
+}
+.right-top-menu .lang-switch a.active-lang {
+    color: #fff;
+    text-decoration: underline;
+}
+
 /* ---- Footer fixes ----
    The footer logo was forced to 44px (too small for the EAUR banner). And the
    social-icons bar was a fixed 160px = room for only 4 icons, so the 5th

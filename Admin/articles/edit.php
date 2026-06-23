@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'radio_stream_id' => ($_POST['radio_stream_id'] ?? '') !== '' ? (int) $_POST['radio_stream_id'] : null,
         'media_type'   => in_array($_POST['media_type'] ?? '', ['none', 'video', 'audio'], true) ? $_POST['media_type'] : 'none',
         'media_url'    => trim($_POST['media_url'] ?? '') ?: null,
+        'byline'       => trim($_POST['byline'] ?? '') ?: null,
         'title_rw' => trim($_POST['title_rw'] ?? '') ?: null,
         'title_fr' => trim($_POST['title_fr'] ?? '') ?: null,
         'title_en' => trim($_POST['title_en'] ?? '') ?: null,
@@ -181,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($isEdit) {
-            $sql = 'UPDATE articles SET category_id=:category_id, author_id=:author_id, primary_lang=:primary_lang,
+            $sql = 'UPDATE articles SET category_id=:category_id, author_id=:author_id, byline=:byline, primary_lang=:primary_lang,
                         radio_stream_id=:radio_stream_id, media_type=:media_type, media_url=:media_url, media_file=:media_file,
                         title_rw=:title_rw, title_fr=:title_fr, title_en=:title_en,
                         excerpt_rw=:excerpt_rw, excerpt_fr=:excerpt_fr, excerpt_en=:excerpt_en,
@@ -199,12 +200,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             db()->prepare($sql)->execute($params);
             $articleId = $id;
         } else {
-            $sql = 'INSERT INTO articles (category_id, author_id, slug, primary_lang, radio_stream_id,
+            $sql = 'INSERT INTO articles (category_id, author_id, byline, slug, primary_lang, radio_stream_id,
                         media_type, media_url, media_file,
                         title_rw, title_fr, title_en, excerpt_rw, excerpt_fr, excerpt_en,
                         body_rw, body_fr, body_en, featured_image, status,
                         is_featured, is_breaking, is_editor_pick)
-                    VALUES (:category_id, :author_id, :slug, :primary_lang, :radio_stream_id,
+                    VALUES (:category_id, :author_id, :byline, :slug, :primary_lang, :radio_stream_id,
                         :media_type, :media_url, :media_file,
                         :title_rw, :title_fr, :title_en, :excerpt_rw, :excerpt_fr, :excerpt_en,
                         :body_rw, :body_fr, :body_en, :featured_image, :status,
@@ -452,6 +453,14 @@ require_once __DIR__ . '/../header.php';
                                         <input type="text" class="form-control" value="<?= e(current_user()['name']) ?>" disabled>
                                         <small class="text-muted">This article will be credited to you.</small>
                                     <?php endif; ?>
+                                </div>
+
+                                <div class="mt-3">
+                                    <label class="form-label">Byline <span class="text-muted fw-normal">(optional)</span></label>
+                                    <input type="text" name="byline" class="form-control"
+                                           value="<?= e($v('byline')) ?>"
+                                           placeholder="e.g. Jean Bosco / The Kaminuza Star">
+                                    <small class="text-muted">Shown as “By …” on the public article. Leave empty to use the author’s name.</small>
                                 </div>
                             </div>
                         </div>

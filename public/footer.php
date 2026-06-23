@@ -6,12 +6,12 @@
         <div class="container">
           <div class="row no-gutter">
             <div class="col-sm-6 col-md-3">
-              <h3 class="title-left title-style03 underline03">About Us</h3>
+              <h3 class="title-left title-style03 underline03"><?= e(t("about_us")) ?></h3>
               <p class="about-us"><?= e(setting('about') ?: (site_name() . ' — ' . (site_tagline() ?: 'University of Rwanda news, stories and student voices.'))) ?></p>
               <div class="site-logo"><a href="index.php"><img src="<?= e(logo_url()) ?>" alt="<?= e(site_name()) ?>"></a></div>
             </div>
             <div class="col-sm-6 col-md-3">
-              <h3 class="title-left title-style03 underline03">Latest News</h3>
+              <h3 class="title-left title-style03 underline03"><?= e(t("latest_news")) ?></h3>
               <div class="footer-post">
                 <ul>
                   <?php foreach (published_articles(4) as $fa): ?>
@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
-              <h3 class="title-left title-style03 underline03">Watch + Listen</h3>
+              <h3 class="title-left title-style03 underline03"><?= e(t("watch_listen")) ?></h3>
               <div class="footer-post">
                 <ul>
                   <?php
@@ -51,10 +51,10 @@
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
-              <h3 class="title-left title-style03 underline03">Sections</h3>
+              <h3 class="title-left title-style03 underline03"><?= e(t("sections")) ?></h3>
               <div class="tagcloud">
                 <?php foreach (nav_top_sections() as $sec): ?>
-                  <a href="section.php?cat=<?= e($sec['slug']) ?>"><?= e($sec['name']) ?></a>
+                  <a href="section.php?cat=<?= e($sec['slug']) ?>"><?= e(cat_name($sec)) ?></a>
                 <?php endforeach; ?>
               </div>
             </div>
@@ -72,7 +72,7 @@
       <!-- Begin .copyright -->
       <div class="copyright">
         &copy; <?= date('Y') ?>, <?= e(site_name()) ?>. All Rights Reserved.
-        &nbsp;|&nbsp; <a href="<?= e(ADMIN_BASE) ?>login.php">Staff Login</a>
+        &nbsp;|&nbsp; <a href="<?= e(ADMIN_BASE) ?>login.php"><?= e(t("staff_login")) ?></a>
       </div>
       <!-- End .copyright -->
       <!--  Begin .footer-social-icons -->
@@ -101,6 +101,6 @@
 <script src="js/plugins.js"></script> 
 <!-- JavaScripts -->
 <script src="js/functions.js"></script>
-<script src="js/kaminuza.js?v=3"></script>
+<script src="js/kaminuza.js?v=5"></script>
 </body>
 </html>
