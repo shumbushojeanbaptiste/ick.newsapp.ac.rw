@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center mt-sm-5 mb-4 text-white-50">
-                            <a href="login.php" class="d-inline-block auth-logo">
+                            <a href="login" class="d-inline-block auth-logo">
                                 <img src="<?= e(logo_url('light')) ?>" alt="" height="48">
                             </a>
                             <p class="mt-3 fs-15 fw-medium"><?= e(APP_NAME) ?> Admin</p>
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <?php if (!$valid): ?>
                                     <div class="alert alert-danger text-center">
                                         This reset link is invalid or has expired.
-                                        <a href="forgot-password.php">Request a new one</a>.
+                                        <a href="forgot-password">Request a new one</a>.
                                     </div>
                                 <?php else: ?>
                                     <div class="p-2">
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         </div>
                         <div class="mt-4 text-center">
-                            <p class="mb-0">Back to <a href="login.php" class="fw-semibold text-primary text-decoration-underline">Sign In</a></p>
+                            <p class="mb-0">Back to <a href="login" class="fw-semibold text-primary text-decoration-underline">Sign In</a></p>
                         </div>
                     </div>
                 </div>

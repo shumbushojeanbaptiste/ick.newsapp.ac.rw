@@ -96,14 +96,14 @@ require_once __DIR__ . '/../header.php';
                     <h4 class="mb-0">Contact Messages</h4>
                     <p class="text-muted mb-0"><?= $unread ?> unread.
                         <?php if (!$replyFromSet): ?>
-                            <span class="text-danger">Set a “Reply-from email” in <a href="settings/index.php">Settings</a> to reply.</span>
+                            <span class="text-danger">Set a “Reply-from email” in <a href="settings/index">Settings</a> to reply.</span>
                         <?php else: ?>
                             Replies are sent from <b><?= e($replyFromSet) ?></b>.
                         <?php endif; ?>
                     </p>
                 </div>
                 <?php if ($view): ?>
-                <div class="col-auto"><a href="messages/index.php" class="btn btn-light"><i class="ri-arrow-left-line align-bottom"></i> Back to inbox</a></div>
+                <div class="col-auto"><a href="messages/index" class="btn btn-light"><i class="ri-arrow-left-line align-bottom"></i> Back to inbox</a></div>
                 <?php endif; ?>
             </div>
 
@@ -181,7 +181,7 @@ require_once __DIR__ . '/../header.php';
                                             <td class="text-muted"><?= e(mb_strimwidth((string) $m['body'], 0, 60, '…')) ?></td>
                                             <td><small class="text-muted"><?= e(date('M j, Y H:i', strtotime($m['created_at']))) ?></small></td>
                                             <td class="text-end text-nowrap">
-                                                <a href="messages/index.php?id=<?= (int) $m['id'] ?>" class="btn btn-sm btn-soft-primary" title="Open / Reply"><i class="ri-eye-line"></i></a>
+                                                <a href="messages/index?id=<?= (int) $m['id'] ?>" class="btn btn-sm btn-soft-primary" title="Open / Reply"><i class="ri-eye-line"></i></a>
                                                 <form method="post" class="d-inline" onsubmit="return confirm('Delete this message?');">
                                                     <?= csrf_field() ?>
                                                     <input type="hidden" name="action" value="delete">

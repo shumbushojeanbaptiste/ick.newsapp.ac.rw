@@ -60,9 +60,9 @@ require_once __DIR__ . '/../header.php';
                     <h4 class="mb-0">Read Article</h4>
                 </div>
                 <div class="col-auto">
-                    <a href="articles/index.php" class="btn btn-light"><i class="ri-arrow-left-line align-bottom"></i> Back to list</a>
+                    <a href="articles/index" class="btn btn-light"><i class="ri-arrow-left-line align-bottom"></i> Back to list</a>
                     <?php if (can_on_article('edit', $article)): ?>
-                        <a href="articles/edit.php?id=<?= (int) $article['id'] ?>" class="btn btn-primary"><i class="ri-pencil-line align-bottom"></i> Edit</a>
+                        <a href="articles/edit?id=<?= (int) $article['id'] ?>" class="btn btn-primary"><i class="ri-pencil-line align-bottom"></i> Edit</a>
                     <?php endif; ?>
                 </div>
             </div>

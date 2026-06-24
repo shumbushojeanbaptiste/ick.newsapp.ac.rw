@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center mt-sm-5 mb-4 text-white-50">
-                            <a href="login.php" class="d-inline-block auth-logo">
+                            <a href="login" class="d-inline-block auth-logo">
                                 <img src="<?= e(logo_url('light')) ?>" alt="" height="48">
                             </a>
                             <p class="mt-3 fs-15 fw-medium"><?= e(APP_NAME) ?> Admin</p>
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         </div>
                         <div class="mt-4 text-center">
-                            <p class="mb-0">Wait, I remember my password... <a href="login.php" class="fw-semibold text-primary text-decoration-underline">Click here</a></p>
+                            <p class="mb-0">Wait, I remember my password... <a href="login" class="fw-semibold text-primary text-decoration-underline">Click here</a></p>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,23 @@
-RewriteEngine On
+# UR KAMINUZA - Admin URL rewriting (clean, extensionless URLs).
+# Replaces the old front-controller (which sent every path to index.php) with
+# extension-hiding: "/articles/index" serves "articles/index.php", and a real
+# "/articles/index.php" request 301-redirects to the clean URL.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.php [QSA,L]
+    # 1) Redirect any real ".../page.php" GET request to the clean ".../page"
+    #    URL, so the address bar never shows .php. Keeps the query string.
+    #    GET only: never redirect POSTs (would drop the form body).
+    RewriteCond %{REQUEST_METHOD} =GET
+    RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L,NE]
+
+    # 2) Existing file or directory: serve as-is.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # 3) Otherwise, if "<request>.php" exists, serve it (keep the query string).
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^(.+?)/?$ $1.php [L,QSA]
+</IfModule>

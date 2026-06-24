@@ -13,11 +13,11 @@ $isActive = static fn(string $key): string => $activeMenu === $key ? ' active' :
 <div class="app-menu navbar-menu">
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="index.php" class="logo logo-dark">
+        <a href="index" class="logo logo-dark">
             <span class="logo-sm"><img src="assets/images/logo-sm.png" alt="" height="22"></span>
             <span class="logo-lg"><img src="<?= e(logo_url('dark')) ?>" alt="" height="40"></span>
         </a>
-        <a href="index.php" class="logo logo-light">
+        <a href="index" class="logo logo-light">
             <span class="logo-sm"><img src="assets/images/logo-sm.png" alt="" height="22"></span>
             <span class="logo-lg"><img src="<?= e(logo_url('light')) ?>" alt="" height="40"></span>
         </a>
@@ -34,7 +34,7 @@ $isActive = static fn(string $key): string => $activeMenu === $key ? ' active' :
                 <li class="menu-title"><span>Menu</span></li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link<?= $isActive('dashboard') ?>" href="index.php">
+                    <a class="nav-link menu-link<?= $isActive('dashboard') ?>" href="index">
                         <i class="ri-dashboard-2-line"></i> <span>Dashboard</span>
                     </a>
                 </li>
@@ -43,7 +43,7 @@ $isActive = static fn(string $key): string => $activeMenu === $key ? ' active' :
 
                 <?php if (can('view_articles')): ?>
                 <li class="nav-item">
-                    <a class="nav-link menu-link<?= $isActive('articles') ?>" href="articles/index.php">
+                    <a class="nav-link menu-link<?= $isActive('articles') ?>" href="articles/index">
                         <i class="ri-article-line"></i> <span>Articles</span>
                     </a>
                 </li>
@@ -51,7 +51,7 @@ $isActive = static fn(string $key): string => $activeMenu === $key ? ' active' :
 
                 <?php if (can('create_article')): ?>
                 <li class="nav-item">
-                    <a class="nav-link menu-link<?= $isActive('article-new') ?>" href="articles/edit.php">
+                    <a class="nav-link menu-link<?= $isActive('article-new') ?>" href="articles/edit">
                         <i class="ri-add-circle-line"></i> <span>New Article</span>
                     </a>
                 </li>
@@ -59,7 +59,7 @@ $isActive = static fn(string $key): string => $activeMenu === $key ? ' active' :
 
                 <?php if (can('manage_categories')): ?>
                 <li class="nav-item">
-                    <a class="nav-link menu-link<?= $isActive('categories') ?>" href="categories/index.php">
+                    <a class="nav-link menu-link<?= $isActive('categories') ?>" href="categories/index">
                         <i class="ri-price-tag-3-line"></i> <span>Categories</span>
                     </a>
                 </li>
@@ -73,7 +73,7 @@ $isActive = static fn(string $key): string => $activeMenu === $key ? ' active' :
                     } catch (Throwable $e) { /* table may not exist yet */ }
                 ?>
                 <li class="nav-item">
-                    <a class="nav-link menu-link<?= $isActive('comments') ?>" href="comments/index.php">
+                    <a class="nav-link menu-link<?= $isActive('comments') ?>" href="comments/index">
                         <i class="ri-chat-3-line"></i> <span>Comments</span>
                         <?php if ($pendingComments > 0): ?>
                             <span class="badge bg-danger rounded-pill ms-auto"><?= $pendingComments ?></span>
@@ -88,7 +88,7 @@ $isActive = static fn(string $key): string => $activeMenu === $key ? ' active' :
                     } catch (Throwable $e) { /* table may not exist yet */ }
                 ?>
                 <li class="nav-item">
-                    <a class="nav-link menu-link<?= $isActive('messages') ?>" href="messages/index.php">
+                    <a class="nav-link menu-link<?= $isActive('messages') ?>" href="messages/index">
                         <i class="ri-mail-line"></i> <span>Messages</span>
                         <?php if ($unreadMessages > 0): ?>
                             <span class="badge bg-danger rounded-pill ms-auto"><?= $unreadMessages ?></span>
@@ -99,7 +99,7 @@ $isActive = static fn(string $key): string => $activeMenu === $key ? ' active' :
 
                 <?php if (can('manage_radio')): ?>
                 <li class="nav-item">
-                    <a class="nav-link menu-link<?= $isActive('radio') ?>" href="radio/index.php">
+                    <a class="nav-link menu-link<?= $isActive('radio') ?>" href="radio/index">
                         <i class="ri-radio-line"></i> <span>Radio Streams</span>
                     </a>
                 </li>
@@ -108,12 +108,12 @@ $isActive = static fn(string $key): string => $activeMenu === $key ? ' active' :
                 <?php if (can('manage_users')): ?>
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Administration</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link<?= $isActive('users') ?>" href="users/index.php">
+                    <a class="nav-link menu-link<?= $isActive('users') ?>" href="users/index">
                         <i class="ri-team-line"></i> <span>Users</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link<?= $isActive('settings') ?>" href="settings/index.php">
+                    <a class="nav-link menu-link<?= $isActive('settings') ?>" href="settings/index">
                         <i class="ri-settings-3-line"></i> <span>Settings</span>
                     </a>
                 </li>
