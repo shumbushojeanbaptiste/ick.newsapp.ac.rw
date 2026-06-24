@@ -275,8 +275,11 @@
 .kz-contact-info li span { line-height: 1.5; color: #444; }
 .kz-contact-info li a { color: #c1262d; }
 
-/* ---- Language switcher (flag + full name) ---- */
-.right-top-menu .lang-switch a .lang-flag { margin-right: 4px; font-size: 13px; }
+/* ---- Language switcher (flag image + full name) ---- */
+.right-top-menu .lang-switch a .lang-flag {
+    width: 18px; height: 12px; object-fit: cover; margin-right: 5px;
+    vertical-align: middle; border-radius: 2px;
+}
 .right-top-menu .lang-switch a {
     font-size: 11px;
     font-weight: 700;

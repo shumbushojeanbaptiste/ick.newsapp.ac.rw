@@ -13,6 +13,8 @@ $textKeys = [
     'contact_email', 'contact_phone', 'address', 'contact_website',
     // Contact page: Google Map embed + the address replies are sent FROM.
     'contact_map_embed', 'contact_reply_email',
+    // About page: four cards + editorial board text (intro reuses 'about').
+    'about_who', 'about_how', 'about_what', 'about_management', 'about_editorial',
     'facebook', 'twitter', 'instagram', 'youtube', 'linkedin',
     // Advert links (theme colour is static, based on the logo — not editable)
     'header_ad_link', 'sidebar_ad_link', 'sidebar_tall_ad_link', 'midpage_ad_link',
@@ -26,6 +28,14 @@ $adSlots = [
     'sidebar_ad_image'      => 'Sidebar banner (400×270)',
     'sidebar_tall_ad_image' => 'Tall sidebar banner (300×600)',
     'midpage_ad_image'      => 'Mid-page banner (820×100)',
+];
+
+// About-page card images (same upload pipeline, shown in the About card).
+$aboutImages = [
+    'about_who_image'        => 'Who We Are image',
+    'about_how_image'        => 'How We Work image',
+    'about_what_image'       => 'What We Do image',
+    'about_management_image' => 'Management image',
 ];
 
 
@@ -55,9 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Reply-from email is not valid.';
     }
 
-    // Advert image uploads (each optional). Keep existing value unless replaced.
+    // Image uploads (adverts + About cards). Each optional; keep existing
+    // value unless a new file is uploaded.
     $adPaths = [];
-    foreach ($adSlots as $key => $label) {
+    foreach ($adSlots + $aboutImages as $key => $label) {
         $adPaths[$key] = setting($key, '');
         try {
             if (!empty($_FILES[$key]['name'])) {
@@ -172,6 +183,41 @@ require_once __DIR__ . '/../header.php';
                             </div>
                         </div>
 
+                        <!-- About page -->
+                        <div class="card">
+                            <div class="card-header"><h5 class="card-title mb-0">About Us Page</h5></div>
+                            <div class="card-body">
+                                <p class="text-muted small">Content for the public <b>About Us</b> page. The intro uses the “About” text above. Each card has a short text and an optional image.</p>
+                                <div class="row g-3">
+                                    <?php
+                                    $aboutCards = [
+                                        'about_who'        => ['Who We Are',  'about_who_image'],
+                                        'about_how'        => ['How We Work', 'about_how_image'],
+                                        'about_what'       => ['What We Do',  'about_what_image'],
+                                        'about_management' => ['Management',  'about_management_image'],
+                                    ];
+                                    foreach ($aboutCards as $key => [$label, $imgKey]): ?>
+                                    <div class="col-md-6">
+                                        <div class="border rounded p-3 h-100">
+                                            <label class="form-label fw-semibold"><?= e($label) ?></label>
+                                            <textarea name="<?= $key ?>" class="form-control mb-2" rows="3" placeholder="Short description for ‘<?= e($label) ?>’"><?= e($val($key)) ?></textarea>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <?php if ($val($imgKey)): ?>
+                                                    <img src="<?= e($val($imgKey)) ?>" alt="" class="border rounded" style="height:42px;width:62px;object-fit:cover;">
+                                                <?php endif; ?>
+                                                <input type="file" name="<?= $imgKey ?>" class="form-control form-control-sm" accept="image/*">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php endforeach; ?>
+                                    <div class="col-12">
+                                        <label class="form-label" for="about_editorial">Editorial Board text</label>
+                                        <textarea name="about_editorial" id="about_editorial" class="form-control" rows="3" placeholder="A paragraph about the editorial board / team"><?= e($val('about_editorial')) ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Social media -->
                         <div class="card">
                             <div class="card-header"><h5 class="card-title mb-0">Social Media</h5></div>
@@ -221,7 +267,7 @@ require_once __DIR__ . '/../header.php';
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label" for="quick_about">About Us URL</label>
-                                        <input type="text" name="quick_about" id="quick_about" class="form-control" value="<?= e($val('quick_about')) ?>" placeholder="page.php?slug=about-us">
+                                        <input type="text" name="quick_about" id="quick_about" class="form-control" value="<?= e($val('quick_about')) ?>" placeholder="about">
                                     </div>
                                 </div>
                             </div>

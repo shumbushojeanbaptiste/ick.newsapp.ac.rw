@@ -60,16 +60,16 @@
         <!-- Begin .right-top-menu -->
         <ul class="right-top-menu pull-right">
           <?php
-          // Language switcher with flag + full name. Picks the site language,
-          // which persists in the session and filters content to that language.
+          // Language switcher with flag image + full name (order: EN, RW, FR).
+          // Flags live in public/img (tracked theme assets, so they deploy).
           $curLang = current_lang();
           $langLabels = [
-              'rw' => ['flag' => '🇷🇼', 'name' => 'KINYARWANDA'],
-              'en' => ['flag' => '🇬🇧', 'name' => 'ENGLISH'],
-              'fr' => ['flag' => '🇫🇷', 'name' => 'FRANCAIS'],
+              'en' => ['flag' => 'img/flag-en.png', 'name' => 'ENGLISH'],
+              'rw' => ['flag' => 'img/flag-rw.png', 'name' => 'KINYARWANDA'],
+              'fr' => ['flag' => 'img/flag-fr.png', 'name' => 'FRANCAIS'],
           ];
           foreach ($langLabels as $code => $l): ?>
-          <li class="lang-switch"><a href="?lang=<?= $code ?>"<?= $curLang === $code ? ' class="active-lang"' : '' ?>><span class="lang-flag"><?= $l['flag'] ?></span> <?= $l['name'] ?></a></li>
+          <li class="lang-switch"><a href="?lang=<?= $code ?>"<?= $curLang === $code ? ' class="active-lang"' : '' ?>><img class="lang-flag" src="<?= e($l['flag']) ?>" alt="<?= e($l['name']) ?>"> <?= $l['name'] ?></a></li>
           <?php endforeach; ?>
           <li class="contact"><a href="contact" title="Contact us"><i class="fa fa-map-marker fa-i"></i></a></li>
           <li class="about"><a href="<?= e(ADMIN_BASE) ?>login.php" title="Staff Login"><i class="fa fa-user fa-i"></i></a> </li>
@@ -176,7 +176,7 @@
                   'Salus Radio'        => setting('quick_radio')      ?: '#',
                   t('latest_news')     => setting('quick_latest')     ?: 'section?cat=news',
                   cat_name(category_by_slug('multimedia') ?: ['name' => 'Multimedia']) => setting('quick_multimedia') ?: 'section?cat=multimedia',
-                  t('about_us')        => setting('quick_about')       ?: 'page?slug=about-us',
+                  t('about_us')        => setting('quick_about')       ?: 'about',
               ];
               foreach ($quickLinks as $label => $url): ?>
               <li><a href="<?= e($url) ?>"><?= e($label) ?></a></li>
