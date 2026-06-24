@@ -89,7 +89,7 @@ require __DIR__ . '/header.php';
           <div class="sidebar-add-place"><?= ad_slot('sidebar', 'img/banner_400x270.jpg') ?></div>
 
           <div class="block-title-1">
-            <h3><a href="index.php"><strong><?= e(t("latest_news")) ?></strong></a></h3>
+            <h3><a href="index"><strong><?= e(t("latest_news")) ?></strong></a></h3>
           </div>
           <div class="sidebar-newsfeed">
             <div class="newsfeed-3">
@@ -109,7 +109,7 @@ require __DIR__ . '/header.php';
           </div>
 
           <div class="block-title-1" style="margin-top:24px;">
-            <h3><a href="index.php"><strong><?= e(t("editors_picks")) ?></strong></a></h3>
+            <h3><a href="index"><strong><?= e(t("editors_picks")) ?></strong></a></h3>
           </div>
           <div class="sidebar-newsfeed">
             <div class="newsfeed-3">
