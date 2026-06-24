@@ -62,7 +62,7 @@ require __DIR__ . '/header.php';
           <h3 class="title"><span class="bg-1"><?= e(t("article_not_found")) ?></span></h3>
           <h3 class="subtitle"><?= e(t("article_not_found_sub")) ?></h3>
         </div>
-        <p><a href="index" class="read-more">&laquo; <?= e(t("back_home")) ?></a></p>
+        <p><a href="." class="read-more">&laquo; <?= e(t("back_home")) ?></a></p>
 
       <?php else:
         $links   = article_links((int) $article['id']);
@@ -213,7 +213,7 @@ require __DIR__ . '/header.php';
           <div class="col-md-4">
             <div class="sidebar-add-place"><?= ad_slot('sidebar', 'img/banner_400x270.jpg') ?></div>
             <div class="block-title-1">
-              <h3><a href="index"><strong><?= e(t("related_stories")) ?></strong></a></h3>
+              <h3><a href="."><strong><?= e(t("related_stories")) ?></strong></a></h3>
             </div>
             <div class="sidebar-newsfeed">
               <div class="newsfeed-3">

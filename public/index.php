@@ -147,7 +147,7 @@
             <!-- End .sidebar-add-place --> 
             <!-- Begin .block-title-1 -->
             <div class="block-title-1">
-              <h3><a href="index"><strong><?= e(site_name()) ?></strong> Feed</a></h3>
+              <h3><a href="."><strong><?= e(site_name()) ?></strong> Feed</a></h3>
             </div>
             <!-- End .block-title-1 -->
             <!--========== BEGIN .SIDEBAR-NEWSFEED ==========-->
