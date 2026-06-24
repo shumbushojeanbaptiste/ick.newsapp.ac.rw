@@ -81,7 +81,7 @@ $cssVer = static function (string $file): string {
           <li class="lang-switch"><a href="?lang=<?= $code ?>"<?= $curLang === $code ? ' class="active-lang"' : '' ?>><img class="lang-flag" src="<?= e($l['flag']) ?>" alt="<?= e($l['name']) ?>"> <?= $l['name'] ?></a></li>
           <?php endforeach; ?>
           <li class="contact"><a href="contact" title="Contact us"><i class="fa fa-map-marker fa-i"></i></a></li>
-          <li class="about"><a href="<?= e(ADMIN_BASE) ?>login.php" title="Staff Login"><i class="fa fa-user fa-i"></i></a> </li>
+          <li class="about"><a href="<?= e(ADMIN_BASE) ?>login" title="Staff Login"><i class="fa fa-user fa-i"></i></a> </li>
           <li>
             <form class="search-container" action="search" method="get" role="search">
               <button type="submit" class="search-icon-btn" style="background:none;border:0;"> <span style="cursor:pointer"><i class="fa fa-search"></i></span> </button>

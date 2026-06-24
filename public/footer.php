@@ -72,7 +72,7 @@
       <!-- Begin .copyright -->
       <div class="copyright">
         &copy; <?= date('Y') ?>, <?= e(site_name()) ?>. All Rights Reserved.
-        &nbsp;|&nbsp; <a href="<?= e(ADMIN_BASE) ?>login.php"><?= e(t("staff_login")) ?></a>
+        &nbsp;|&nbsp; <a href="<?= e(ADMIN_BASE) ?>login"><?= e(t("staff_login")) ?></a>
       </div>
       <!-- End .copyright -->
       <!--  Begin .footer-social-icons -->
