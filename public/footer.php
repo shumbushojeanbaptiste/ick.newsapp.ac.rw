@@ -8,7 +8,7 @@
             <div class="col-sm-6 col-md-3">
               <h3 class="title-left title-style03 underline03"><?= e(t("about_us")) ?></h3>
               <p class="about-us"><?= e(setting('about') ?: (site_name() . ' — ' . (site_tagline() ?: 'University of Rwanda news, stories and student voices.'))) ?></p>
-              <div class="site-logo"><a href="index.php"><img src="<?= e(logo_url()) ?>" alt="<?= e(site_name()) ?>"></a></div>
+              <div class="site-logo"><a href="index"><img src="<?= e(logo_url()) ?>" alt="<?= e(site_name()) ?>"></a></div>
             </div>
             <div class="col-sm-6 col-md-3">
               <h3 class="title-left title-style03 underline03"><?= e(t("latest_news")) ?></h3>
@@ -17,9 +17,9 @@
                   <?php foreach (published_articles(4) as $fa): ?>
                   <li>
                     <div class="item">
-                      <div class="item-image"><a class="img-link" href="article.php?slug=<?= e($fa['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($fa) ?: 'img/index_370x185-image01.jpg') ?>" alt="<?= e(a_title($fa)) ?>"></a></div>
+                      <div class="item-image"><a class="img-link" href="article?slug=<?= e($fa['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($fa) ?: 'img/index_370x185-image01.jpg') ?>" alt="<?= e(a_title($fa)) ?>"></a></div>
                       <div class="item-content">
-                        <p class="ellipsis"><a href="article.php?slug=<?= e($fa['slug']) ?>"><?= e(a_title($fa)) ?></a></p>
+                        <p class="ellipsis"><a href="article?slug=<?= e($fa['slug']) ?>"><?= e(a_title($fa)) ?></a></p>
                       </div>
                     </div>
                   </li>
@@ -40,9 +40,9 @@
                   foreach ($mmList as $mm): ?>
                   <li>
                     <div class="item">
-                      <div class="item-image"><a class="img-link" href="article.php?slug=<?= e($mm['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($mm) ?: 'img/index_370x185-image15.jpg') ?>" alt="<?= e(a_title($mm)) ?>"></a></div>
+                      <div class="item-image"><a class="img-link" href="article?slug=<?= e($mm['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($mm) ?: 'img/index_370x185-image15.jpg') ?>" alt="<?= e(a_title($mm)) ?>"></a></div>
                       <div class="item-content">
-                        <p class="ellipsis"><a href="article.php?slug=<?= e($mm['slug']) ?>"><?= e(a_title($mm)) ?></a></p>
+                        <p class="ellipsis"><a href="article?slug=<?= e($mm['slug']) ?>"><?= e(a_title($mm)) ?></a></p>
                       </div>
                     </div>
                   </li>
@@ -54,7 +54,7 @@
               <h3 class="title-left title-style03 underline03"><?= e(t("sections")) ?></h3>
               <div class="tagcloud">
                 <?php foreach (nav_top_sections() as $sec): ?>
-                  <a href="section.php?cat=<?= e($sec['slug']) ?>"><?= e(cat_name($sec)) ?></a>
+                  <a href="section?cat=<?= e($sec['slug']) ?>"><?= e(cat_name($sec)) ?></a>
                 <?php endforeach; ?>
               </div>
             </div>

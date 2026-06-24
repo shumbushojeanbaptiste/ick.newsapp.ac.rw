@@ -42,7 +42,7 @@ require __DIR__ . '/header.php';
           <h3 class="title"><span class="bg-1"><?= e(t("section_not_found")) ?></span></h3>
           <h3 class="subtitle"><?= e(t("section_not_found_sub")) ?></h3>
         </div>
-        <p><a href="index.php" class="read-more">&laquo; <?= e(t("back_home")) ?></a></p>
+        <p><a href="index" class="read-more">&laquo; <?= e(t("back_home")) ?></a></p>
 
       <?php else: ?>
         <div class="module-title">
@@ -74,13 +74,13 @@ require __DIR__ . '/header.php';
             <!--========== BEGIN .PAGINATION ==========-->
             <ul class="pagination">
               <?php if ($page > 1): ?>
-                <li><a href="section.php?cat=<?= e($slug) ?>&page=<?= $page - 1 ?>">&laquo;</a></li>
+                <li><a href="section?cat=<?= e($slug) ?>&page=<?= $page - 1 ?>">&laquo;</a></li>
               <?php endif; ?>
               <?php for ($p = 1; $p <= $totalPages; $p++): ?>
-                <li class="<?= $p === $page ? 'active' : '' ?>"><a href="section.php?cat=<?= e($slug) ?>&page=<?= $p ?>"><?= $p ?></a></li>
+                <li class="<?= $p === $page ? 'active' : '' ?>"><a href="section?cat=<?= e($slug) ?>&page=<?= $p ?>"><?= $p ?></a></li>
               <?php endfor; ?>
               <?php if ($page < $totalPages): ?>
-                <li><a href="section.php?cat=<?= e($slug) ?>&page=<?= $page + 1 ?>">&raquo;</a></li>
+                <li><a href="section?cat=<?= e($slug) ?>&page=<?= $page + 1 ?>">&raquo;</a></li>
               <?php endif; ?>
             </ul>
             <?php endif; ?>
@@ -93,7 +93,7 @@ require __DIR__ . '/header.php';
             <div class="sidebar-add-place"><?= ad_slot('sidebar', 'img/banner_400x270.jpg') ?></div>
             <!-- Editor's picks feed -->
             <div class="block-title-1">
-              <h3><a href="index.php"><strong>Editor's</strong> Picks</a></h3>
+              <h3><a href="index"><strong>Editor's</strong> Picks</a></h3>
             </div>
             <div class="sidebar-newsfeed">
               <div class="newsfeed-3">

@@ -85,7 +85,7 @@
               <?php foreach ($col as $a): $cls = $labelClass[$li % 4]; $li++; ?>
               <!-- Begin .item -->
               <div class="item">
-                <div class="item-image-1"><a class="img-link" href="article?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_800x400-image01.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a><span><a class="<?= $cls ?>" href="section.php?cat=<?= e($a['category_slug'] ?? '') ?>"><?= e(cat_name($a) ?: 'News') ?></a></span></div>
+                <div class="item-image-1"><a class="img-link" href="article?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_800x400-image01.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a><span><a class="<?= $cls ?>" href="section?cat=<?= e($a['category_slug'] ?? '') ?>"><?= e(cat_name($a) ?: 'News') ?></a></span></div>
                 <div class="item-content">
                   <div class="title-left title-style04 underline04">
                     <h3><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h3>
@@ -125,7 +125,7 @@
               foreach ($national as $ni => $a): ?>
               <!-- Begin .item-->
               <div class="item">
-                <div class="item-image-2"><a class="img-link" href="article?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_800x400-image05.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a><span><a class="<?= $natLabels[$ni % 4] ?>" href="section.php?cat=<?= e($a['category_slug'] ?? '') ?>"><?= e(cat_name($a) ?: 'News') ?></a></span> </div>
+                <div class="item-image-2"><a class="img-link" href="article?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_800x400-image05.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a><span><a class="<?= $natLabels[$ni % 4] ?>" href="section?cat=<?= e($a['category_slug'] ?? '') ?>"><?= e(cat_name($a) ?: 'News') ?></a></span> </div>
                 <div class="item-content">
                   <div class="title-left title-style04 underline04">
                     <h3><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h3>
@@ -147,7 +147,7 @@
             <!-- End .sidebar-add-place --> 
             <!-- Begin .block-title-1 -->
             <div class="block-title-1">
-              <h3><a href="index.php"><strong><?= e(site_name()) ?></strong> Feed</a></h3>
+              <h3><a href="index"><strong><?= e(site_name()) ?></strong> Feed</a></h3>
             </div>
             <!-- End .block-title-1 -->
             <!--========== BEGIN .SIDEBAR-NEWSFEED ==========-->
