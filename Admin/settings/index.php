@@ -38,6 +38,11 @@ $aboutImages = [
     'about_management_image' => 'Management image',
 ];
 
+// Other site images that use the same upload pipeline (own UI below).
+$miscImages = [
+    'login_bg' => 'Admin login background',
+];
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verify_csrf();
@@ -68,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Image uploads (adverts + About cards). Each optional; keep existing
     // value unless a new file is uploaded.
     $adPaths = [];
-    foreach ($adSlots + $aboutImages as $key => $label) {
+    foreach ($adSlots + $aboutImages + $miscImages as $key => $label) {
         $adPaths[$key] = setting($key, '');
         try {
             if (!empty($_FILES[$key]['name'])) {
@@ -314,6 +319,21 @@ require_once __DIR__ . '/../header.php';
                                 <small class="text-muted">PNG/JPG/WebP, max 5 MB. Used in the public site header.</small>
                             </div>
                         </div>
+
+                        <!-- Login background -->
+                        <div class="card">
+                            <div class="card-header"><h5 class="card-title mb-0">Login Background</h5></div>
+                            <div class="card-body text-center">
+                                <?php if ($val('login_bg')): ?>
+                                    <img src="<?= e($val('login_bg')) ?>" alt="login background" class="img-fluid mb-3 border rounded" style="max-height:120px;width:100%;object-fit:cover">
+                                <?php else: ?>
+                                    <div class="text-muted small mb-3">Using the default theme background.</div>
+                                <?php endif; ?>
+                                <input type="file" name="login_bg" class="form-control" accept="image/*">
+                                <small class="text-muted">Background of the Admin login page. PNG/JPG/WebP, max 5 MB.</small>
+                            </div>
+                        </div>
+
                         <div class="card">
                             <div class="card-body d-grid">
                                 <button type="submit" class="btn btn-primary"><i class="ri-save-line align-bottom me-1"></i> Save Settings</button>

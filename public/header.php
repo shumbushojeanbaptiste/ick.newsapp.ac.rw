@@ -13,8 +13,9 @@
 <!-- Site Title  -->
 <!-- <title><?= e(site_name()) ?> | <?= e(site_tagline() ?: 'University of Rwanda News') ?></title> -->
 
-<!-- Favicon -->
-<link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+<!-- Favicon (matches the site logo set in Admin > Settings) -->
+<link rel="shortcut icon" href="<?= e(logo_url()) ?>">
+<link rel="icon" href="<?= e(logo_url()) ?>">
 
 <!-- Web Fonts  -->
 <link href="css?family=Roboto+Condensed%7CRoboto+Slab:300,400,700%7CRoboto:300,400,500,700" rel="stylesheet"> 

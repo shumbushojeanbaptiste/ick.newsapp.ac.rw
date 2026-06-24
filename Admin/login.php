@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <title>Sign In | <?= e(APP_NAME) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="<?= e(logo_url('dark')) ?>">
     <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
@@ -39,7 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="auth-page-wrapper pt-5">
-        <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+        <?php $loginBg = setting('login_bg'); ?>
+        <div class="auth-one-bg-position auth-one-bg" id="auth-particles"<?= $loginBg ? ' style="background-image:url(' . e($loginBg) . ');"' : '' ?>>
             <div class="bg-overlay"></div>
             <div class="shape">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1440 120">
