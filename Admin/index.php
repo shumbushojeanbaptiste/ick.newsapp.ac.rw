@@ -98,7 +98,7 @@ require_once __DIR__ . '/header.php';
                         <div class="card-header align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Recent Articles</h4>
                             <?php if (can('view_articles')): ?>
-                                <a href="articles/index.php" class="btn btn-soft-primary btn-sm">View all</a>
+                                <a href="articles/index" class="btn btn-soft-primary btn-sm">View all</a>
                             <?php endif; ?>
                         </div>
                         <div class="card-body">
@@ -120,7 +120,7 @@ require_once __DIR__ . '/header.php';
                                             <tr>
                                                 <td>
                                                     <?php if (can('view_articles')): ?>
-                                                        <a href="articles/edit.php?id=<?= (int) $a['id'] ?>" class="fw-medium link-primary"><?= e($a['title']) ?></a>
+                                                        <a href="articles/edit?id=<?= (int) $a['id'] ?>" class="fw-medium link-primary"><?= e($a['title']) ?></a>
                                                     <?php else: ?>
                                                         <?= e($a['title']) ?>
                                                     <?php endif; ?>

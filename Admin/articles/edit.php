@@ -299,7 +299,7 @@ require_once __DIR__ . '/../header.php';
                     <?php endif; ?>
                 </div>
                 <div class="col-auto">
-                    <a href="articles/index.php" class="btn btn-light"><i class="ri-arrow-left-line align-bottom"></i> Back</a>
+                    <a href="articles/index" class="btn btn-light"><i class="ri-arrow-left-line align-bottom"></i> Back</a>
                 </div>
             </div>
 

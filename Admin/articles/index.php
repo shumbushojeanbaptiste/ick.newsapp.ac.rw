@@ -70,7 +70,7 @@ require_once __DIR__ . '/../header.php';
                 </div>
                 <?php if (can('create_article')): ?>
                 <div class="col-auto">
-                    <a href="articles/edit.php" class="btn btn-primary">
+                    <a href="articles/edit" class="btn btn-primary">
                         <i class="ri-add-line align-bottom me-1"></i> New Article
                     </a>
                 </div>
@@ -149,7 +149,7 @@ require_once __DIR__ . '/../header.php';
                                             <?php elseif (($a['media_type'] ?? 'none') === 'audio'): ?>
                                                 <i class="ri-mic-line text-info me-1" title="Audio"></i>
                                             <?php endif; ?>
-                                            <a href="articles/view.php?id=<?= (int) $a['id'] ?>" class="link-primary text-reset"><?= e(article_title($a)) ?></a>
+                                            <a href="articles/view?id=<?= (int) $a['id'] ?>" class="link-primary text-reset"><?= e(article_title($a)) ?></a>
                                             <span class="badge bg-light text-muted ms-1"><?= e(strtoupper($a['primary_lang'])) ?></span>
                                         </td>
                                         <td><?= e($a['category_name'] ?? '—') ?></td>
@@ -162,9 +162,9 @@ require_once __DIR__ . '/../header.php';
                                         <td><span class="badge <?= status_badge_class($a['status']) ?> text-uppercase"><?= e($a['status']) ?></span></td>
                                         <td><?= e(date('d M Y', strtotime($a['updated_at']))) ?></td>
                                         <td class="text-end">
-                                            <a href="articles/view.php?id=<?= (int) $a['id'] ?>" class="btn btn-sm btn-soft-info" title="Read"><i class="ri-eye-line"></i></a>
+                                            <a href="articles/view?id=<?= (int) $a['id'] ?>" class="btn btn-sm btn-soft-info" title="Read"><i class="ri-eye-line"></i></a>
                                             <?php if (in_array('edit', $actions, true)): ?>
-                                                <a href="articles/edit.php?id=<?= (int) $a['id'] ?>" class="btn btn-sm btn-soft-secondary" title="Edit"><i class="ri-pencil-line"></i></a>
+                                                <a href="articles/edit?id=<?= (int) $a['id'] ?>" class="btn btn-sm btn-soft-secondary" title="Edit"><i class="ri-pencil-line"></i></a>
                                             <?php endif; ?>
                                             <?php if (in_array('submit', $actions, true)): ?>
                                                 <button class="btn btn-sm btn-soft-warning" title="Submit for review"

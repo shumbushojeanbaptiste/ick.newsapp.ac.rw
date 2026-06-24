@@ -86,7 +86,7 @@ require_once __DIR__ . '/../header.php';
                 ];
                 foreach ($tabs as $key => [$label, $n, $color]): ?>
                     <li class="nav-item">
-                        <a class="nav-link <?= $status === $key ? 'active' : '' ?>" href="comments/index.php?status=<?= $key ?>">
+                        <a class="nav-link <?= $status === $key ? 'active' : '' ?>" href="comments/index?status=<?= $key ?>">
                             <?= $label ?> <span class="badge bg-<?= $color ?>-subtle text-<?= $color ?> ms-1"><?= $n ?></span>
                         </a>
                     </li>

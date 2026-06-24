@@ -3,10 +3,11 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # 1) Externally redirect any ".../page.php" request to the clean ".../page"
-    #    URL, so the address bar never shows .php even when a link points to it.
-    #    Matches only real browser requests (THE_REQUEST), not internal rewrites,
-    #    and keeps the query string. Works in a subfolder (e.g. /public/).
+    # 1) Externally redirect any ".../page.php" GET request to the clean
+    #    ".../page" URL, so the address bar never shows .php even when a link
+    #    points to it. Keeps the query string; works in a subfolder (/public/).
+    #    GET only: never redirect POSTs (would drop the form body).
+    RewriteCond %{REQUEST_METHOD} =GET
     RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
     RewriteRule ^ /%1 [R=301,L,NE]
 
