@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <title>Reset Password | <?= e(APP_NAME) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="<?= e(logo_url('dark')) ?>">
     <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/icons.min.css" rel="stylesheet">
@@ -43,7 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <div class="auth-page-wrapper pt-5">
-        <div class="auth-one-bg-position auth-one-bg"><div class="bg-overlay"></div></div>
+        <?php $loginBg = setting('login_bg'); ?>
+        <div class="auth-one-bg-position auth-one-bg"<?= $loginBg ? ' style="background-image:url(' . e($loginBg) . ');"' : '' ?>><div class="bg-overlay"></div></div>
         <div class="auth-page-content">
             <div class="container">
                 <div class="row">
