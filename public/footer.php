@@ -101,6 +101,6 @@
 <script src="js/plugins.js"></script> 
 <!-- JavaScripts -->
 <script src="js/functions.js"></script>
-<script src="js/kaminuza.js?v=5"></script>
+<script src="js/kaminuza.js?v=<?= is_file(__DIR__ . '/js/kaminuza.js') ? filemtime(__DIR__ . '/js/kaminuza.js') : '5' ?>"></script>
 </body>
 </html>
