@@ -51,7 +51,7 @@
             var data = new URLSearchParams();
             data.append('article_id', articleId);
             data.append('reaction', reaction);
-            fetch('react.php', { method: 'POST', body: data, credentials: 'same-origin' })
+            fetch('react', { method: 'POST', body: data, credentials: 'same-origin' })
                 .then(function (r) { return r.json(); })
                 .then(function (j) {
                     if (!j.ok) { return; }

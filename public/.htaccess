@@ -3,12 +3,19 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # If the request maps to an existing file or directory, serve it as-is.
+    # 1) Externally redirect any ".../page.php" request to the clean ".../page"
+    #    URL, so the address bar never shows .php even when a link points to it.
+    #    Matches only real browser requests (THE_REQUEST), not internal rewrites,
+    #    and keeps the query string. Works in a subfolder (e.g. /public/).
+    RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L,NE]
+
+    # 2) If the request maps to an existing file or directory, serve it as-is.
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
 
-    # Otherwise, if "<request>.php" exists, serve that (keeps the query string).
+    # 3) Otherwise, if "<request>.php" exists, serve that (keeps the query string).
     RewriteCond %{REQUEST_FILENAME}\.php -f
     RewriteRule ^(.+?)/?$ $1.php [L,QSA]
 </IfModule>
