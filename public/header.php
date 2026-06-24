@@ -21,14 +21,22 @@
 <link href="css?family=Roboto+Condensed%7CRoboto+Slab:300,400,700%7CRoboto:300,400,500,700" rel="stylesheet"> 
 
 <!-- Stylesheets -->
-<link rel="stylesheet" href="css%20%281%29/bootstrap.min.css">
-<link rel="stylesheet" href="css%20%281%29/main.css">
-<link rel="stylesheet" href="css%20%281%29/style.css">
-<link rel="stylesheet" href="css%20%281%29/colors.css">
-<link rel="stylesheet" href="css%20%281%29/responsive.css">
-<link rel="stylesheet" href="css%20%281%29/jquery-ui.min.css">
-<link rel="stylesheet" href="css%20%281%29/weather-icons.min.css">
-<link rel="stylesheet" href="css%20%281%29/kaminuza.css">
+<?php
+// Cache-buster: use each stylesheet's last-modified time so a new deploy
+// automatically serves a fresh copy (defeats Cloudflare's long cache).
+$cssVer = static function (string $file): string {
+    $path = __DIR__ . '/css (1)/' . $file;
+    return '?v=' . (is_file($path) ? filemtime($path) : '1');
+};
+?>
+<link rel="stylesheet" href="css%20%281%29/bootstrap.min.css<?= $cssVer('bootstrap.min.css') ?>">
+<link rel="stylesheet" href="css%20%281%29/main.css<?= $cssVer('main.css') ?>">
+<link rel="stylesheet" href="css%20%281%29/style.css<?= $cssVer('style.css') ?>">
+<link rel="stylesheet" href="css%20%281%29/colors.css<?= $cssVer('colors.css') ?>">
+<link rel="stylesheet" href="css%20%281%29/responsive.css<?= $cssVer('responsive.css') ?>">
+<link rel="stylesheet" href="css%20%281%29/jquery-ui.min.css<?= $cssVer('jquery-ui.min.css') ?>">
+<link rel="stylesheet" href="css%20%281%29/weather-icons.min.css<?= $cssVer('weather-icons.min.css') ?>">
+<link rel="stylesheet" href="css%20%281%29/kaminuza.css<?= $cssVer('kaminuza.css') ?>">
 
 <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
