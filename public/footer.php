@@ -8,7 +8,7 @@
             <div class="col-sm-6 col-md-3">
               <h3 class="title-left title-style03 underline03"><?= e(t("about_us")) ?></h3>
               <p class="about-us"><?= e(setting('about') ?: (site_name() . ' — ' . (site_tagline() ?: 'University of Rwanda news, stories and student voices.'))) ?></p>
-              <div class="site-logo"><a href="index"><img src="<?= e(logo_url()) ?>" alt="<?= e(site_name()) ?>"></a></div>
+              <div class="site-logo"><a href="."><img src="<?= e(logo_url()) ?>" alt="<?= e(site_name()) ?>"></a></div>
             </div>
             <div class="col-sm-6 col-md-3">
               <h3 class="title-left title-style03 underline03"><?= e(t("latest_news")) ?></h3>

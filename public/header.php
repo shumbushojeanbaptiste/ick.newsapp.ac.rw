@@ -99,7 +99,7 @@ $cssVer = static function (string $file): string {
     <!-- Begin .container -->
     <div class="container"> 
       <!-- Begin .header-logo -->
-      <div class="header-logo"><a href="index"><img src="<?= e(logo_url()) ?>" alt="<?= e(site_name()) ?>"></a></div>
+      <div class="header-logo"><a href="."><img src="<?= e(logo_url()) ?>" alt="<?= e(site_name()) ?>"></a></div>
       <!-- End .header-logo --> 
       <!-- Begin .header-add-place (advert managed from Admin settings) -->
       <div class="header-add-place">
@@ -110,15 +110,15 @@ $cssVer = static function (string $file): string {
       <nav class="navbar navbar-default" id="mobile-nav">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" id="sidenav-toggle"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-          <div class="sidenav-header-logo"><a href="index"><img src="<?= e(logo_url()) ?>" alt="<?= e(site_name()) ?>"></a></div>
+          <div class="sidenav-header-logo"><a href="."><img src="<?= e(logo_url()) ?>" alt="<?= e(site_name()) ?>"></a></div>
         </div>
         <div class="sidenav" data-sidenav="" data-sidenav-toggle="#sidenav-toggle">
           <button type="button" class="navbar-toggle active" data-toggle="collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
           <div class="sidenav-brand">
-            <div class="sidenav-header-logo"><a href="index"><img src="<?= e(logo_url()) ?>" alt="<?= e(site_name()) ?>"></a></div>
+            <div class="sidenav-header-logo"><a href="."><img src="<?= e(logo_url()) ?>" alt="<?= e(site_name()) ?>"></a></div>
           </div>
           <ul class="sidenav-menu">
-            <li><a href="index" class="<?= ($GLOBALS['active_section'] ?? '') === '' ? 'active' : '' ?>"><?= e(t("home")) ?></a></li>
+            <li><a href="." class="<?= ($GLOBALS['active_section'] ?? '') === '' ? 'active' : '' ?>"><?= e(t("home")) ?></a></li>
             <?php foreach (nav_top_sections() as $sec):
                 $kids = nav_children((int) $sec['id']); ?>
               <li><a href="section?cat=<?= e($sec['slug']) ?>"><?= e(cat_name($sec)) ?></a>
@@ -146,7 +146,7 @@ $cssVer = static function (string $file): string {
         <div class="container"> 
           <!-- Begin .nav navbar-nav (built from the category tree) -->
           <ul class="nav navbar-nav">
-            <li<?= ($GLOBALS['active_section'] ?? '') === '' ? ' class="active"' : '' ?>><a href="index"><?= e(t("home")) ?></a></li>
+            <li<?= ($GLOBALS['active_section'] ?? '') === '' ? ' class="active"' : '' ?>><a href="."><?= e(t("home")) ?></a></li>
             <?php foreach (nav_top_sections() as $sec):
                 $kids = nav_children((int) $sec['id']);
                 $isActive = ($GLOBALS['active_section'] ?? '') === $sec['slug'];
