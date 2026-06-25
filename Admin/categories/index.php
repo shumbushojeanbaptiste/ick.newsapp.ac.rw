@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/auth.php';
+require_once __DIR__ . '/../config/articles.php';   // category_is_descendant(), build_category_options()
 require_can('manage_categories');
 
 $pageTitle  = 'Categories';
@@ -53,8 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     redirect('categories/index.php');
 }
-
-require_once __DIR__ . '/../config/articles.php';   // build_category_options()
 
 $categories = db()->query(
     'SELECT c.*, (SELECT COUNT(*) FROM articles a WHERE a.category_id = c.id) AS article_count
