@@ -80,6 +80,14 @@ $cssVer = static function (string $file): string {
           foreach ($langLabels as $code => $l): ?>
           <li class="lang-switch"><a href="?lang=<?= $code ?>"<?= $curLang === $code ? ' class="active-lang"' : '' ?>><img class="lang-flag" src="<?= e($l['flag']) ?>" alt="<?= e($l['name']) ?>"> <?= $l['name'] ?></a></li>
           <?php endforeach; ?>
+          <?php
+          // Radio icon (plays Salus Radio on-site). Stream from Admin > Radio.
+          $hdrStreams = active_streams();
+          $hdrRadioUrl = setting('quick_radio') ?: ($hdrStreams[0]['stream_url'] ?? '');
+          $hdrRadioName = $hdrStreams[0]['name'] ?? 'Salus Radio';
+          if ($hdrRadioUrl): ?>
+          <li class="radio"><a href="<?= e($hdrRadioUrl) ?>" class="kz-radio-link" data-radio="<?= e($hdrRadioUrl) ?>" data-radio-name="<?= e($hdrRadioName) ?>" title="<?= e($hdrRadioName) ?> — Listen live"><i class="fa fa-microphone fa-i"></i></a></li>
+          <?php endif; ?>
           <li class="contact"><a href="contact" title="Contact us"><i class="fa fa-map-marker fa-i"></i></a></li>
           <li class="about"><a href="<?= e(ADMIN_BASE) ?>login" title="Staff Login"><i class="fa fa-user fa-i"></i></a> </li>
           <li>

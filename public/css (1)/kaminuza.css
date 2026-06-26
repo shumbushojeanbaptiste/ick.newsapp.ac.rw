@@ -275,6 +275,35 @@
 .kz-contact-info li span { line-height: 1.5; color: #444; }
 .kz-contact-info li a { color: #c1262d; }
 
+/* ---- Quick links bar (Radio / Latest News / Multimedia / About Us) ----
+   The theme keeps this row in a Bootstrap .collapse that only reveals on the
+   sticky-nav, so the links looked like plain unstyled words until you scrolled.
+   Force the bar to always show and the links to look clearly clickable. */
+#nav-below-main .nav-below-main.collapse {
+    display: block !important;       /* never collapse-hide the quick links */
+    height: auto !important;
+}
+#nav-below-main .nav.navbar-nav { display: inline-flex; flex-wrap: wrap; }
+#nav-below-main .nav.navbar-nav > li > a {
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 14px;
+    display: inline-block;
+    transition: color .15s, background .15s;
+}
+#nav-below-main .nav.navbar-nav > li > a:hover,
+#nav-below-main .nav.navbar-nav > li > a:focus {
+    color: #ffd24d;                  /* clear hover affordance */
+    background: rgba(255,255,255,.08);
+}
+#nav-below-main .nav.navbar-nav > li > a i { margin-right: 5px; }
+/* Make the radio quick-link stand out a touch (it's a live action). */
+#nav-below-main .nav.navbar-nav > li > a.kz-radio-link { color: #ffd24d; }
+#nav-below-main .nav.navbar-nav > li > a.kz-radio-link:hover { color: #fff; }
+
+/* Top-bar radio icon sits with the language / location / login icons. */
+.right-top-menu .radio a { cursor: pointer; }
+
 /* ---- On-site radio player (floating, toggled from the header link) ---- */
 .kz-radio-link { cursor: pointer; }
 .kz-radio-player {
