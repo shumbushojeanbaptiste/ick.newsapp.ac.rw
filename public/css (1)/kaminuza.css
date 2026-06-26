@@ -277,51 +277,14 @@
 
 /* ---- Quick links bar (Radio / Latest News / Multimedia / About Us) ----
    The theme keeps this row in a Bootstrap .collapse that only reveals on the
-   sticky-nav, so the links looked like plain unstyled words and weren't
-   clickable until you scrolled. Force the bar to always show, sit above other
-   content, and the links to look clearly clickable. */
-#nav-below-main {
-    position: relative;
-    z-index: 30;                     /* keep the bar above page content so it's clickable */
-    background: #1f6fb2;             /* solid bar so white text is always readable */
-    border-top: 1px solid rgba(0,0,0,.06);
-}
-#nav-below-main .nav-below-main.collapse {
-    display: block !important;       /* never collapse-hide the quick links */
+   sticky-nav, so the links weren't clickable until you scrolled. We ONLY undo
+   that collapse so the links work — no colour/background changes (the theme's
+   own styling for this bar is kept intact). */
+.collapse.navbar-collapse.nav-below-main {
+    display: block !important;       /* keep the quick links always visible/clickable */
     height: auto !important;
     overflow: visible !important;
 }
-#nav-below-main .nav.navbar-nav {
-    display: inline-flex;
-    flex-wrap: wrap;
-    float: none;
-    position: relative;
-    z-index: 31;
-    margin: 0;
-}
-#nav-below-main .nav.navbar-nav > li { float: none; display: inline-block; }
-#nav-below-main .nav.navbar-nav > li > a {
-    color: #fff;                     /* white on the blue bar = good contrast */
-    font-weight: 600;
-    padding: 11px 16px;
-    display: inline-block;
-    position: relative;
-    z-index: 32;
-    transition: color .15s, background .15s;
-}
-#nav-below-main .nav.navbar-nav > li > a:hover,
-#nav-below-main .nav.navbar-nav > li > a:focus {
-    color: #fff;
-    background: rgba(0,0,0,.18);      /* subtle darken on hover */
-}
-#nav-below-main .nav.navbar-nav > li > a i { margin-right: 5px; }
-/* The radio quick-link stands out a touch (it's a live action). */
-#nav-below-main .nav.navbar-nav > li > a.kz-radio-link { color: #ffe082; }
-#nav-below-main .nav.navbar-nav > li > a.kz-radio-link:hover { color: #fff; }
-/* Keep the clock readable on the blue bar. */
-#nav-below-main .clock,
-#nav-below-main .clock #time,
-#nav-below-main .clock #date { color: #fff; }
 
 /* Top-bar radio icon sits with the language / location / login icons. */
 .right-top-menu .radio a { cursor: pointer; }
