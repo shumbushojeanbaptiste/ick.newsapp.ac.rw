@@ -285,6 +285,18 @@
     height: auto !important;
     overflow: visible !important;
 }
+/* Before scrolling, the theme leaves this bar behind the page content so the
+   links can't be clicked. Lift it above so they work straight away. (Position
+   only — no visual/colour change.) */
+#nav-below-main {
+    position: relative;
+    z-index: 20;
+}
+#nav-below-main .nav.navbar-nav,
+#nav-below-main .nav.navbar-nav > li > a {
+    position: relative;
+    z-index: 21;
+}
 
 /* Top-bar radio icon sits with the language / location / login icons. */
 .right-top-menu .radio a { cursor: pointer; }
