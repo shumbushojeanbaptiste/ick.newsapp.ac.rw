@@ -277,18 +277,33 @@
 
 /* ---- Quick links bar (Radio / Latest News / Multimedia / About Us) ----
    The theme keeps this row in a Bootstrap .collapse that only reveals on the
-   sticky-nav, so the links looked like plain unstyled words until you scrolled.
-   Force the bar to always show and the links to look clearly clickable. */
+   sticky-nav, so the links looked like plain unstyled words and weren't
+   clickable until you scrolled. Force the bar to always show, sit above other
+   content, and the links to look clearly clickable. */
+#nav-below-main {
+    position: relative;
+    z-index: 30;                     /* keep the bar above page content so it's clickable */
+}
 #nav-below-main .nav-below-main.collapse {
     display: block !important;       /* never collapse-hide the quick links */
     height: auto !important;
+    overflow: visible !important;
 }
-#nav-below-main .nav.navbar-nav { display: inline-flex; flex-wrap: wrap; }
+#nav-below-main .nav.navbar-nav {
+    display: inline-flex;
+    flex-wrap: wrap;
+    float: none;
+    position: relative;
+    z-index: 31;
+}
+#nav-below-main .nav.navbar-nav > li { float: none; display: inline-block; }
 #nav-below-main .nav.navbar-nav > li > a {
     color: #fff;
     font-weight: 600;
     padding: 10px 14px;
     display: inline-block;
+    position: relative;
+    z-index: 32;
     transition: color .15s, background .15s;
 }
 #nav-below-main .nav.navbar-nav > li > a:hover,
