@@ -283,6 +283,8 @@
 #nav-below-main {
     position: relative;
     z-index: 30;                     /* keep the bar above page content so it's clickable */
+    background: #1f6fb2;             /* solid bar so white text is always readable */
+    border-top: 1px solid rgba(0,0,0,.06);
 }
 #nav-below-main .nav-below-main.collapse {
     display: block !important;       /* never collapse-hide the quick links */
@@ -295,12 +297,13 @@
     float: none;
     position: relative;
     z-index: 31;
+    margin: 0;
 }
 #nav-below-main .nav.navbar-nav > li { float: none; display: inline-block; }
 #nav-below-main .nav.navbar-nav > li > a {
-    color: #fff;
+    color: #fff;                     /* white on the blue bar = good contrast */
     font-weight: 600;
-    padding: 10px 14px;
+    padding: 11px 16px;
     display: inline-block;
     position: relative;
     z-index: 32;
@@ -308,13 +311,17 @@
 }
 #nav-below-main .nav.navbar-nav > li > a:hover,
 #nav-below-main .nav.navbar-nav > li > a:focus {
-    color: #ffd24d;                  /* clear hover affordance */
-    background: rgba(255,255,255,.08);
+    color: #fff;
+    background: rgba(0,0,0,.18);      /* subtle darken on hover */
 }
 #nav-below-main .nav.navbar-nav > li > a i { margin-right: 5px; }
-/* Make the radio quick-link stand out a touch (it's a live action). */
-#nav-below-main .nav.navbar-nav > li > a.kz-radio-link { color: #ffd24d; }
+/* The radio quick-link stands out a touch (it's a live action). */
+#nav-below-main .nav.navbar-nav > li > a.kz-radio-link { color: #ffe082; }
 #nav-below-main .nav.navbar-nav > li > a.kz-radio-link:hover { color: #fff; }
+/* Keep the clock readable on the blue bar. */
+#nav-below-main .clock,
+#nav-below-main .clock #time,
+#nav-below-main .clock #date { color: #fff; }
 
 /* Top-bar radio icon sits with the language / location / login icons. */
 .right-top-menu .radio a { cursor: pointer; }
