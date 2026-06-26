@@ -275,6 +275,32 @@
 .kz-contact-info li span { line-height: 1.5; color: #444; }
 .kz-contact-info li a { color: #c1262d; }
 
+/* ---- On-site radio player (floating, toggled from the header link) ---- */
+.kz-radio-link { cursor: pointer; }
+.kz-radio-player {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 1050;
+    background: #1a1a1a; color: #fff; box-shadow: 0 -2px 12px rgba(0,0,0,.35);
+}
+.kz-radio-player__bar {
+    display: flex; align-items: center; gap: 12px;
+    max-width: 1170px; margin: 0 auto; padding: 8px 14px; flex-wrap: wrap;
+}
+.kz-radio-player__live { color: #ff4d4d; font-weight: 700; white-space: nowrap; }
+.kz-radio-player__live i { margin-right: 5px; }
+.kz-radio-player__name { font-weight: 600; white-space: nowrap; }
+.kz-radio-player__audio { flex: 1 1 220px; min-width: 180px; height: 36px; }
+.kz-radio-player__open { color: #fff; opacity: .8; font-size: 16px; }
+.kz-radio-player__open:hover { opacity: 1; color: #fff; }
+.kz-radio-player__close {
+    background: none; border: 0; color: #fff; font-size: 24px; line-height: 1;
+    cursor: pointer; opacity: .8; padding: 0 4px;
+}
+.kz-radio-player__close:hover { opacity: 1; }
+@media (max-width: 600px) {
+    .kz-radio-player__bar { gap: 8px; padding: 6px 10px; }
+    .kz-radio-player__name { display: none; }
+}
+
 /* ---- Language switcher (flag image + full name) ---- */
 .right-top-menu .lang-switch a .lang-flag {
     width: 18px; height: 12px; object-fit: cover; margin-right: 5px;

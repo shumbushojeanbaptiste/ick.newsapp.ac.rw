@@ -75,12 +75,39 @@
         }, 5000);
     }
 
+    // On-site radio: clicking the header "Salus Radio" link opens a small
+    // floating player and starts the stream (instead of leaving the site).
+    // The player still has an "open in new tab" link as a fallback.
+    function initRadio() {
+        var player = document.getElementById('kz-radio-player');
+        if (!player) { return; }
+        var audio = document.getElementById('kz-radio-audio');
+
+        document.addEventListener('click', function (e) {
+            var link = e.target.closest('.kz-radio-link');
+            if (link) {
+                e.preventDefault();
+                player.hidden = false;
+                if (audio) {
+                    var play = audio.play();
+                    if (play && play.catch) { play.catch(function () {}); }
+                }
+                return;
+            }
+            if (e.target.closest('.kz-radio-player__close')) {
+                if (audio) { audio.pause(); }
+                player.hidden = true;
+            }
+        });
+    }
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function () { init(); initReactions(); initNoticeDismiss(); });
+        document.addEventListener('DOMContentLoaded', function () { init(); initReactions(); initNoticeDismiss(); initRadio(); });
     } else {
         init();
         initReactions();
         initNoticeDismiss();
+        initRadio();
     }
 
     // Hero slider: rotate the top featured stories using the theme's own

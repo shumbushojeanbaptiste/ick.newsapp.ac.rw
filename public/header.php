@@ -179,17 +179,34 @@ $cssVer = static function (string $file): string {
             <!-- Begin .nav navbar-nav -->
             <ul class="nav navbar-nav">
               <?php
+              // Radio link: use the Settings "quick_radio" URL if set, else fall
+              // back to the first active radio stream (managed in Admin > Radio).
+              $radioStreams = active_streams();
+              $radioUrl = setting('quick_radio') ?: ($radioStreams[0]['stream_url'] ?? '');
+              $radioLabel = $radioStreams[0]['name'] ?? 'Salus Radio';
+
               // Quick links: label stays, URL comes from Settings (falls back to
               // a sensible internal page). Edit the URLs in Admin > Settings.
               $quickLinks = [
-                  'Salus Radio'        => setting('quick_radio')      ?: '#',
+                  $radioLabel          => $radioUrl ?: '#',
                   t('latest_news')     => setting('quick_latest')     ?: 'section?cat=news',
                   cat_name(category_by_slug('multimedia') ?: ['name' => 'Multimedia']) => setting('quick_multimedia') ?: 'section?cat=multimedia',
                   t('about_us')        => setting('quick_about')       ?: 'about',
               ];
-              foreach ($quickLinks as $label => $url): ?>
-              <li><a href="<?= e($url) ?>"><?= e($label) ?></a></li>
-              <?php endforeach; ?>
+              $first = true;
+              foreach ($quickLinks as $label => $url):
+                  // The first item is the radio link: it toggles the on-site
+                  // player (and still carries the stream URL as a fallback).
+                  if ($first && $radioUrl):
+                      $first = false; ?>
+              <li><a href="<?= e($radioUrl) ?>" class="kz-radio-link" data-radio="<?= e($radioUrl) ?>" data-radio-name="<?= e($radioLabel) ?>"><i class="fa fa-microphone"></i> <?= e($label) ?></a></li>
+              <?php else:
+                  $first = false;
+                  // External links (http) open in a new tab; internal pages don't.
+                  $isExternal = preg_match('~^https?://~i', $url);
+              ?>
+              <li><a href="<?= e($url) ?>"<?= $isExternal ? ' target="_blank" rel="noopener"' : '' ?>><?= e($label) ?></a></li>
+              <?php endif; endforeach; ?>
             </ul>
             <!-- End .nav navbar-nav --> 
           </div>

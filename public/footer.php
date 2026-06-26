@@ -89,10 +89,32 @@
     </div>
     <!-- End .container --> 
   </div>
-  <!--========== END #COPYRIGHTS==========--> 
+  <!--========== END #COPYRIGHTS==========-->
 </div>
 
-<!--========== END #WRAPPER ==========--> 
+<!--========== END #WRAPPER ==========-->
+
+<?php
+// On-site radio player (hidden until the header "Salus Radio" link is clicked).
+// Stream URL + name come from Admin > Radio (the first active stream).
+$kzStreams = active_streams();
+$kzRadioUrl  = setting('quick_radio') ?: ($kzStreams[0]['stream_url'] ?? '');
+$kzRadioName = $kzStreams[0]['name'] ?? 'Salus Radio';
+if ($kzRadioUrl):
+?>
+<div id="kz-radio-player" class="kz-radio-player" data-url="<?= e($kzRadioUrl) ?>" hidden>
+  <div class="kz-radio-player__bar">
+    <span class="kz-radio-player__live"><i class="fa fa-microphone"></i> <?= e(t('on_air_now')) ?></span>
+    <span class="kz-radio-player__name"><?= e($kzRadioName) ?></span>
+    <audio id="kz-radio-audio" class="kz-radio-player__audio" controls preload="none">
+      <source src="<?= e($kzRadioUrl) ?>">
+    </audio>
+    <a class="kz-radio-player__open" href="<?= e($kzRadioUrl) ?>" target="_blank" rel="noopener" title="Open in new tab"><i class="fa fa-external-link"></i></a>
+    <button type="button" class="kz-radio-player__close" aria-label="Close">&times;</button>
+  </div>
+</div>
+<?php endif; ?>
+
 
 <!-- External JavaScripts --> 
 <script src="js/jquery-3.1.1.min.js"></script> 
