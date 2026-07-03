@@ -19,14 +19,13 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
 
           script: |
+            set -e
             cd /home/staystore-kaminuza/htdocs/kaminuza.staystore.online
 
-            git pull origin main --no-rebase
-
-            # composer install --no-dev --optimize-autoloader || true
-
-            php artisan migrate --force || true
-
-            php artisan config:cache || true
-
-            php artisan route:cache || true
+            # Fetch, then hard-reset to the remote so a plain "git pull" can never
+            # fail on locally-modified tracked files (the usual cause of a failed
+            # deploy). This ONLY touches tracked files — untracked files such as
+            # Admin/uploads/ (gitignored) are left untouched. We do NOT run
+            # "git clean", so no uploaded content is ever deleted.
+            git fetch origin main
+            git reset --hard origin/main
