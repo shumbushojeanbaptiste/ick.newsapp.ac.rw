@@ -285,6 +285,20 @@
     height: auto !important;
     overflow: visible !important;
 }
+
+/* ---- Dropdown sub-menu readability ----
+   The theme has two conflicting hover rules for dropdown items: one sets the
+   text to light blue (#40a9ff), the other to white on a light-blue background.
+   When the light-blue text wins you get light-blue-on-light-blue = unreadable
+   (e.g. "Community issues", "University notices"). Force clear contrast. */
+#fixed-navbar .dropdown-menu > li > a {
+    color: #333 !important;          /* dark, clearly readable by default */
+}
+#fixed-navbar .dropdown-menu > li > a:hover,
+#fixed-navbar .dropdown-menu > li > a:focus {
+    color: #fff !important;          /* white text on the blue hover background */
+    background-color: #53b1ff !important;
+}
 /* Before scrolling, the theme leaves this bar behind the page content so the
    links can't be clicked. Lift it above so they work straight away. (Position
    only — no visual/colour change.) */
