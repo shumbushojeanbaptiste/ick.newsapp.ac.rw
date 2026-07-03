@@ -311,6 +311,16 @@
     position: relative;
     z-index: 21;
 }
+/* The MAIN menu (with the dropdowns) must sit ABOVE the quick-links bar,
+   otherwise an open dropdown (e.g. Social Affairs) is covered by the white
+   quick-links bar and its lower items look faded/hidden. */
+#fixed-navbar-toggle {
+    position: relative;
+    z-index: 40;                     /* above #nav-below-main (20) */
+}
+#fixed-navbar-toggle .dropdown-menu {
+    z-index: 1050;                   /* dropdown clearly on top of everything */
+}
 
 /* Top-bar radio icon sits with the language / location / login icons. */
 .right-top-menu .radio a { cursor: pointer; }
