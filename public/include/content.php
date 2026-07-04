@@ -107,22 +107,33 @@ function a_title(array $a, string $lang = ''): string
 }
 
 /** Best excerpt for an article, with the same language fallback as a_title(). */
-function a_excerpt(array $a, string $lang = ''): string
+/**
+ * Article excerpt in the current language, capped so cards stay uniform.
+ * $max = 0 keeps the full text; otherwise trims on a word boundary + adds "…".
+ */
+function a_excerpt(array $a, string $lang = '', int $max = 160): string
 {
     $lang = $lang ?: current_lang();
     $order = array_unique([$lang, $a['primary_lang'] ?? 'en', 'en', 'fr', 'rw']);
+    $text = '';
     foreach ($order as $l) {
-        if (!empty($a["excerpt_$l"])) {
-            return $a["excerpt_$l"];
+        if (!empty($a["excerpt_$l"])) { $text = $a["excerpt_$l"]; break; }
+    }
+    if ($text === '') {
+        // Fall back to a trimmed body if no excerpt exists.
+        foreach ($order as $l) {
+            if (!empty($a["body_$l"])) { $text = trim(strip_tags($a["body_$l"])); break; }
         }
     }
-    // Fall back to a trimmed body if no excerpt exists.
-    foreach ($order as $l) {
-        if (!empty($a["body_$l"])) {
-            return mb_substr(trim(strip_tags($a["body_$l"])), 0, 160);
-        }
+    $text = trim(preg_replace('~\s+~', ' ', $text));
+    if ($max > 0 && mb_strlen($text) > $max) {
+        $text = mb_substr($text, 0, $max);
+        // Cut back to the last space so we don't split a word.
+        $sp = mb_strrpos($text, ' ');
+        if ($sp !== false && $sp > $max * 0.6) { $text = mb_substr($text, 0, $sp); }
+        $text = rtrim($text, " .,;:") . '…';
     }
-    return '';
+    return $text;
 }
 
 /** Featured image URL for an article (or '' if none). */
