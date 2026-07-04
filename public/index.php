@@ -165,7 +165,7 @@
                       <div class="item-image"><a class="img-link" href="article?slug=<?= e($a['slug']) ?>"><img class="img-responsive img-full" src="<?= e(a_image($a) ?: 'img/index_370x185-image01.jpg') ?>" alt="<?= e(a_title($a)) ?>"></a></div>
                       <div class="item-content">
                         <h4 class="ellipsis"><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_title($a)) ?></a></h4>
-                        <p class="ellipsis"><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_excerpt($a)) ?></a></p>
+                        <p class="ellipsis"><a href="article?slug=<?= e($a['slug']) ?>"><?= e(a_excerpt($a, '', 90)) ?></a></p>
                       </div>
                     </div>
                   </li>
