@@ -20,7 +20,7 @@ jobs:
 
           script: |
             set -e
-            cd /home/staystore-kaminuza/htdocs/kaminuza.staystore.online
+            cd /home/staystore-magazine/htdocs/magazine.staystore.online
 
             # Fetch, then hard-reset to the remote so a plain "git pull" can never
             # fail on locally-modified tracked files (the usual cause of a failed
