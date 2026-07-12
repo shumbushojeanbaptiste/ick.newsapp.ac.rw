@@ -1,6 +1,6 @@
-# www.kaminuzastar.com
+# EAUR MAGAZINE
 
-A concise project README for the redesign and redevelopment of the www.kaminuzastar.com website.
+A concise project README for the EAUR MAGAZINE website.
 
 ## Project Overview
 - Goal: Redesign and redevelop the website with a modern, responsive, newsroom-style layout.
@@ -22,12 +22,12 @@ A concise project README for the redesign and redevelopment of the www.kaminuzas
 
 ## Local Development
 1. Install XAMPP (Apache + PHP + MySQL) on Windows.
-2. Place the project files in `c:\xampp\htdocs\www.kaminuzastar.com`.
+2. Place the project files in `c:\xampp\htdocs\EAUR MAGAZINE`.
 3. Start Apache (and MySQL if needed) using the XAMPP control panel.
 4. Open the site in your browser at:
 
 ```
-http://localhost/www.kaminuzastar.com
+http://localhost/EAUR MAGAZINE
 ```
 
 ## Deployment Notes

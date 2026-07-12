@@ -9,7 +9,7 @@
 --  (Re-running 018 + 019 with that flag has the same effect; this file just
 --   bundles the corrected values so a single import fixes production.)
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 -- Top-level sections
 UPDATE categories SET name_fr='Actualités'               WHERE slug='news';

@@ -4,7 +4,7 @@
 --  reports, audio docs, photo essays) so it shows on-topic content.
 --  Re-runnable; clear with: DELETE FROM articles WHERE slug LIKE 'sample-%';
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 DROP PROCEDURE IF EXISTS `kz_add_article`;
 DELIMITER //

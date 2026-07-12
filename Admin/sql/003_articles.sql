@@ -4,7 +4,7 @@
 --                   "show only French/English/Kinyarwanda").
 --  - excerpt_*    : optional short summary per language for cards.
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 -- Primary language of the article (rw / fr / en).
 ALTER TABLE `articles`

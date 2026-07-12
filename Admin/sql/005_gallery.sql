@@ -3,7 +3,7 @@
 --  Additional images per article (beyond the single featured image),
 --  shown as a grid/slider on the public post page.
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 CREATE TABLE IF NOT EXISTS `article_images` (
   `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,

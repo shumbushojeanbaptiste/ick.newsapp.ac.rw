@@ -2,7 +2,7 @@
 --  UR KAMINUZA - Site settings (key/value store).
 --  Holds company info, contact, social media links, logo, etc.
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 CREATE TABLE IF NOT EXISTS `settings` (
   `setting_key`   VARCHAR(60) NOT NULL,
