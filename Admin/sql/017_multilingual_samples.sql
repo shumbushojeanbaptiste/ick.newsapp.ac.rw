@@ -1,4 +1,4 @@
-USE `KAMINUZA`;
+USE `kaminuza2`;
 -- Add Kinyarwanda + French versions to several existing sample articles, and
 -- a few native rw/fr ones, so the language switcher shows real content.
 -- (Idempotent: UPDATEs are safe to re-run.)

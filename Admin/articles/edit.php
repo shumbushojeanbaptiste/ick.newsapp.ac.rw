@@ -459,7 +459,7 @@ require_once __DIR__ . '/../header.php';
                                     <label class="form-label">Byline <span class="text-muted fw-normal">(optional)</span></label>
                                     <input type="text" name="byline" class="form-control"
                                            value="<?= e($v('byline')) ?>"
-                                           placeholder="e.g. Jean Bosco / The Kaminuza Star">
+                                           placeholder="e.g. Jean Bosco / EAUR MAGAZINE">
                                     <small class="text-muted">Shown as “By …” on the public article. Leave empty to use the author’s name.</small>
                                 </div>
                             </div>

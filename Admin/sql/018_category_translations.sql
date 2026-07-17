@@ -4,10 +4,10 @@
 --  visitor's chosen language. English stays in the existing `name` column.
 --  Idempotent column adds + UPDATEs by slug.
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 SET @has_rw := (SELECT COUNT(*) FROM information_schema.columns
-    WHERE table_schema='KAMINUZA' AND table_name='categories' AND column_name='name_rw');
+    WHERE table_schema='kaminuza2' AND table_name='categories' AND column_name='name_rw');
 SET @sql := IF(@has_rw=0,
     'ALTER TABLE `categories`
         ADD COLUMN `name_rw` VARCHAR(100) DEFAULT NULL AFTER `name`,

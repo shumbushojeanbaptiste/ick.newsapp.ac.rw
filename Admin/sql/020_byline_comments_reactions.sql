@@ -1,15 +1,15 @@
 -- ============================================================
 --  UR KAMINUZA - Byline + reader comments + like/dislike reactions.
---   1. articles.byline  : optional custom credit ("By Jean / The Kaminuza Star")
+--   1. articles.byline  : optional custom credit ("By Jean / EAUR MAGAZINE")
 --   2. article_comments  : reader comments, moderated (pending until approved)
 --   3. article_reactions : one like/dislike per visitor token, counted instantly
 --  Idempotent column add + CREATE TABLE IF NOT EXISTS.
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 -- 1) Optional byline on articles (falls back to the author account name if empty).
 SET @has_byline := (SELECT COUNT(*) FROM information_schema.columns
-    WHERE table_schema='KAMINUZA' AND table_name='articles' AND column_name='byline');
+    WHERE table_schema='kaminuza2' AND table_name='articles' AND column_name='byline');
 SET @sql := IF(@has_byline=0,
     'ALTER TABLE `articles` ADD COLUMN `byline` VARCHAR(150) DEFAULT NULL AFTER `author_id`',
     'SELECT 1');

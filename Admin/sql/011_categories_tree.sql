@@ -11,13 +11,13 @@
 --  inserted only if its slug doesn't already exist, so this file is safe
 --  to run more than once and never drops data. Articles keep their links.
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 -- ------------------------------------------------------------
 -- 1) Hierarchical categories (idempotent column adds via checks)
 -- ------------------------------------------------------------
 SET @has_parent := (SELECT COUNT(*) FROM information_schema.columns
-    WHERE table_schema = 'KAMINUZA' AND table_name = 'categories' AND column_name = 'parent_id');
+    WHERE table_schema = 'kaminuza2' AND table_name = 'categories' AND column_name = 'parent_id');
 SET @sql := IF(@has_parent = 0,
     'ALTER TABLE `categories`
         ADD COLUMN `parent_id`  INT UNSIGNED DEFAULT NULL AFTER `id`,
@@ -33,7 +33,7 @@ PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 -- 2) Homepage curation flags on articles (idempotent)
 -- ------------------------------------------------------------
 SET @has_featured := (SELECT COUNT(*) FROM information_schema.columns
-    WHERE table_schema = 'KAMINUZA' AND table_name = 'articles' AND column_name = 'is_featured');
+    WHERE table_schema = 'kaminuza2' AND table_name = 'articles' AND column_name = 'is_featured');
 SET @sql := IF(@has_featured = 0,
     'ALTER TABLE `articles`
         ADD COLUMN `is_featured`    TINYINT(1) NOT NULL DEFAULT 0 AFTER `status`,

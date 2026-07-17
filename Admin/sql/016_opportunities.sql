@@ -1,4 +1,4 @@
-USE `KAMINUZA`;
+USE `kaminuza2`;
 DROP PROCEDURE IF EXISTS `kz_add_article`;
 DELIMITER //
 CREATE PROCEDURE `kz_add_article`(IN p_slug VARCHAR(200), IN p_cat_slug VARCHAR(120), IN p_title VARCHAR(255), IN p_excerpt VARCHAR(500), IN p_body MEDIUMTEXT, IN p_image VARCHAR(255))

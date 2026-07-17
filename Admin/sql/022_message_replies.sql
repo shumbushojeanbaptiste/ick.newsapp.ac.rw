@@ -2,10 +2,10 @@
 --  UR KAMINUZA - Contact message replies.
 --  Records the reply text sent back to a sender, and when. Idempotent.
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 SET @has := (SELECT COUNT(*) FROM information_schema.columns
-    WHERE table_schema='KAMINUZA' AND table_name='contact_messages' AND column_name='reply_body');
+    WHERE table_schema='kaminuza2' AND table_name='contact_messages' AND column_name='reply_body');
 SET @sql := IF(@has=0,
     'ALTER TABLE `contact_messages`
         ADD COLUMN `reply_body` TEXT DEFAULT NULL AFTER `body`,

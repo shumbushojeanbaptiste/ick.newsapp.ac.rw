@@ -3,7 +3,7 @@
 --  Stores messages submitted from the public contact page so staff can read
 --  them in the Admin later. Idempotent (CREATE TABLE IF NOT EXISTS).
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 CREATE TABLE IF NOT EXISTS `contact_messages` (
     `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,

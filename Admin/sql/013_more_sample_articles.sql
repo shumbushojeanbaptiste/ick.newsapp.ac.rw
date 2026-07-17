@@ -8,7 +8,7 @@
 --  SAFE TO RE-RUN: inserts only if the slug doesn't already exist.
 --  Clear all sample data with:  DELETE FROM articles WHERE slug LIKE 'sample-%';
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 DROP PROCEDURE IF EXISTS `kz_add_article`;
 DELIMITER //
