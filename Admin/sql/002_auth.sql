@@ -2,7 +2,7 @@
 --  UR KAMINUZA - Auth additions: password resets, remember-me,
 --  and one seed user per role.
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 -- ------------------------------------------------------------
 -- Password reset tokens

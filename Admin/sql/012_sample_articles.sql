@@ -8,7 +8,7 @@
 --  SAFE TO RE-RUN: each row inserts only if its slug doesn't already exist.
 --  To clear sample data later:  DELETE FROM articles WHERE slug LIKE 'sample-%';
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 -- Helper: insert a published article by (slug, category slug, flags, en text).
 DROP PROCEDURE IF EXISTS `kz_add_article`;

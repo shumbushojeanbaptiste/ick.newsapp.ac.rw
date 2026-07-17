@@ -4,7 +4,7 @@
 --  menu item falls back to English on the rw/fr versions of the site.
 --  Idempotent: UPDATE by slug.
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 -- Top-level (re-affirm from 018)
 UPDATE categories SET name_rw='Amakuru',                  name_fr='Actualités'              WHERE slug='news';

@@ -3,9 +3,9 @@
 --  Engine: MySQL / MariaDB  |  Charset: utf8mb4 (multilingual)
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS `KAMINUZA`
+CREATE DATABASE IF NOT EXISTS `kaminuza2`
   CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 -- ------------------------------------------------------------
 -- Roles  (RBAC)

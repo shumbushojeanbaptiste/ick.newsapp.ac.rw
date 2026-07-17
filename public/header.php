@@ -48,7 +48,7 @@ $cssVer = static function (string $file): string {
   <div class="loader-item"> <img src="img/load.gif" alt='loader'> </div>
 </div> -->
 <!--========== BEGIN #WRAPPER ==========-->
-<div id="wrapper" data-color="blue"> 
+<div id="wrapper" data-color="<?= e(setting('theme_color') ?: 'ick') ?>">
   <!--========== BEGIN #HEADER ==========-->
   <header id="header"> 
     <!-- Begin .top-menu -->

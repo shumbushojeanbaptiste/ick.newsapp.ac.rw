@@ -443,3 +443,117 @@
     }
 }
 
+
+
+/* ============================================================
+   ICK NEWS brand theme  (data-color="ick")
+   Logo colours: black text on ICK yellow (#FFD400).
+   Design: black primary bars/menus + yellow accents, so the
+   white navbar text stays readable while accents match the logo.
+   This file loads AFTER colors.css, so these rules win.
+   ============================================================ */
+
+:root {
+  --ick-yellow: #FFD400;
+  --ick-yellow-dark: #E6BE00;
+  --ick-black: #141414;
+  --ick-ink: #111111;
+}
+
+/* --- Primary surfaces: black bars/menus/ribbon/tags --- */
+[data-color="ick"] .main-menu,
+[data-color="ick"] #fixed-navbar,
+[data-color="ick"] .breaking-ribbon,
+[data-color="ick"] .search-icon-btn,
+[data-color="ick"] #time,
+[data-color="ick"] .sponsored,
+[data-color="ick"] .carousel-title,
+[data-color="ick"] .play-icon,
+[data-color="ick"] .navbar-nav > li.active > a,
+[data-color="ick"] .block-title-1,
+[data-color="ick"] .block-title-2 {
+  background-color: var(--ick-black) !important;
+  color: #fff !important;
+}
+
+/* Category tags on cards/slider use the theme's bg-* helpers; tie the
+   main one to the brand black and give a couple of yellow variants so
+   the homepage tags read as a set. */
+[data-color="ick"] .category-tag.bg-1,
+[data-color="ick"] .breaking-ribbon h4 {
+  background-color: var(--ick-black) !important;
+  color: var(--ick-yellow) !important;
+}
+[data-color="ick"] .category-tag.bg-6,
+[data-color="ick"] .category-tag.bg-4 {
+  background-color: var(--ick-yellow) !important;
+  color: var(--ick-ink) !important;
+}
+
+/* --- Accents in ICK yellow: underlines, section titles, hovers --- */
+[data-color="ick"] .title-left.underline04::before,
+[data-color="ick"] .title-left.underline03::before,
+[data-color="ick"] .module-title .title span.bg-1,
+[data-color="ick"] .module-title .title span.bg-11 {
+  background-color: var(--ick-yellow) !important;
+  color: var(--ick-ink) !important;
+}
+
+/* Section-title labels (span.bg-*) sit on yellow with dark text. */
+[data-color="ick"] .module-title .title span {
+  color: var(--ick-ink) !important;
+}
+
+/* Links, read-more, hovers, clock text -> yellow(ish, darkened so it
+   stays readable on white backgrounds). */
+[data-color="ick"] a:hover,
+[data-color="ick"] .read-more:hover,
+[data-color="ick"] #nav-below-main .nav li a:hover,
+[data-color="ick"] .dropdown-menu a:hover,
+[data-color="ick"] .item-content h3 a:hover,
+[data-color="ick"] .hour,
+[data-color="ick"] .date {
+  color: var(--ick-yellow-dark) !important;
+}
+
+/* Main menu + quick-links hover: yellow underline / highlight. */
+[data-color="ick"] .main-menu .nav > li > a:hover,
+[data-color="ick"] .main-menu .nav > li.active > a,
+[data-color="ick"] .nav .open > a,
+[data-color="ick"] .nav .open > a:focus,
+[data-color="ick"] .nav .open > a:hover {
+  background-color: var(--ick-yellow) !important;
+  color: var(--ick-ink) !important;
+}
+
+/* read-more arrow marker + nav hover underline bars -> yellow. */
+[data-color="ick"] .read-more:hover:before,
+[data-color="ick"] #nav-below-main .nav li a:hover:before {
+  background-color: var(--ick-yellow) !important;
+}
+
+/* Buttons (search, post comment, send message) -> yellow with dark text. */
+[data-color="ick"] .btn-primary,
+[data-color="ick"] .btn-info,
+[data-color="ick"] button[type="submit"].btn {
+  background-color: var(--ick-yellow) !important;
+  border-color: var(--ick-yellow-dark) !important;
+  color: var(--ick-ink) !important;
+}
+[data-color="ick"] .btn-primary:hover,
+[data-color="ick"] .btn-info:hover {
+  background-color: var(--ick-yellow-dark) !important;
+  color: var(--ick-ink) !important;
+}
+
+/* Active pagination + tab underline in yellow. */
+[data-color="ick"] .pagination > .active > a,
+[data-color="ick"] .pagination > .active > a:hover {
+  background-color: var(--ick-black) !important;
+  border-color: var(--ick-black) !important;
+  color: var(--ick-yellow) !important;
+}
+[data-color="ick"] .currentLink,
+[data-color="ick"] .nav-tabs.nav-tabs-bottom > li.active > a {
+  border-bottom: 2px solid var(--ick-yellow) !important;
+}

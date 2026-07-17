@@ -4,7 +4,7 @@
 --  either an embedded link (YouTube/Vimeo/SoundCloud/stream) or a
 --  self-hosted uploaded file.
 -- ============================================================
-USE `KAMINUZA`;
+USE `kaminuza2`;
 
 ALTER TABLE `articles`
   ADD COLUMN `media_type` ENUM('none','video','audio') NOT NULL DEFAULT 'none' AFTER `featured_image`,
