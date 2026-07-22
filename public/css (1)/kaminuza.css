@@ -5,6 +5,30 @@
    layout. We do NOT edit the theme's own CSS files.
    ============================================================ */
 
+/* Global font override: use Inter across the public site. */
+body,
+button,
+input,
+select,
+textarea,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span,
+li,
+label,
+small,
+strong,
+th,
+td {
+    font-family: 'Inter', sans-serif !important;
+}
+
 /* News slider: make each mosaic slot a fixed height and let the image
    fill it via object-fit, so uploaded images of any dimension keep the
    exact original layout (no gaps, no stretching). Heights mirror the
@@ -28,6 +52,23 @@
 }
 .news-slider-layer.third {
     margin-bottom: 4px;
+}
+
+/* On phones, hide the middle tile and keep the 3-tile mosaic. */
+@media (max-width: 767px) {
+    #news-slider .news-slider-layer.second {
+        display: none;
+    }
+
+    #news-slider .news-slider-layer.first {
+        width: 52%;
+        margin-right: 2%;
+    }
+
+    #news-slider .news-slider-layer.third,
+    #news-slider .news-slider-layer.fourth {
+        width: 46%;
+    }
 }
 
 /* Keep the image link wrapper filling the slot height too. */
