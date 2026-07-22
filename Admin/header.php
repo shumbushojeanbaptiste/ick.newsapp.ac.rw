@@ -29,6 +29,8 @@ $GLOBALS['BASE_URL'] = $basePath;
     <meta content="UR KAMINUZA News Platform" name="description">
     <link rel="shortcut icon" href="<?= e(logo_url('dark')) ?>">
 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Layout config Js -->
     <script src="assets/js/layout.js"></script>
     <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
