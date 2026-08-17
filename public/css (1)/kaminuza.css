@@ -288,6 +288,76 @@ td {
 
 /* Single article — responsive (phones/tablets) */
 @media (max-width: 767px) {
+    /* ---- Mobile reading gutter ----
+       The theme zeroes ALL column padding on phones
+       (responsive.css: .row.no-gutter [class*="col-"] { padding:0 }), so the
+       article text ran flush to both screen edges and no longer lined up with
+       the rest of the page — most visibly on the opening (lead) paragraph.
+       Give the article column a proper reading gutter and make every block
+       inside it share the SAME left edge. */
+    #main-section .post.post-full,
+    #main-section .kz-comments {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    /* The featured photo stays full-bleed (edge to edge) — it reads better on a
+       phone — so pull just the media back out of the gutter. */
+    .post-full .entry-media {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    .post-full .entry-media img { border-radius: 0; }
+
+    /* Lead + body paragraphs: one consistent left edge, no stray indents or
+       centring coming from pasted editor markup. */
+    .post-full .entry-content,
+    .post-full .entry-content > p,
+    .post-full .entry-content > div {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: left;
+        text-indent: 0;
+    }
+    /* Editor-pasted paragraphs sometimes carry inline text-align/margins that
+       knock the lead out of line on a narrow screen. */
+    .post-full .entry-content p[style],
+    .post-full .entry-content div[style] {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        text-align: left !important;
+        text-indent: 0 !important;
+        width: auto !important;
+        max-width: 100% !important;
+        float: none !important;
+    }
+    /* The first (lead) paragraph gets a touch more air below the photo/meta. */
+    .post-full .entry-content > p:first-child {
+        margin-top: 0;
+    }
+    /* Any image floated inside the body stacks instead of squeezing the text. */
+    .post-full .entry-content img {
+        float: none !important;
+        display: block;
+        margin: .8em auto;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+    /* Long words / URLs can't push the column sideways any more. */
+    .post-full .entry-content {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
+    /* Tables in the body scroll instead of stretching the page. */
+    .post-full .entry-content table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+
     .post-full .entry-title { font-size: 1.3em; }
     .post-full .entry-content { font-size: 1em; line-height: 1.75; }
     .post-full .post-meta-elements { font-size: 13px; }
@@ -303,6 +373,33 @@ td {
 @media (max-width: 480px) {
     .post-full .entry-title { font-size: 1.18em; }
     .kz-react__txt { display: none; }   /* compact: icon + count only on tiny screens */
+}
+
+/* ===========================================================================
+   Single article: the story TITLE sits ABOVE the photo (editorial request).
+   Only the full story page is affected — the homepage/section card layouts
+   keep the theme's original image-then-title order.
+   =========================================================================== */
+.post-full .kz-entry-head {
+    margin-bottom: 14px;
+}
+.post-full .kz-entry-head h1.entry-title {
+    font-size: 1.8em;
+    line-height: 1.25;
+    font-weight: 800;
+    margin: 0;
+}
+.post-full .entry-media {
+    margin-bottom: 18px;
+}
+@media (max-width: 767px) {
+    .post-full .kz-entry-head h1.entry-title { font-size: 1.35em; }
+    /* Headline shares the same left edge as the body text (see the mobile
+       reading-gutter block below). */
+    .post-full .kz-entry-head { margin-bottom: 12px; }
+}
+@media (max-width: 480px) {
+    .post-full .kz-entry-head h1.entry-title { font-size: 1.22em; }
 }
 
 /* ---- Contact page info list ---- */
@@ -387,9 +484,13 @@ td {
     cursor: pointer; opacity: .8; padding: 0 4px;
 }
 .kz-radio-player__close:hover { opacity: 1; }
+/* "Coming soon" state — ICK Radio is announced but not broadcasting yet. */
+.kz-radio-player__soon { flex: 1 1 auto; opacity: .9; font-size: 14px; }
+.kz-radio-soon { opacity: .75; font-size: .85em; font-weight: 400; }
 @media (max-width: 600px) {
     .kz-radio-player__bar { gap: 8px; padding: 6px 10px; }
     .kz-radio-player__name { display: none; }
+    .kz-radio-player__soon { font-size: 13px; }
 }
 
 /* ---- Language switcher (flag image + full name) ---- */
@@ -457,6 +558,121 @@ td {
     max-height: 90px;
     max-width: 320px;
     object-fit: contain;
+}
+
+/* ============================================================
+   Mobile: separate the SEARCH box from the MENU (hamburger)
+   On phones the search sits in the top bar and the hamburger sits in the
+   row directly beneath it. They ended up almost touching, so tapping the
+   menu often hit the search instead. We add clear vertical separation and
+   give the hamburger a proper finger-sized tap target.
+   ============================================================ */
+@media (max-width: 991px) {
+    /* 1. Give the top bar (search + language + radio) room of its own so it
+          can't sit on top of the menu row. */
+    .top-menu {
+        padding-bottom: 8px;
+    }
+    .top-menu .right-top-menu {
+        margin-bottom: 0;
+    }
+
+    /* 2. Push the menu row clearly below the search row. The search field drops
+          BELOW its magnifier button when it opens, so the menu button needs to
+          start well clear of that drop-down area. */
+    #mobile-nav .navbar-header {
+        position: relative;
+        padding-top: 14px;
+    }
+    /* The search field opens downward from the top bar; keep it clipped to the
+       top bar so it can never land on top of the menu button. */
+    .top-menu .search-input {
+        top: 0;
+    }
+
+    /* 3. Logo on the LEFT, menu button on the RIGHT (the theme's own order),
+          with the menu button given a proper finger-sized tap target and kept
+          clear of the search icon above it.
+          (The theme used margin-top:20px / padding:9px — a small target.) */
+    #mobile-nav .navbar-header .sidenav-header-logo {
+        float: left;
+        margin-left: 12px;
+    }
+    .navbar-default .navbar-toggle {
+        float: right !important;
+        margin-top: 14px !important;
+        margin-bottom: 8px;
+        margin-right: 12px;
+        margin-left: 0;
+        padding: 12px 11px;
+        min-width: 46px;
+        min-height: 44px;
+        position: relative;
+        z-index: 30;              /* stays above the search input's expansion */
+    }
+    /* Keep the three bars centred in the larger button. */
+    .navbar-default .navbar-toggle .icon-bar {
+        width: 22px;
+        display: block;
+        margin: 0 auto;
+    }
+    .navbar-default .navbar-toggle .icon-bar + .icon-bar {
+        margin-top: 4px;
+    }
+
+    /* 4. Keep the (click-opened) search field inside the top bar so it can
+          never reach down over the menu button. */
+    .top-menu .search-container {
+        z-index: 5;
+    }
+    .kz-search.is-open .search-input input.search-bar {
+        max-width: 62vw;          /* never wide enough to reach the menu button */
+    }
+}
+
+/* ---- Search opens on CLICK, not on hover ----
+   The theme expanded the field whenever the pointer merely passed over it
+   (.search-container:hover), which on a phone triggers from any nearby tap and
+   left the box sitting open beside the menu button. The field is now closed by
+   default and only opens once the magnifier is clicked (JS adds .is-open). */
+.kz-search .search-input input.search-bar,
+.kz-search:hover > .search-input input.search-bar,
+.kz-search .search-input input.search-bar:focus {
+    width: 40px;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: transparent;
+    border-color: transparent;
+    cursor: pointer;
+}
+/* Opened state (set by the click handler). */
+.kz-search.is-open .search-input input.search-bar,
+.kz-search.is-open:hover > .search-input input.search-bar,
+.kz-search.is-open .search-input input.search-bar:focus {
+    width: 200px;
+    padding-left: 60px;
+    padding-right: 10px;
+    background-color: #f2f2f4;
+    border-color: #ccc;
+    color: #939399;
+    cursor: text;
+}
+
+/* Small phones: a little more breathing room again, since the rows are
+   tighter and the theme shrinks the toggle's margin to 14px there. */
+@media (max-width: 767px) {
+    .top-menu {
+        padding-bottom: 10px;
+    }
+    .navbar-default .navbar-toggle {
+        margin-top: 16px !important;
+    }
+    /* The sidenav's own close (X) button keeps a comfortable target too. */
+    .sidenav .navbar-toggle {
+        min-width: 46px;
+        min-height: 44px;
+        padding: 12px 11px;
+    }
 }
 
 /* ---- Mobile fixes ---- */

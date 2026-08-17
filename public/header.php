@@ -73,26 +73,30 @@ $cssVer = static function (string $file): string {
           // Flags live in public/img (tracked theme assets, so they deploy).
           $curLang = current_lang();
           $langLabels = [
-              'en' => ['flag' => 'img/flag-en.png', 'name' => 'ENGLISH'],
-              'rw' => ['flag' => 'img/flag-rw.png', 'name' => 'KINYARWANDA'],
-              'fr' => ['flag' => 'img/flag-fr.png', 'name' => 'FRANCAIS'],
+              'en' => ['flag' => 'img/flag-en.png', 'name' => ''],
+              'rw' => ['flag' => 'img/flag-rw.png', 'name' => ''],
+              'fr' => ['flag' => 'img/flag-fr.png', 'name' => ''],
           ];
           foreach ($langLabels as $code => $l): ?>
           <li class="lang-switch"><a href="?lang=<?= $code ?>"<?= $curLang === $code ? ' class="active-lang"' : '' ?>><img class="lang-flag" src="<?= e($l['flag']) ?>" alt="<?= e($l['name']) ?>"> <?= $l['name'] ?></a></li>
           <?php endforeach; ?>
           <?php
-          // Radio icon (plays Salus Radio on-site). Stream from Admin > Radio.
-          $hdrStreams = active_streams();
-          $hdrRadioUrl = setting('quick_radio') ?: ($hdrStreams[0]['stream_url'] ?? '');
-          $hdrRadioName = $hdrStreams[0]['name'] ?? 'Salus Radio';
-          if ($hdrRadioUrl): ?>
-          <li class="radio"><a href="<?= e($hdrRadioUrl) ?>" class="kz-radio-link" data-radio="<?= e($hdrRadioUrl) ?>" data-radio-name="<?= e($hdrRadioName) ?>" title="<?= e($hdrRadioName) ?> — Listen live"><i class="fa fa-microphone fa-i"></i></a></li>
-          <?php endif; ?>
+          // Radio icon (plays ICK Radio on-site). Stream from Admin > Radio.
+          // ICK Radio is not broadcasting yet, so with no stream URL the icon
+          // still shows and opens a short "coming soon" notice instead.
+          $hdrRadioUrl  = radio_url();
+          $hdrRadioName = radio_name();
+          $hdrRadioTitle = $hdrRadioUrl
+              ? $hdrRadioName . ' — ' . t('listen_live')
+              : $hdrRadioName . ' — ' . t('radio_coming_soon');
+          ?>
+          <li class="radio"><a href="<?= e($hdrRadioUrl ?: '#') ?>" class="kz-radio-link" data-radio="<?= e($hdrRadioUrl) ?>" data-radio-name="<?= e($hdrRadioName) ?>" title="<?= e($hdrRadioTitle) ?>"><i class="fa fa-microphone fa-i"></i></a></li>
           <li class="contact"><a href="contact" title="Contact us"><i class="fa fa-map-marker fa-i"></i></a></li>
           <li class="about"><a href="<?= e(ADMIN_BASE) ?>login" title="Staff Login"><i class="fa fa-user fa-i"></i></a> </li>
           <li>
-            <form class="search-container" action="search" method="get" role="search">
-              <button type="submit" class="search-icon-btn" style="background:none;border:0;"> <span style="cursor:pointer"><i class="fa fa-search"></i></span> </button>
+            <?php // The search field stays closed until the magnifier is clicked (kz-search). ?>
+            <form class="search-container kz-search" action="search" method="get" role="search">
+              <button type="submit" class="search-icon-btn" style="background:none;border:0;" aria-label="Search" aria-expanded="false"> <span style="cursor:pointer"><i class="fa fa-search"></i></span> </button>
               <div class="search-input">
                 <input type="search" name="q" class="search-bar" value="<?= e($_GET['q'] ?? '') ?>" placeholder="<?= e(t('search_placeholder')) ?>" title="Search">
               </div>
@@ -140,6 +144,10 @@ $cssVer = static function (string $file): string {
                 <?php endif; ?>
               </li>
             <?php endforeach; ?>
+            <?php // External links: ICK News YouTube channel + the ICK website. ?>
+            <?php foreach (nav_external_links() as $ext): ?>
+            <li><a href="<?= e($ext['url']) ?>" target="_blank" rel="noopener"><i class="fa <?= e($ext['icon']) ?>"></i> <?= e($ext['label']) ?></a></li>
+            <?php endforeach; ?>
           </ul>
         </div>
       </nav>
@@ -172,6 +180,10 @@ $cssVer = static function (string $file): string {
               <li<?= $isActive ? ' class="active"' : '' ?>><a href="section?cat=<?= e($sec['slug']) ?>"><?= e(cat_name($sec)) ?></a></li>
               <?php endif; ?>
             <?php endforeach; ?>
+            <?php // External links: ICK News YouTube channel ("Videos"/"Amashusho") + the ICK website. ?>
+            <?php foreach (nav_external_links() as $ext): ?>
+            <li class="kz-nav-external"><a href="<?= e($ext['url']) ?>" target="_blank" rel="noopener"><i class="fa <?= e($ext['icon']) ?>"></i> <?= e($ext['label']) ?></a></li>
+            <?php endforeach; ?>
           </ul>
           <!--========== END .NAV NAVBAR-NAV ==========-->
         </div>
@@ -189,9 +201,9 @@ $cssVer = static function (string $file): string {
               <?php
               // Radio link: use the Settings "quick_radio" URL if set, else fall
               // back to the first active radio stream (managed in Admin > Radio).
-              $radioStreams = active_streams();
-              $radioUrl = setting('quick_radio') ?: ($radioStreams[0]['stream_url'] ?? '');
-              $radioLabel = $radioStreams[0]['name'] ?? 'Salus Radio';
+              // Defaults to "ICK Radio" — the station ICK plans to launch.
+              $radioUrl   = radio_url();
+              $radioLabel = radio_name();
 
               // Quick links: label stays, URL comes from Settings (falls back to
               // a sensible internal page). Edit the URLs in Admin > Settings.
@@ -205,9 +217,11 @@ $cssVer = static function (string $file): string {
               foreach ($quickLinks as $label => $url):
                   // The first item is the radio link: it toggles the on-site
                   // player (and still carries the stream URL as a fallback).
-                  if ($first && $radioUrl):
+                  // Shown even before the station goes live — the player then
+                  // displays a "coming soon" notice instead of an audio stream.
+                  if ($first):
                       $first = false; ?>
-              <li><a href="<?= e($radioUrl) ?>" class="kz-radio-link" data-radio="<?= e($radioUrl) ?>" data-radio-name="<?= e($radioLabel) ?>"><i class="fa fa-microphone"></i> <?= e($label) ?></a></li>
+              <li><a href="<?= e($radioUrl ?: '#') ?>" class="kz-radio-link" data-radio="<?= e($radioUrl) ?>" data-radio-name="<?= e($radioLabel) ?>"><i class="fa fa-microphone"></i> <?= e($label) ?><?= $radioUrl ? '' : ' <span class="kz-radio-soon">(' . e(t('radio_coming_soon')) . ')</span>' ?></a></li>
               <?php else:
                   $first = false;
                   // External links (http) open in a new tab; internal pages don't.

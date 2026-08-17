@@ -79,6 +79,11 @@ require __DIR__ . '/header.php';
             <!--========== BEGIN .POST ==========-->
             <div class="post post-full clearfix">
 
+              <!-- Headline sits ABOVE the photo -->
+              <div class="entry-title kz-entry-head">
+                <h1 class="entry-title"><?= e(a_title($article, $lang)) ?></h1>
+              </div>
+
               <?php if ($media): ?>
                 <div class="entry-media"><?= $media ?></div>
               <?php elseif (a_image($article)): ?>
@@ -86,10 +91,6 @@ require __DIR__ . '/header.php';
               <?php endif; ?>
 
               <div class="entry-main">
-                <div class="entry-title">
-                  <h4 class="entry-title"><?= e(a_title($article, $lang)) ?></h4>
-                </div>
-
                 <div class="post-meta-elements">
                   <div class="post-meta-author"> <i class="fa fa-user"></i> <?= e(t("by")) ?> <strong><?= e(a_byline($article)) ?></strong> </div>
                   <?php if (!empty($article['category_name'])): ?>
