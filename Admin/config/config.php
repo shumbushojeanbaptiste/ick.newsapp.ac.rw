@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - Application configuration & PDO connection.
+ * ICK News - Application configuration & PDO connection.
  *
  * Every admin page should start with:  require_once __DIR__ . '/config/config.php';
  * (adjust the relative path with how deep the page is).
@@ -15,7 +15,7 @@ ini_set('display_errors', '1');
 require_once __DIR__ . '/../../config/database.php';
 
 // ---- App constants ----
-define('APP_NAME', 'UR KAMINUZA');
+define('APP_NAME', 'ICK News');
 // Absolute filesystem path to the Admin folder.
 define('BASE_PATH', dirname(__DIR__));
 // Folder (relative to Admin) where uploaded images go.

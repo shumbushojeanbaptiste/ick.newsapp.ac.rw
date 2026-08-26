@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - Search results page.   search.php?q=<query>
+ * ICK News - Search results page.   search.php?q=<query>
  * Finds published articles in the current language whose title/excerpt/body
  * match the query, shown in the section-page layout.
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - UI translations (i18n).
+ * ICK News - UI translations (i18n).
  * t('key') returns the string in the current site language (current_lang()).
  * Falls back to English if a translation is missing.
  *

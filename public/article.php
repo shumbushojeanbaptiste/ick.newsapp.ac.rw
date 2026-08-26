@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - Single article page.   article.php?slug=<slug>[&lang=rw|fr|en]
+ * ICK News - Single article page.   article.php?slug=<slug>[&lang=rw|fr|en]
  * Reuses the theme's single-post structure + the shared header/footer.
  * Shows the article in the chosen language (falls back to primary), with its
  * featured image, media, body, external reference links, and a sidebar.
@@ -101,7 +101,7 @@ require __DIR__ . '/header.php';
 
                 <?php if (count($langs) > 1): ?>
                 <!-- Language switcher (only languages this article has) -->
-                <div class="post-tags" style="margin-bottom:14px">
+                <div class="post-tags kz-lang-switch" style="margin-bottom:14px">
                   <span class="post-tags_title"><?= e(t("read_in")) ?></span>
                   <?php foreach ($langs as $code => $label): ?>
                     <a class="post-tags_link<?= $code === $lang ? ' active' : '' ?>" href="article?slug=<?= e($article['slug']) ?>&lang=<?= e($code) ?>"><?= e($label) ?></a>

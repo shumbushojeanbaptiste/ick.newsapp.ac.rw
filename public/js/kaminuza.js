@@ -1,5 +1,5 @@
 /* ============================================================
-   UR KAMINUZA - small public-site behaviour tweaks.
+   ICK News - small public-site behaviour tweaks.
    Layered on top of the theme JS; we do NOT edit theme files.
    ============================================================ */
 (function () {

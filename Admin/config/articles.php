@@ -1,6 +1,6 @@
 <?php
 /**
- * Article workflow helpers for UR KAMINUZA.
+ * Article workflow helpers for ICK News.
  * Statuses: draft -> pending -> published <-> unpublished
  */
 require_once __DIR__ . '/auth.php';

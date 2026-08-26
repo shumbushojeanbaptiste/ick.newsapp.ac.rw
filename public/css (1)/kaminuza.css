@@ -1,5 +1,5 @@
 /* ============================================================
-   UR KAMINUZA - public site overrides.
+   ICK News - public site overrides.
    Small, additive tweaks layered on top of the purchased theme so
    dynamic content (any-size uploaded images) keeps the original
    layout. We do NOT edit the theme's own CSS files.
@@ -813,4 +813,71 @@ td {
 [data-color="ick"] .currentLink,
 [data-color="ick"] .nav-tabs.nav-tabs-bottom > li.active > a {
   border-bottom: 2px solid var(--ick-yellow) !important;
+}
+
+/* ===========================================================================
+   Single article page — headline casing + typography polish
+   (editorial request). Only .post-full is targeted, so homepage/section
+   cards keep the theme's original look.
+   =========================================================================== */
+
+/* The theme uppercases the full-story headline (style.css .post-full
+   .entry-title). Show the title exactly as the editor typed it. */
+.post-full .entry-title,
+.post-full .kz-entry-head h1.entry-title {
+    text-transform: none;
+    letter-spacing: -0.01em;
+}
+
+/* Headline: a touch tighter and darker so it reads as the page's anchor. */
+.post-full .kz-entry-head h1.entry-title {
+    font-size: 2.05em;
+    line-height: 1.22;
+    font-weight: 800;
+    color: #16181d;
+    word-break: break-word;
+}
+.post-full .kz-entry-head {
+    margin-bottom: 16px;
+}
+
+/* Meta row (author / category / date): quieter than the headline. */
+.post-full .post-meta-elements {
+    font-size: .88em;
+    color: #6b7280;
+}
+
+/* Body copy: comfortable measure and rhythm for long reads. */
+.post-full .entry-content {
+    font-size: 1.06em;
+    line-height: 1.85;
+    color: #23262b;
+}
+.post-full .entry-content > p:first-of-type {
+    font-size: 1.06em;
+    color: #16181d;
+}
+
+/* Featured image: soft rounding + subtle lift under the headline. */
+.post-full .entry-media img {
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .10);
+}
+
+@media (max-width: 767px) {
+    .post-full .kz-entry-head h1.entry-title { font-size: 1.5em; line-height: 1.26; }
+    .post-full .entry-content { font-size: 1.02em; line-height: 1.78; }
+}
+@media (max-width: 480px) {
+    .post-full .kz-entry-head h1.entry-title { font-size: 1.32em; }
+}
+
+/* ---------------------------------------------------------------------------
+   "Read in: Kinyarwanda / English" language switcher — HIDDEN for now.
+   The multi-language authoring flow in the Admin stays intact and article.php
+   still renders the switcher; it is only hidden from readers. To bring it
+   back, delete this single rule.
+   --------------------------------------------------------------------------- */
+.post-full .kz-lang-switch {
+    display: none;
 }
