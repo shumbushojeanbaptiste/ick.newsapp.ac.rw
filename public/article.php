@@ -48,6 +48,10 @@ if ($article && $article['category_id']) {
     $GLOBALS['active_section'] = category_parent_slug((int) $article['category_id']);
 }
 
+// Styling for this page only (see css (1)/article-modern.css).
+// Remove this line to fall back to the previous look.
+$pageStyles = ['article-modern.css'];
+
 require __DIR__ . '/header.php';
 ?>
 

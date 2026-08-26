@@ -1,0 +1,454 @@
+/* ===========================================================================
+   ICK News — single article page ("read full story") refinements.
+
+   Loaded ONLY by article.php, via $pageStyles in header.php. Nothing else on
+   the site can be affected by this file.
+
+   Every rule is scoped under .post-full (the single-story wrapper) or the
+   article page's own kz-* blocks, so the homepage, section listings and card
+   layouts keep the theme's original look.
+
+   To switch this off entirely: remove the $pageStyles line near the top of
+   article.php. To tune it: edit the tokens in the :root block below.
+   =========================================================================== */
+
+:root {
+    /* Reading surface */
+    --ar-ink:        #16181d;   /* headline / strongest text          */
+    --ar-body:       #26292f;   /* body copy                          */
+    --ar-muted:      #6b7280;   /* meta, captions, secondary labels   */
+    --ar-hairline:   #e8eaed;   /* dividers                           */
+    --ar-surface:    #f7f8f9;   /* subtle panels                      */
+    --ar-radius:     10px;
+    /* Brand accent — inherits the ICK yellow already defined in kaminuza.css,
+       with a safe fallback if this file is ever loaded on its own. */
+    --ar-accent:     var(--ick-yellow, #FFD400);
+    --ar-accent-ink: var(--ick-ink, #111111);
+}
+
+/* ---------------------------------------------------------------------------
+   1. Headline
+   A tighter optical size and slightly negative tracking so long Kinyarwanda
+   headlines hold together as one shape instead of sprawling.
+   --------------------------------------------------------------------------- */
+.post-full .kz-entry-head {
+    margin-bottom: 18px;
+}
+.post-full .kz-entry-head h1.entry-title {
+    font-size: 2.15em;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.018em;
+    color: var(--ar-ink);
+    text-transform: none;      /* keep the author's own casing */
+    text-wrap: balance;        /* progressive: evens out the last line */
+    margin: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   2. Meta row — author / category / date
+   Recede it to a quiet caption line so the headline and photo lead.
+   --------------------------------------------------------------------------- */
+.post-full .post-meta-elements {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 20px;
+    font-size: .86em;
+    color: var(--ar-muted);
+    border-bottom: 1px solid var(--ar-hairline);
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+}
+.post-full .post-meta-elements > div {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+.post-full .post-meta-elements i {
+    color: var(--ar-muted);
+    opacity: .8;
+}
+.post-full .post-meta-author strong {
+    color: var(--ar-ink);
+    font-weight: 600;
+}
+.post-full .post-meta-cat a {
+    color: var(--ar-ink);
+    font-weight: 600;
+    border-bottom: 2px solid var(--ar-accent);
+    padding-bottom: 1px;
+    transition: opacity .15s ease;
+}
+.post-full .post-meta-cat a:hover {
+    opacity: .65;
+    text-decoration: none;
+}
+
+/* ---------------------------------------------------------------------------
+   3. Featured image
+   --------------------------------------------------------------------------- */
+.post-full .entry-media {
+    margin-bottom: 24px;
+}
+.post-full .entry-media img {
+    width: 100%;
+    border-radius: var(--ar-radius);
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .06),
+                0 8px 24px rgba(16, 24, 40, .08);
+}
+
+/* ---------------------------------------------------------------------------
+   4. Body copy
+   A comfortable measure and rhythm for long-form reading.
+   --------------------------------------------------------------------------- */
+.post-full .entry-content {
+    font-size: 1.08em;
+    line-height: 1.85;
+    color: var(--ar-body);
+}
+/* The theme sets a bare `p { color: #777 }` (style.css), which beats an
+   inherited colour from .entry-content and washes out the body text. Colour
+   the paragraphs directly so the story is readable. */
+.post-full .entry-content p,
+.post-full .entry-content li,
+.post-full .entry-content span,
+.post-full .entry-content div {
+    color: var(--ar-body);
+}
+.post-full .entry-content p {
+    margin-bottom: 1.25em;
+    line-height: 1.85;
+}
+
+/* Lead paragraph: slightly larger and darker, so the story has an entry point.
+   :first-of-type (not :first-child) survives an editor-inserted wrapper. */
+.post-full .entry-content > p:first-of-type {
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: var(--ar-ink);
+}
+
+.post-full .entry-content h2,
+.post-full .entry-content h3 {
+    color: var(--ar-ink);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin: 1.6em 0 .55em;
+}
+.post-full .entry-content h2 { font-size: 1.42em; }
+.post-full .entry-content h3 { font-size: 1.2em; }
+
+.post-full .entry-content a {
+    color: var(--ar-ink);
+    box-shadow: inset 0 -2px 0 var(--ar-accent);
+    transition: box-shadow .15s ease;
+}
+.post-full .entry-content a:hover {
+    box-shadow: inset 0 -1.1em 0 var(--ar-accent);
+    text-decoration: none;
+}
+
+.post-full .entry-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--ar-radius);
+    margin: 1em 0;
+}
+
+/* Pull quote — accent bar rather than the theme's red left border. */
+.post-full .entry-content blockquote {
+    position: relative;
+    border: 0;
+    border-left: 3px solid var(--ar-accent);
+    background: var(--ar-surface);
+    border-radius: 0 var(--ar-radius) var(--ar-radius) 0;
+    margin: 1.6em 0;
+    padding: 1.1em 1.4em;
+    font-size: 1.06em;
+    font-style: normal;
+    line-height: 1.6;
+    color: var(--ar-ink);
+}
+
+.post-full .entry-content ul,
+.post-full .entry-content ol {
+    margin: 0 0 1.25em;
+    padding-left: 1.35em;
+}
+.post-full .entry-content li {
+    margin-bottom: .5em;
+}
+
+/* Wide tables scroll inside their own box instead of stretching the page. */
+.post-full .entry-content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+}
+.post-full .entry-content th,
+.post-full .entry-content td {
+    border: 1px solid var(--ar-hairline);
+    padding: 9px 12px;
+    text-align: left;
+}
+.post-full .entry-content th {
+    background: var(--ar-surface);
+    font-weight: 600;
+    color: var(--ar-ink);
+}
+
+/* ---------------------------------------------------------------------------
+   5. Footer byline
+   --------------------------------------------------------------------------- */
+.post-full .kz-byline-foot {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 30px;
+    padding-top: 16px;
+    border-top: 1px solid var(--ar-hairline);
+    font-size: .9em;
+    color: var(--ar-muted);
+}
+.post-full .kz-byline-foot strong {
+    color: var(--ar-ink);
+    font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------------
+   6. Reactions (was this useful?)
+   --------------------------------------------------------------------------- */
+.kz-reactions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 22px;
+    padding: 16px 18px;
+    background: var(--ar-surface);
+    border: 1px solid var(--ar-hairline);
+    border-radius: var(--ar-radius);
+}
+.kz-reactions__label {
+    font-weight: 600;
+    color: var(--ar-ink);
+    margin-right: 4px;
+}
+.kz-react {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid #dfe2e6;
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: .92em;
+    color: var(--ar-body);
+    cursor: pointer;
+    transition: border-color .15s ease, box-shadow .15s ease, transform .08s ease;
+}
+.kz-react:hover {
+    border-color: #b9bec5;
+    box-shadow: 0 2px 6px rgba(16, 24, 40, .07);
+}
+.kz-react:active {
+    transform: translateY(1px);
+}
+.kz-react.is-active {
+    background: var(--ar-accent);
+    border-color: var(--ar-accent);
+    color: var(--ar-accent-ink);
+    font-weight: 600;
+}
+.kz-react .kz-count {
+    font-variant-numeric: tabular-nums;
+    opacity: .75;
+}
+
+/* ---------------------------------------------------------------------------
+   7. Comments
+   --------------------------------------------------------------------------- */
+.kz-comments {
+    margin-top: 40px;
+}
+.kz-comment-list {
+    list-style: none;
+    margin: 0 0 26px;
+    padding: 0;
+}
+.kz-comment {
+    display: flex;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--ar-hairline);
+}
+.kz-comment:last-child {
+    border-bottom: 0;
+}
+.kz-comment__avatar {
+    flex: 0 0 42px;
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    background: var(--ar-accent);
+    color: var(--ar-accent-ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 17px;
+}
+.kz-comment__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 3px;
+}
+.kz-comment__name {
+    font-weight: 600;
+    color: var(--ar-ink);
+}
+.kz-comment__date {
+    font-size: .82em;
+    color: var(--ar-muted);
+}
+.kz-comment__text {
+    margin: 0;
+    line-height: 1.7;
+    color: var(--ar-body);
+}
+
+/* Comment form */
+.kz-comment-form {
+    background: var(--ar-surface);
+    border: 1px solid var(--ar-hairline);
+    border-radius: var(--ar-radius);
+    padding: 22px;
+}
+.kz-comment-form h4 {
+    margin: 0 0 16px;
+    font-weight: 700;
+    color: var(--ar-ink);
+}
+.kz-comment-form .form-control {
+    border: 1px solid #dfe2e6;
+    border-radius: 8px;
+    box-shadow: none;
+    padding: 10px 13px;
+    margin-bottom: 12px;
+    height: auto;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+.kz-comment-form .form-control:focus {
+    border-color: var(--ar-accent);
+    box-shadow: 0 0 0 3px rgba(255, 212, 0, .28);
+    outline: 0;
+}
+.kz-comment-form .kz-btn-submit {
+    background: var(--ar-accent);
+    color: var(--ar-accent-ink);
+    border: 0;
+    border-radius: 999px;
+    padding: 11px 26px;
+    font-weight: 700;
+    font-size: .93em;
+    cursor: pointer;
+    transition: filter .15s ease, transform .08s ease;
+}
+.kz-comment-form .kz-btn-submit:hover {
+    filter: brightness(.94);
+}
+.kz-comment-form .kz-btn-submit:active {
+    transform: translateY(1px);
+}
+
+/* Notices */
+.kz-note {
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 18px;
+    font-size: .93em;
+}
+.kz-note--ok  { background: #e8f6ec; color: #1c6b33; }
+.kz-note--err { background: #fdecec; color: #97231f; }
+
+/* ---------------------------------------------------------------------------
+   8. Sidebar — related stories
+   --------------------------------------------------------------------------- */
+.post-full ~ * .newsfeed-3 h4 a,
+.sidebar-newsfeed .newsfeed-3 h4 a {
+    color: var(--ar-ink);
+    font-weight: 600;
+    line-height: 1.4;
+    transition: opacity .15s ease;
+}
+.sidebar-newsfeed .newsfeed-3 h4 a:hover {
+    opacity: .6;
+    text-decoration: none;
+}
+.sidebar-newsfeed .newsfeed-3 .item {
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--ar-hairline);
+}
+.sidebar-newsfeed .newsfeed-3 li:last-child .item {
+    border-bottom: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   9. Responsive
+   --------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+    .post-full .kz-entry-head h1.entry-title {
+        font-size: 1.55em;
+        line-height: 1.24;
+    }
+    .post-full .entry-content {
+        font-size: 1.03em;
+        line-height: 1.78;
+    }
+    .post-full .entry-content > p:first-of-type {
+        font-size: 1.06em;
+    }
+    /* Full-bleed featured photo reads better on a phone. */
+    .post-full .entry-media img {
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .post-full .post-meta-elements {
+        gap: 6px 14px;
+        font-size: .82em;
+    }
+    .kz-reactions {
+        padding: 14px;
+    }
+    .kz-comment-form {
+        padding: 16px;
+    }
+    .kz-comment__avatar {
+        flex: 0 0 36px;
+        height: 36px;
+        width: 36px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .post-full .kz-entry-head h1.entry-title { font-size: 1.36em; }
+    .kz-react { padding: 7px 13px; }
+}
+
+/* Respect a reader's reduced-motion preference. */
+@media (prefers-reduced-motion: reduce) {
+    .post-full .entry-content a,
+    .kz-react,
+    .kz-comment-form .kz-btn-submit,
+    .kz-comment-form .form-control {
+        transition: none;
+    }
+}

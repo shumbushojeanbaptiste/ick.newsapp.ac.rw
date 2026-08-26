@@ -37,6 +37,13 @@ $cssVer = static function (string $file): string {
 <link rel="stylesheet" href="css%20%281%29/jquery-ui.min.css<?= $cssVer('jquery-ui.min.css') ?>">
 <link rel="stylesheet" href="css%20%281%29/weather-icons.min.css<?= $cssVer('weather-icons.min.css') ?>">
 <link rel="stylesheet" href="css%20%281%29/kaminuza.css<?= $cssVer('kaminuza.css') ?>">
+<?php
+// Per-page stylesheets. A page sets $pageStyles = ['foo.css'] BEFORE requiring
+// this header; every other page is untouched.
+foreach (($pageStyles ?? []) as $sheet) {
+    echo '<link rel="stylesheet" href="css%20%281%29/' . rawurlencode($sheet) . $cssVer($sheet) . '">' . "\n";
+}
+?>
 
 <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
