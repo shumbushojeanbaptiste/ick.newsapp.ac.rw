@@ -51,7 +51,7 @@ function setting(string $key, ?string $default = ''): ?string
 function site_name(): string
 {
     $n = setting('company_name', '');
-    return $n !== '' ? $n : 'UR KAMINUZA';
+    return $n !== '' ? $n : 'ICK News';
 }
 
 /** Site tagline from Settings. */

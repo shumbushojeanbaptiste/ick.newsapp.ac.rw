@@ -26,7 +26,7 @@ $GLOBALS['BASE_URL'] = $basePath;
     <base href="<?= e($basePath === '' ? './' : $basePath) ?>">
     <title><?= e($pageTitle) ?> | <?= e(APP_NAME) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="UR KAMINUZA News Platform" name="description">
+    <meta content="ICK News Platform" name="description">
     <link rel="shortcut icon" href="<?= e(logo_url('dark')) ?>">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">

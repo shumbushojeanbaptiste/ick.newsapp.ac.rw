@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - Public section (category) listing page.
+ * ICK News - Public section (category) listing page.
  * One reusable template for EVERY category/sub-category in the menu:
  *   section.php?cat=<slug>
  * Shows the category's published articles (including its sub-categories),

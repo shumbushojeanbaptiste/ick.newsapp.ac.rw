@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - Public website content helpers (read-only).
+ * ICK News - Public website content helpers (read-only).
  * Reads published articles and the active category tree from the DB.
  */
 require_once __DIR__ . '/config.php';

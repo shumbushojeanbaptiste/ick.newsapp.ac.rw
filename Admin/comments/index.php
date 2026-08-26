@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - Reader comment moderation.
+ * ICK News - Reader comment moderation.
  * Lists reader comments by status; publishers approve / reject / delete them.
  * Only approved comments are shown on the public article page.
  */

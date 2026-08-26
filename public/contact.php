@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - Contact page.
+ * ICK News - Contact page.
  * Uses the theme's contact.html template (About + Contact Info + Map + form),
  * but all content is dynamic: contact details + Google Map come from Admin
  * Settings, and the form stores messages in contact_messages for staff.

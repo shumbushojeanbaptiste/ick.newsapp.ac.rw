@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - Authentication & Role-Based Access Control (RBAC).
+ * ICK News - Authentication & Role-Based Access Control (RBAC).
  *
  * Include AFTER config.php. Call require_login() at the top of any protected page,
  * and can($permission) / require_can($permission) to gate actions.
