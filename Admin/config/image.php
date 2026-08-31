@@ -1,6 +1,6 @@
 <?php
 /**
- * Avatar image handling for UR KAMINUZA.
+ * Avatar image handling for ICK News.
  *
  * Cropper.js produces the final square client-side and posts it as a base64
  * data URL ("data:image/png;base64,...."). We decode, validate, and store it.

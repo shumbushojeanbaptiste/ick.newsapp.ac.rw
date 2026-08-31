@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - UI translations (i18n).
+ * ICK News - UI translations (i18n).
  * t('key') returns the string in the current site language (current_lang()).
  * Falls back to English if a translation is missing.
  *
@@ -15,6 +15,8 @@ $GLOBALS['I18N'] = [
         'breaking_news'     => 'Breaking News',
         'on_air_now'        => 'On Air Now',
         'listen_live'       => 'Listen live',
+        'radio_coming_soon' => 'Coming soon',
+        'radio_soon_msg'    => 'Our online radio station is launching soon. Stay tuned!',
         'latest_news'       => 'Latest News',
         'newest_stories'    => 'The newest stories from',
         'national_news'     => 'National News',
@@ -45,6 +47,8 @@ $GLOBALS['I18N'] = [
         'recent_posts'      => 'Recent Posts',
         'headlines'         => 'Headlines',
         'sections'          => 'Sections',
+        'videos'            => 'Videos',
+        'ick_site'          => 'ICK',
         'about_us'          => 'About Us',
         'staff_login'       => 'Staff Login',
         'latest_in'         => 'Latest in',
@@ -102,6 +106,8 @@ $GLOBALS['I18N'] = [
         'breaking_news'     => 'Amakuru ahuse',
         'on_air_now'        => 'Kuri radiyo/TV ubu',
         'listen_live'       => 'Tega amatwi',
+        'radio_coming_soon' => 'Iraza vuba',
+        'radio_soon_msg'    => 'Radiyo yacu yo kuri interineti iratangira vuba. Mudukurikire!',
         'latest_news'       => 'Amakuru aheruka',
         'newest_stories'    => 'Inkuru nshya kuva kuri',
         'national_news'     => 'Amakuru y’igihugu',
@@ -132,6 +138,8 @@ $GLOBALS['I18N'] = [
         'recent_posts'      => 'Inkuru ziheruka',
         'headlines'         => 'Imitwe y’inkuru',
         'sections'          => 'Ibice',
+        'videos'            => 'Amashusho',
+        'ick_site'          => 'ICK',
         'about_us'          => 'Abo turi bo',
         'staff_login'       => 'Injira (abakozi)',
         'latest_in'         => 'Aheruka muri',
@@ -189,6 +197,8 @@ $GLOBALS['I18N'] = [
         'breaking_news'     => 'Dernière heure',
         'on_air_now'        => 'En direct',
         'listen_live'       => 'Écouter en direct',
+        'radio_coming_soon' => 'Bientôt disponible',
+        'radio_soon_msg'    => 'Notre radio en ligne sera lancée prochainement. Restez à l’écoute !',
         'latest_news'       => 'Actualités',
         'newest_stories'    => 'Les dernières histoires de',
         'national_news'     => 'Actualités nationales',
@@ -219,6 +229,8 @@ $GLOBALS['I18N'] = [
         'recent_posts'      => 'Articles récents',
         'headlines'         => 'Gros titres',
         'sections'          => 'Rubriques',
+        'videos'            => 'Vidéos',
+        'ick_site'          => 'ICK',
         'about_us'          => 'À propos',
         'staff_login'       => 'Connexion (personnel)',
         'latest_in'         => 'Récent dans',

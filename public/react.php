@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - Like / dislike endpoint (AJAX, JSON).
+ * ICK News - Like / dislike endpoint (AJAX, JSON).
  * One reaction per visitor per article; clicking the same one again removes it,
  * clicking the other switches it. Reactions are instant (not moderated).
  *   POST react.php { article_id, reaction: like|dislike }

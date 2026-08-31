@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - Contact messages inbox + reader/reply.
+ * ICK News - Contact messages inbox + reader/reply.
  * Lists messages from the public contact page. Open one to read it fully and
  * reply: the reply is emailed to the sender FROM the "reply-from" address set
  * in Settings (settings.contact_reply_email), and saved on the message.

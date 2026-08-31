@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - Public website content helpers (read-only).
+ * ICK News - Public website content helpers (read-only).
  * Reads published articles and the active category tree from the DB.
  */
 require_once __DIR__ . '/config.php';
@@ -84,6 +84,30 @@ function nav_top_sections(): array
 function nav_children(int $parentId): array
 {
     return array_values(array_filter(nav_categories(), static fn($c) => (int) $c['parent_id'] === $parentId));
+}
+
+/**
+ * Extra external links shown at the end of the category menu:
+ *   - the ICK News YouTube channel  ("Videos" / "Amashusho" / "Vidéos")
+ *   - the main ICK website          ("ICK")
+ * URLs come from Settings ("youtube" and "contact_website"), so the admin can
+ * change them without touching code. A link is skipped when its URL is unset.
+ */
+function nav_external_links(): array
+{
+    $links = [];
+
+    $youtube = trim((string) (setting('nav_youtube') ?: setting('youtube')));
+    if ($youtube !== '') {
+        $links[] = ['label' => t('videos'), 'url' => $youtube, 'icon' => 'fa-youtube-play'];
+    }
+
+    $ickSite = trim((string) (setting('nav_ick_site') ?: setting('contact_website')));
+    if ($ickSite !== '') {
+        $links[] = ['label' => t('ick_site'), 'url' => $ickSite, 'icon' => 'fa-external-link'];
+    }
+
+    return $links;
 }
 
 /* ---------------------------------------------------------------------------
@@ -351,7 +375,7 @@ function published_in_category(int $categoryId, int $limit = 12, int $offset = 0
     return [$stmt->fetchAll(), $total];
 }
 
-/** Active radio/TV streams (e.g. Salus Radio) for the On-Air ticker. */
+/** Active radio/TV streams (e.g. ICK Radio) for the On-Air ticker. */
 function active_streams(): array
 {
     try {
@@ -360,6 +384,29 @@ function active_streams(): array
     } catch (PDOException $e) {
         return [];
     }
+}
+
+/**
+ * The station name shown in the header / quick-links / player.
+ * Order: the Settings override, then the first active stream, then "ICK Radio".
+ * ICK plans to launch its own online radio, so ICK Radio is the default name.
+ */
+function radio_name(): string
+{
+    $name = trim((string) setting('radio_name'));
+    if ($name !== '') {
+        return $name;
+    }
+    $streams = active_streams();
+    $name = trim((string) ($streams[0]['name'] ?? ''));
+    return $name !== '' ? $name : 'ICK Radio';
+}
+
+/** The live stream URL, or '' when the station isn't broadcasting yet. */
+function radio_url(): string
+{
+    $streams = active_streams();
+    return trim((string) (setting('quick_radio') ?: ($streams[0]['stream_url'] ?? '')));
 }
 
 /* ---------------------------------------------------------------------------

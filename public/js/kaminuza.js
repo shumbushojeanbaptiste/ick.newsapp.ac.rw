@@ -1,5 +1,5 @@
 /* ============================================================
-   UR KAMINUZA - small public-site behaviour tweaks.
+   ICK News - small public-site behaviour tweaks.
    Layered on top of the theme JS; we do NOT edit theme files.
    ============================================================ */
 (function () {
@@ -35,6 +35,57 @@
                 closeSidenav();
             }
         }, true);
+    }
+
+    // Search box: the theme opened the input on HOVER, which on a touch screen
+    // fires from any tap near the icon and leaves the field hanging open next
+    // to the menu button. Now the field only opens when the magnifier is
+    // clicked: first click opens + focuses it, and only once it holds text does
+    // the button actually submit the search. Clicking outside closes it again.
+    function initSearch() {
+        var form = document.querySelector('.kz-search');
+        if (!form) { return; }
+        var btn   = form.querySelector('.search-icon-btn');
+        var input = form.querySelector('.search-bar');
+        if (!btn || !input) { return; }
+
+        // Keep it open on a results page so the query stays visible/editable.
+        if (input.value.trim() !== '') {
+            form.classList.add('is-open');
+            btn.setAttribute('aria-expanded', 'true');
+        }
+
+        btn.addEventListener('click', function (e) {
+            if (!form.classList.contains('is-open')) {
+                e.preventDefault();               // open instead of submitting
+                form.classList.add('is-open');
+                btn.setAttribute('aria-expanded', 'true');
+                input.focus();
+                return;
+            }
+            if (input.value.trim() === '') {
+                e.preventDefault();               // nothing to search for yet
+                input.focus();
+            }
+        });
+
+        // Tapping/clicking anywhere outside closes the empty field again.
+        document.addEventListener('click', function (e) {
+            if (form.contains(e.target)) { return; }
+            if (input.value.trim() === '') {
+                form.classList.remove('is-open');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Escape closes it too.
+        input.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                form.classList.remove('is-open');
+                btn.setAttribute('aria-expanded', 'false');
+                input.blur();
+            }
+        });
     }
 
     // Like / dislike on the single-article page (AJAX, instant). Posts to
@@ -75,9 +126,11 @@
         }, 5000);
     }
 
-    // On-site radio: clicking the header "Salus Radio" link opens a small
+    // On-site radio: clicking the header "ICK Radio" link opens a small
     // floating player and starts the stream (instead of leaving the site).
     // The player still has an "open in new tab" link as a fallback.
+    // Before the station launches there is no stream URL, so the bar opens
+    // showing a "coming soon" note and there is no <audio> element to play.
     function initRadio() {
         var player = document.getElementById('kz-radio-player');
         if (!player) { return; }
@@ -102,9 +155,10 @@
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function () { init(); initReactions(); initNoticeDismiss(); initRadio(); });
+        document.addEventListener('DOMContentLoaded', function () { init(); initSearch(); initReactions(); initNoticeDismiss(); initRadio(); });
     } else {
         init();
+        initSearch();
         initReactions();
         initNoticeDismiss();
         initRadio();

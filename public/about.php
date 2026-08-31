@@ -1,6 +1,6 @@
 <?php
 /**
- * UR KAMINUZA - About Us page.
+ * ICK News - About Us page.
  * Uses the theme's about-us.html template structure (title-style01 + the four
  * "Who/How/What/Management" cards + Editorial Board), but all content comes
  * from Admin > Settings. The demo TV-schedule sidebar + team scrollspy are

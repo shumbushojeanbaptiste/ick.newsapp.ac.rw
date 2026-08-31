@@ -59,7 +59,7 @@ require_once __DIR__ . '/../header.php';
             <div class="row mb-3 align-items-center">
                 <div class="col">
                     <h4 class="mb-0">Radio Streams</h4>
-                    <p class="text-muted mb-0">Embeddable live radio streams (e.g. Salus Radio).</p>
+                    <p class="text-muted mb-0">Embeddable live radio streams (e.g. ICK Radio).</p>
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#radioModal" onclick="resetRadioForm()">
@@ -148,7 +148,7 @@ require_once __DIR__ . '/../header.php';
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label" for="radio-name">Name <span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="radio-name" class="form-control" placeholder="e.g. Salus Radio" required>
+                        <input type="text" name="name" id="radio-name" class="form-control" placeholder="e.g. ICK Radio" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="radio-url">Stream URL <span class="text-danger">*</span></label>
