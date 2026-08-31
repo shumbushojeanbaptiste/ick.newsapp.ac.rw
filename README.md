@@ -1,6 +1,6 @@
-# EAUR MAGAZINE
+# ick.newsapp.ac.rw
 
-A concise project README for the EAUR MAGAZINE website.
+A concise project README for the redesign and redevelopment of the ick.newsapp.ac.rw website.
 
 ## Project Overview
 - Goal: Redesign and redevelop the website with a modern, responsive, newsroom-style layout.
@@ -22,12 +22,12 @@ A concise project README for the EAUR MAGAZINE website.
 
 ## Local Development
 1. Install XAMPP (Apache + PHP + MySQL) on Windows.
-2. Place the project files in `c:\xampp\htdocs\EAUR MAGAZINE`.
+2. Place the project files in `c:\xampp\htdocs\ick.newsapp.ac.rw`.
 3. Start Apache (and MySQL if needed) using the XAMPP control panel.
 4. Open the site in your browser at:
 
 ```
-http://localhost/EAUR MAGAZINE
+http://localhost/ick.newsapp.ac.rw
 ```
 
 ## Deployment Notes
