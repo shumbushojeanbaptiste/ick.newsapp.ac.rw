@@ -174,7 +174,7 @@ function attempt_remember_login(): void
 /** Where a freshly-logged-in user should land, based on role. */
 function landing_url(): string
 {
-    return current_role() === 'viewer' ? 'articles/index.php' : 'index.php';
+    return current_role() === 'viewer' ? 'articles/index' : 'index';
 }
 
 /** Reload the current user's row into the session (after a profile edit). */
