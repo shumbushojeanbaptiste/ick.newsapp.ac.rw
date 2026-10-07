@@ -7,4 +7,4 @@ logout(); // destroys the session + clears remember token
 session_start();
 set_flash('success', 'You have been logged out successfully.');
 
-redirect('login.php');
+redirect('login');
